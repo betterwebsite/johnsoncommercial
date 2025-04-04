@@ -8,6 +8,24 @@ collections_config:
     name: Data
     icon: data_usage
     disable_url: true
+    description: ''
+    _enabled_editors:
+    _inputs:
+      image:
+        type: image
+        options:
+          paths:
+          mime_type:
+          accepts_mime_types:
+          empty_type:
+          resize_style:
+          width:
+          height:
+          expandable:
+          allowed_sources:
+          prevent_resize_existing_files:
+          sizes:
+        cascade: true
     disable_add: true
     disable_add_folder: true
     disable_file_actions: true
