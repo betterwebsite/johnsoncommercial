@@ -11,6 +11,8 @@ collections_config:
     disable_add: true
     disable_add_folder: true
     disable_file_actions: true
+editor:
+  default_path: /src/_data/listings.json
 timezone: America/Chicago
 markdown:
   engine: commonmark
