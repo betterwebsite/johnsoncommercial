@@ -1,28 +1,101 @@
-source: /
+_schema: _schema
+paths:
+  uploads: uploads
+  static: ''
 collections_config:
-  pages:
-    path: src
-    name: Pages
-    icon: wysiwyg
-  admin:
-    path: src/admin
-    name: Admin
-    icon: adb
-  content:
-    path: src/content
-    name: Content
-    icon: wysiwyg
   data:
     path: src/_data
+    glob:
+      - listings.json
     name: Data
-    icon: data_usage
+    singular_name: listing
+    icon: assignment
     disable_url: true
+    description: ''
+    preview:
+    sort:
+      key: listing_type
+      order:
+    sort_options: []
+    _editables:
+      text:
+        allow_custom_markup: true
+        remove_custom_markup: false
+        bold:
+        copyformatting:
+        italic:
+        link:
+        paths:
+        redo:
+        removeformat:
+        strike:
+        subscript:
+        superscript:
+        underline:
+        undo:
+      image:
+        expandable:
+        height:
+        image_size_attributes: true
+        mime_type:
+        paths:
+        resize_style:
+        width:
+    _enabled_editors:
+      - visual
+      - content
+      - data
+    _inputs:
+      image:
+        type: image
+        options:
+          paths:
+          mime_type:
+          accepts_mime_types:
+          empty_type:
+          resize_style:
+          width:
+          height:
+          expandable:
+          allowed_sources:
+          prevent_resize_existing_files:
+          sizes:
+        cascade: true
+      description:
+        type: markdown
+        cascade: true
     disable_add: true
     disable_add_folder: true
     disable_file_actions: true
-paths:
-  static: ''
-  uploads: uploads
+  config.yml:
+    path:
+    glob:
+    name:
+    singular_name:
+    icon: notes
+    url:
+    disable_url: false
+    include_developer_files:
+    documentation:
+    description:
+    preview:
+    sort:
+    sort_options:
+    _editables:
+    _enabled_editors:
+    _inputs:
+    _select_data:
+    _structures:
+    add_options:
+    create:
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+    new_preview_url:
+    schemas:
+    schema_key:
+editor:
+  default_path: /src/_data/listings.json
 timezone: America/Chicago
 markdown:
   engine: commonmark
