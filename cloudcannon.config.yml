@@ -1,5 +1,4 @@
 _schema: _schema
-source: /src/_includes/
 paths:
   uploads: uploads
   static: ''
