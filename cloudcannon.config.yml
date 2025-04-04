@@ -1,0 +1,30 @@
+source: /
+collections_config:
+  pages:
+    path: src
+    name: Pages
+    icon: wysiwyg
+  admin:
+    path: src/admin
+    name: Admin
+    icon: adb
+  content:
+    path: src/content
+    name: Content
+    icon: wysiwyg
+  data:
+    path: src/_data
+    name: Data
+    icon: data_usage
+    disable_url: true
+    disable_add: true
+    disable_add_folder: true
+    disable_file_actions: true
+paths:
+  static: ''
+  uploads: uploads
+timezone: America/Chicago
+markdown:
+  engine: commonmark
+  options:
+    html: true
