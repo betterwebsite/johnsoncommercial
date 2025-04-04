@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+        <title>Content Manager</title>
+    </head>
+    <body>
+        <!-- Include the script that builds the page and powers Decap CMS -->
+        <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.6.2/dist/decap-cms.js"></script>
+        <!-- <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script> -->
+
+
+        <!-- <script src="/admin/custom-widgets/folder-multi-image.js"></script> -->
+        <!-- <script src="/admin/custom-widgets/folder-upload.js"></script> -->
+        <script src="/admin/custom-widgets/mywidget.js"></script>
+        <script src="/admin/custom-widgets/listingspreview.js"></script>  
+        <script src="/admin/custom-widgets/BulkImageUploadWidget.js"></script>  
+
+
+        <script>
+            window.addEventListener("message", function(e) {
+              if (e.data && e.data.action === "focusListingByAddress") {
+                var targetAddress = e.data.address.trim();
+                var container = document.getElementById("listings-field-1");
+                if (!container) {
+                  console.warn("No listings container (id='listings-field-1') found");
+                  return;
+                }
+                
+                // Use an XPath query to search for a <div> whose text content matches the target address exactly.
+                // Note: We escape single quotes in the target address.
+                var escapedAddress = targetAddress.replace(/'/g, "\\'");
+                var xpath = ".//div[normalize-space(text()) = '" + escapedAddress + "']";
+                var result = document.evaluate(xpath, container, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+                
+                if (result.snapshotLength === 0) {
+                  console.warn("No element found with address:", targetAddress);
+                  return;
+                }
+                
+                // Assume the first matching element is our address display.
+                var addressElement = result.snapshotItem(0);
+                
+                // Traverse upward until we find an ancestor that contains a <button> element 
+                // that itself contains an <svg> (which we assume is our expand button).
+                var current = addressElement;
+                var listingContainer = null;
+                while (current && current !== container) {
+                  var possibleBtn = current.querySelector("button");
+                  if (possibleBtn && possibleBtn.querySelector("svg")) {
+                    listingContainer = current;
+                    break;
+                  }
+                  current = current.parentElement;
+                }
+                
+                if (listingContainer) {
+                  var expandBtn = listingContainer.querySelector("button");
+                  if (expandBtn) {
+                    // Simulate a click to expand the listing.
+                    expandBtn.click();
+                    listingContainer.scrollIntoView({ behavior: "smooth", block: "center" });
+                  } else {
+                    console.warn("No expand button found in the listing container for address", targetAddress);
+                  }
+                } else {
+                  console.warn("No listing container found for address", targetAddress);
+                }
+              }
+            });
+          </script>
+
+
+
+
+
+
+
+
+
+
+
+          
+
+    </body>
+</html>

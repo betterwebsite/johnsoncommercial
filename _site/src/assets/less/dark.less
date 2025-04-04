@@ -1,0 +1,136 @@
+/* Add this as it's own dark.css file and linked on all pages */
+
+/*-- -------------------------- -->
+<---      Core Dark Styles      -->
+<--- -------------------------- -*/
+
+/* Mobile */
+@media only screen and (min-width: 0rem) {
+    // Dark Mode Color Scheme
+    :root {
+        --dark: #121212;
+        --medium: #282828;
+        --accent: #404040;
+        --bodyTextColorWhite: #fafbfc;
+    }
+
+    body.dark-mode {
+        background-color: var(--dark);
+
+        p,
+        li,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .cs-title,
+        .cs-text,
+        .cs-li {
+            color: var(--bodyTextColorWhite);
+        }
+
+        // hide all light classes
+        .light {
+            display: none;
+        }
+
+        // show all dark classes
+        .dark {
+            display: block !important;
+        }
+    }
+
+    .dark {
+        /* class used to hide elements that only need to be seen when dark mode is enabled */
+        display: none;
+    }
+}
+
+/*-- -------------------------- -->
+<---      Dark Mode Toggle      -->
+<--- -------------------------- -*/
+
+/* Mobile */
+@media only screen and (min-width: 0rem) {
+    // Dark Mode Toggle Switch Animation
+    body.dark-mode {
+        #dark-mode-toggle {
+            .cs-sun {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+
+            .cs-moon {
+                transform: translate(-50%, -150%);
+                opacity: 0;
+            }
+        }
+    }
+
+    // Toggle
+    #dark-mode-toggle {
+        display: block;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: (60/16rem);
+        width: (48/16rem);
+        height: (48/16rem);
+        background: transparent;
+        border: none;
+        overflow: hidden;
+        padding: 0;
+
+        //center image inside button
+        img,
+        svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: (25/16rem);
+            height: (25/16rem);
+            pointer-events: none;
+        }
+
+        .cs-moon {
+            z-index: 2;
+            // Transition properties
+            transition:
+                transform 0.3s,
+                opacity 0.3s,
+                fill 0.3s;
+            fill: #000; // --> change the color of the moon graphic based ont he background being lighter or darker
+        }
+
+        .cs-sun {
+            z-index: 1;
+            // Transition property
+            transform: translate(-50%, 100%);
+            opacity: 0;
+            transition:
+                transform 0.3s,
+                opacity 0.3s;
+        }
+    }
+}
+
+/* Desktop */
+@media only screen and (min-width: 64rem) {
+    #dark-mode-toggle {
+        position: relative;
+        top: auto;
+        right: auto;
+        transform: none;
+        margin-left: (30/16rem);
+        margin-bottom: (0/16rem);
+
+        .cs-moon {
+            /* change to whatever you need it to be */
+            /* fill: #fff; */
+        }
+    }
+}
+                                

@@ -1,0 +1,136 @@
+---
+title: "Listings"
+description: ""
+permalink: 'listings_list/'
+eleventyNavigation:
+    key: 'Listings List' 
+    order: '200'
+---
+
+{% extends "layouts/base.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+    <!-- ============================================ -->
+    <!--                    LANDING                   -->
+    <!-- ============================================ -->
+
+    <section id="int-hero">
+      <h1 id="home-h">Our Listings</h1>
+      <picture>
+          <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/banner.jpg' | resize({ width: 900, height:600}) | webp %}">
+          <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/banner.jpg' | resize({ width: 900, height:600}) | webp %}">
+          <img aria-hidden="true" decoding="async" src="{% getUrl '/assets/images/banner.jpg' | resize({ width: 900, height:600}) | webp %}" alt="kitchen cabinets" loading="eager" width="2500" height="1667">
+      </picture>
+
+  </section>
+<!-- ============================================ -->
+<!--                  Collection                  -->
+<!-- ============================================ -->
+
+<!--
+    To add a 4th or 5th collection or more, copy and paste the cs-button and change it's data-filter to the next number, in this case it's 4. Do the same to the cs-listing and its data-category number. And that's it!
+-->
+
+{% set categoryMap = {
+  'sale': 'one',
+  'lease': 'two',
+  'sold': 'three',
+  'both': 'one'
+} %}
+
+
+<script>
+  function addCommasToFloat(number) {
+  return number.toLocaleString('en-US');
+}
+
+function formatToUSDollars(amount) {
+  return amount.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  });
+}
+
+
+</script>
+<section id="collection-1602">
+  <div class="cs-container">
+    <div class="cs-content">
+      <h2 class="cs-title">Listings</h2>
+      <div class="cs-button-group">
+        <button class="cs-button" data-filter="one">For Sale</button>
+        <button class="cs-button" data-filter="two">For Lease</button>
+        <button class="cs-button" data-filter="three">Sold</button>
+      </div>
+    </div>
+    <div class="cs-listing-wrapper">
+
+      {% for category in ['one', 'two', 'three'] %}
+      <div class="cs-listing{% if category != 'one' %} cs-hidden{% endif %}" data-category="{{ category }}">
+        {% for listing in listings.listings %}
+          {% set type = listing.listing_type %}
+          {% set categoryClass = categoryMap[type] %}
+          {% if categoryClass == category %}
+            {% set image = listing.image or 'https://via.placeholder.com/305x400' %}
+            {% set address = listing.address or 'No Address Provided' %}
+            {% set sqftA = listing.buildings[0].square_feet or 0 %}
+            {% set sqftB = listing.buildings[1].square_feet or 0 %}
+            {% set lotAcres = listing.buildings[0].lot_acres or 0 %}
+
+            {% if listing.buildings and listing.buildings.length == 1 %}
+              {% set sqftDisplay = sqftA | string + ' Sqf' %}
+            {% elif listing.buildings.length == 2 %}
+              {% set sqftDisplay = 'A: ' + sqftA | string + ' Sqf / B: ' + sqftB | string + ' Sqf' %}
+            {% elif listing.buildings.length > 2 %}
+              {% set sqftDisplay = 'A: ' + sqftA | string + ' Sqf / B: ' + sqftB | string + ' Sqf . . .' %}
+            {% else %}
+              {% set sqftDisplay = 'N/A' %}
+            {% endif %}
+
+            {% if (type == 'lease' or type == 'both') and not listing.price.sale_price and listing.price.lease_rate %}
+              {% set priceDisplay =  listing.price.lease_rate %}
+            {% else %}
+              {% set priceDisplay = (listing.price.sale_price or 0)  %}
+            {% endif %}
+
+            <div class="cs-item">
+              <a href="/listings/{{ listing.slug or loop.index }}" class="cs-link">
+                <div class="cs-picture-group">
+                  <picture class="cs-picture">
+                    <source media="(max-width: 600px)" srcset="{{ image }}">
+                    <source media="(min-width: 601px)" srcset="{{ image }}">
+                    <img loading="lazy" decoding="async" src="{{ image }}" alt="Listing Image" width="305" height="400">
+                  </picture>
+                </div>
+                <div class="cs-details">
+                  <span class="cs-name">{{ priceDisplay }}</span>
+                  <h3 class="cs-price">{{ address }}</h3>
+                  <h3 class="cs-price">{{ sqftDisplay }}</h3>
+                  <h3 class="cs-price">{{ lotAcres }} acres - {{ type | capitalize }}</h3>
+                  <h3 class="cs-price">{{ listing.location.city }}, {{ listing.location.state }}</h3>
+                  <div class="cs-actions">
+                    <a href="/listings/{{ listing.slug or loop.index }}" class="cs-button-solid" style="margin: auto;">View</a>
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+                              
+
+
+{% endblock %}

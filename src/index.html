@@ -1,0 +1,237 @@
+---
+title: 'Johnson Commercial Group | Oklahoma'
+description: 'Meta description for the page'
+preloadImg: ''
+permalink: '/'
+tags: 'sitemap' # Sitemap will use all pages in content/, due to content.json. As index.html is not included in content/ we need to manually add the sitemap tag to this page (only).
+eleventyNavigation:
+  key: Home
+  order: 100
+---
+
+{% extends "layouts/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/assets/css/local.css"/>
+    <link rel="stylesheet" href="/assets/css/critical.css"/>
+
+    <!-- Script for Netlify Identity -->
+    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script defer>
+        if (window.netlifyIdentity) {
+            window
+                .netlifyIdentity
+                .on('init', (user) => {
+                    if (!user) {
+                        window
+                            .netlifyIdentity
+                            .on('login', () => {
+                                document.location.href = '/admin/';
+                            });
+                    }
+                });
+        }
+    </script>
+
+    <!-- JSON Schema Markup -->
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "LocalBusiness",
+            "name": "{{ client.name }}",
+            {% if preloadImg %}"image": "{{ preloadImg }}",{% endif %}
+            {% if client.phoneFormatted %}"telephone": "{{ client.phoneFormatted }}",{% endif %}
+            {% if client.email %}"email": "{{ client.email }}",{% endif %}
+            {% if client.address %}
+                "address": {
+                    "@type": "PostalAddress"{% if client.address.lineOne %},
+                        "streetAddress": "{{ client.address.lineOne }}{% if client.address.lineTwo %}, {{ client.address.lineTwo }}{% endif %}"
+                    {% endif %}
+                    {% if client.address.city %},
+                        "addressLocality": "{{ client.address.city }}"
+                    {% endif %}
+                    {% if client.address.state %},
+                        "addressRegion": "{{ client.address.state }}"
+                    {% endif %}
+                    {% if client.address.zip %},
+                        "postalCode": "{{ client.address.zip }}"
+                    {% endif %}
+                    {% if client.address.country %},
+                        "addressCountry": "{{ client.address.country }}"
+                    {% endif %}
+                },
+            {% endif %}
+            {% if client.domain and page.url %}"url": "{{ client.domain }}{{ page.url }}",{% endif %}
+            {% if client.socials %}
+                "sameAs": [{% for platform, url in client.socials %}
+                        {% if not loop.first %},{% endif %}
+                        "{{ url }}"
+                    {% endfor %}]
+            {% endif %}
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+
+
+<style>
+    .custom-shape-divider-bottom-1742938869 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1742938869 svg {
+    position: relative;
+    display: block;
+    width: calc(149% + 1.3px);
+    height: 96px;
+}
+
+.custom-shape-divider-bottom-1742938869 .shape-fill {
+    fill: #FFFFFF;
+}
+
+body.dark-mode {
+    .custom-shape-divider-bottom-1742938869 .shape-fill {
+        fill: #121212;
+    }
+    
+}
+
+
+</style>
+    <!-- ============================================ -->
+    <!--                    Hero                      -->
+    <!-- ============================================ -->
+
+    <section id="hero">
+        <div class="cs-container">
+            <div class="cs-flex-group">
+                <span class="cs-topper">Johnson Commercial Group</span>
+                <h1 class="cs-title">Locally Known <br>Globally Connected.</h1>
+                <p class="cs-text">
+                    
+                </p>
+                <a href="/listings_list" class="cs-button-solid">View Listings</a>
+                <a href="/listings" class="cs-button-transparent">
+                    <img
+                    class="cs-img"
+                    loading="lazy"
+                    decoding="async"
+                    src="https://csimg.nyc3.digitaloceanspaces.com/Hero/play.svg"
+                    alt="play icon"
+                    width="17"
+                    height="17"/>
+                    Map View
+                </a>
+            </div>
+        </div>
+
+        <!-- Background Image -->
+        <picture class="cs-picture">
+            <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/hero.jpg' | resize({ width: 1000, height:1000}) | webp %}">
+            <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/hero.jpg' | resize({ width: 1000, height:1000}) | webp %}">
+            <img aria-hidden="true" decoding="async" src="{% getUrl '/assets/images/hero.jpg' | resize({ width: 1500, height: 1500}) | webp %}" alt="new home" width="2500" height="1667" loading="eager">
+        </picture>
+
+
+        <div class="custom-shape-divider-bottom-1742938869">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+
+
+
+    <!-- ============================================ -->
+    <!--                 Side By Side                 -->
+    <!-- ============================================ -->
+
+    <section id="sbs">
+        <div class="cs-container">
+            <!-- Left Image Section -->
+            <div class="cs-left">
+                <picture class="cs-picture cs-picture1">
+                    <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/back.jpg' | resize({ width: 500, height:500}) | webp %}">
+                    <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/back.jpg' | resize({ width: 1000, height:1000}) | webp %}">
+                    <img aria-hidden="true" decoding="async" src="{% getUrl '/assets/images/back.jpg' | resize({ width: 1000, height:1000}) | webp %}" alt="cabinets" loading="lazy" width="400" height="563">
+                </picture>
+                <picture class="cs-picture cs-picture2">
+                    <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/chris.jpg' | resize({ width: 500, height:500}) | webp %}">
+                    <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/chris.jpg' | resize({ width: 1000, height:1000}) | webp %}">
+                    <img aria-hidden="true" decoding="async" src="{% getUrl '/assets/images/chris.jpg' | resize({ width: 1000, height:1000}) | webp %}" alt="house" loading="lazy" width="400" height="563">
+                </picture>
+            </div>
+            <!-- Right Content Section-->
+            <div class="cs-right">
+                <span class="cs-topper">About Us</span>
+                <h2 class="cs-title">About Company Title</h2>
+                <p class="cs-text">
+                    In consequat tincidunt turpis sit amet imperdiet. Praesent Class officelan nonatoureanor mauris laoreet, iaculis libero quis. Curabitur et tempus eri consequat tincidunt turpis sit amet imperdiet. Praesent nonatourean olei aptent taciti sociosqu ad litora torquent per.
+                </p>
+                <p class="cs-text">
+                    In consequat tincidunt turpis sit amet imperdiet. Praesent Class officelan nonatoureanor mauris laoreet, iaculis libero quis. Curabitur et tempus eri consequat tincidunt turpis sit amet imperdiet. Praesent nonatourean olei aptent taciti sociosqu ad litora torquent per.
+                </p>
+                <div class="cs-flex-group">
+                    <p class="cs-flex-p">
+                        In consequat tincidunt turpis sit amet imperdiet. Praesent Classei consequat tincidunt turpis sit amet imperdiet for mind.
+                    </p>
+                    <span class="cs-name">Chris Johnson</span>
+                    <span class="cs-job">CEO-Founder</span>
+                    <img 
+                    class="cs-quote-icon"
+                    loading="lazy"
+                    decoding="async"
+                    src="https://csimg.nyc3.digitaloceanspaces.com/SideBySide/quote-white.svg"
+                    alt="gavel"
+                    width="136"
+                    height="77"/>
+                </div>
+                <a href="/about" class="cs-button-solid">More About Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--            Extra Content To Rank             -->
+    <!-- ============================================ -->
+
+    <section id="sbs-r">
+        <div class="cs-container">
+            <!-- Left Image Section -->
+            <div class="cs-left">
+                <picture class="cs-picture cs-picture1">
+                    <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/back.jpg' | resize({ width: 500, height:500}) | webp %}">
+                    <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/back.jpg' | resize({ width: 1000, height:1000}) | webp %}">
+                    <img aria-hidden="true" decoding="async" src="{% getUrl '/assets/images/back.jpg' | resize({ width: 1000, height:1000}) | webp %}" alt="house" loading="lazy" width="400" height="560">
+                </picture>
+                <picture class="cs-picture cs-picture2">
+                    <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/sally.jpg' | resize({ width: 500, height:500}) | webp %}">
+                    <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/sally.jpg' | resize({ width: 1000, height:1000}) | webp %}">
+                    <img aria-hidden="true" decoding="async" src="{% getUrl '/assets/images/sally.jpg' | resize({ width: 1000, height:1000}) | webp %}" alt="cabinets" loading="lazy" width="400" height="560">
+                </picture>
+            </div>
+            <!-- Right Content Section-->
+            <div class="cs-right">
+                <span class="cs-topper">SEO Ranking</span>
+                <h2 class="cs-title">Talk about a main service keyword</h2>
+                <p class="cs-text">
+                    In consequat tincidunt turpis sit amet imperdiet. Praesent Class officelan nonatoureanor mauris laoreet, iaculis libero quis. Curabitur et tempus eri consequat tincidunt turpis sit amet imperdiet. Praesent nonatourean olei aptent taciti sociosqu ad litora torquent per.
+                </p>
+                <p class="cs-text">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non tenetur, iure nihil ipsam qui atque commodi id voluptatem nesciunt, quis animi fuga cum doloribus! Eaque laboriosam, unde consectetur iure asperiores ullam. Consequuntur debitis a voluptatibus vitae optio autem explicabo quia neque est quas, in placeat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus modi laudantium voluptatibus rem libero error minus quia eligendi sapiente eos.
+                </p>
+                <a href="/blog" class="cs-button-solid">Read our Blog</a>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
