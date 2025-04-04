@@ -1,5 +1,4 @@
 _schema: _schema
-source: /_site/src/admin/
 paths:
   uploads: uploads
   static: ''
