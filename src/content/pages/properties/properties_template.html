@@ -8,7 +8,10 @@ permalink: "properties/{{ property.address | slugify }}/"
 ---
 {% extends "layouts/base.html" %}
 {% block head %}
+
+
     <title>{{ property.address }} | JohnsonCommercialGroup</title>
+
     <link rel="stylesheet" href="/assets/css/projects.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css">
 
@@ -78,6 +81,41 @@ permalink: "properties/{{ property.address | slugify }}/"
           padding: 0.75rem;
         }
       }
+
+
+
+    #back-to-map{
+    padding: clamp(8.5rem, 25.95vw, 10.75em) 1rem 1rem 1rem;
+    width: 85%;
+    margin: auto;
+  }
+  #property-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 85%; 
+    margin: auto;
+    padding: 1rem 1rem clamp(2.5rem, 25.95vw, 2.5em) 1rem;
+  }
+  #property-title{
+    display: flex;
+    justify-content: space-between;
+    width: 100%; 
+    margin: auto;
+  }
+  @media (max-width: 600px) {
+    #property-title{
+    flex-direction: column; 
+    width: 100%; 
+    }
+    #property-container{
+    width: 100%; 
+    }
+    #back-to-map{
+    width: 100%;
+    }
+  
+}
     </style>
 {% endblock %}
 
@@ -101,256 +139,450 @@ function formatToUSDollars(amount) {
   });
 }
 </script>
-    <!-- ============================================ -->
-<!--                    Hero                      -->
-<!-- ============================================ -->
+<div id="back-to-map">
+  <a href="/listings_google/" style="text-decoration: none;"><p><img src="/assets/svgs/left-arrow.svg" style="max-width: 10px;">  back to map</p></a>
+</div>
 
-<section id="hero-2041">
-  <div class="cs-container">
-      <div class="cs-content">
-          <span class="cs-topper">
-            {% if property.listing_type == 'sale' %}
-            For Sale
-            {% elif property.listing_type == 'lease' %}
-            For Lease
-            {% elif property.listing_type == 'sold' %}
-            Sold
-          {% endif %}
-          </span>
-          <h1 class="cs-title">{% if property.price.sale_price %}
-            {{ property.price.sale_price | money  }}
-         {% elif property.price.lease_rate %}
-           {{ property.price.lease_rate }}
-         {% endif %}</h1>
-          <p class="cs-text">
-            {{ property.address }}
-        </p>
-          <!--Bottom Corners-->
-      </div>
-      <form class="cs-form" id="cs-form-2041" name="Landing Form">
-          <label class="cs-label">
-              <div class="cs-flex">
-                  Full Name <span class="span cs-color">*</span>
-              </div>
-              <input class="cs-input" required type="text" id="fname-2041" name="fname" placeholder="Full Name">
-          </label>
-          <label class="cs-label">
-              <div class="cs-flex">
-                  Email <span class="span cs-color">*</span>
-              </div>
-              <input class="cs-input" required type="text" id="email-2041" name="email" placeholder="Your email">
-          </label>
-          <label class="cs-label">
-              <div class="cs-flex">
-                  Phone <span class="span cs-color">*</span>
-              </div>
-              <input class="cs-input" required type="tel" id="phone-2041" name="phone" placeholder="Phone number">
-          </label>
-          <button class="cs-button-solid cs-submit">Contact</button>
-          {% if property.pdf_url %}
-              <a href="{{ property.pdf_url }}" target="_blank" class="cs-button-solid cs-submit">Print Flier</a>
-              {% endif %}
-        </form>
-        
+
+<div id="property-container">
+
+
+  <div id="property-title">
+    <div id="property-address">
+      <h1>{{ property.address }}</h1>
+      <h3 style="font-weight: 100;">{{ property.property_type }}</h3>
+    </div>
+    <div id="property-price">
+      <h2>
+      {% if property.price.sale_price %}
+        {{ property.price.sale_price | money  }}
+      {% elif property.price.lease_rate %}
+       {{ property.price.lease_rate }}
+     {% endif %}
+      </h2>
+    </div>
   </div>
 
-  <!-- Background Image -->
-  <picture class="cs-background">
-      <source media="(max-width: 600px)" srcset="{{ property.image }}">
-      <source media="(min-width: 601px)" srcset="{{ property.image }}">
-      <img loading="lazy" decoding="async" src="{{ property.image }}" alt="meeting" width="1920" height="1200" aria-hidden="true">
-  </picture>
-</section>
-                   
+
+
+
+
+  <br>
+  <hr>
+
+<style>
+
+
+
+
+/* The grid: Four equal columns that floats next to each other */
+#image-container{
+  width: 75%;
+  padding: 1rem 0rem;
+}
+
+.column {
+  padding: 10px;
+  min-width: 200px;
+}
+
+/* Style the images inside the grid */
+.column img {
+  opacity: 0.8; 
+  cursor: pointer; 
+}
+
+.column img:hover {
+  opacity: 1;
+}
+
+/* Clear floats after the columns */
+.row {
+  display: flex;
+  overflow-x: auto;
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The expanding image container */
+.img_container {
+  position: relative;
+  display: none;
+}
+
+/* Expanding image text */
+#imgtext {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: white;
+  font-size: 20px;
+}
+#broker-container {
+  width: 25%;
+}
+
+/* Closable button inside the expanded image */
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+#broker-container {
+  width: 100%;
+}
+#overall_container {
+  display: flex;
+}
+#details_table {
+  width: 55%;
+}
+#description_table {
+  width: 45%;
+}
+.cs-table-list {
+  display: flex !important;
+}
+
+
+
+@media (max-width: 600px) {
+    #image-container{
+      width: 100%;
+      padding: 1rem 0rem;
+    }
+    #overall_container {
+    display: flex;
+    flex-direction: column;
+  }
+    #cs-contact {
+    width: 100%;
+  }
+  .cs-table-list {
+  flex-direction: column;
+  }
+  #details_table {
+  width: 100%;
+}
+#description_table {
+  width: 100%;
+}
+
+}
+
+</style>
+
+
+
+<span id="overall_container">
+<div id="image-container">
+<div style="text-align:center">
+</div>
+
+
+<div class="img_container">
+    <img id="expandedImg" style="width:100%">
+    <div id="imgtext"></div>
+</div>
+
+
+
+
+
+{% if property.additional_images %}
+
+
+<div class="row">
+  
+  {% for img in property.additional_images %}
+  <div class="column">
+    <div class="tile">
+      <!-- <a href="{{ img }}"> -->
+              <img src="{{ img }}" alt="Nature" style="width:100%" onclick="myFunction(this);" data-url="{{ img }}">
+          <!-- </a> -->
+        </div>
+      </div>
+    {% endfor %}
+    
+  </div>
+  {% endif %}
+</div>
+
+
+<div id="broker-container">
+
+
+  <div style="display: flex;flex-direction: column;align-items: center;padding: 1rem;">
+    <a href="" style="width: 100%;display: flex;text-decoration: none;" target="_blank"><button class="" style="width: 100%;line-height: 2.125rem;display: flex;justify-content: center;align-items: center;padding: 0.25rem;"><img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/blank-page.svg" alt="car" width="20" height="20" style="width: 20px;"><p style="font-weight: 600;font-size: 1rem;">Print Listing</p></button></a>
+
+
+    <div id="agent_info" style="display: flex; align-items: center; font-family: Arial, sans-serif; gap: 15px;padding: 1rem;">
+        <img src="/assets/images/chris.png" alt="Josh White" style="width: 80px; height: 80px; border-radius: 50%;background-color: #33302f;">
+        <div>
+          <strong style="font-size: 1.1em;">Chris Johnson</strong><br>
+          <!-- <span>Sales Associate, CCIM</span><br> -->
+          <!-- <span>OK #123456</span><br> -->
+          <a href="tel:405-435-3572" style="text-decoration: none; color: #1a73e8;">(405) 435-3572</a><br>
+          <a href="mailto:chris@jcgok.com" style="text-decoration: none; color: #1a73e8;">Chris@jcgok.com</a>
+        </div>
+      
+
+    </div>
+
+    <section id="cs-contact" style="
+    padding: 1rem;
+">
+        <div class="cs-container">
+            <form id="cs-form" name="Contact Form" method="post">
+                <div class="cs-content">
+                    <span class="cs-topper">Contact</span>
+                    
+                    
+                </div>
+                <label>
+                    <input required="" type="text" id="name" name="name" placeholder="Name">
+                </label>
+                <label>
+                    <input required="" type="text" id="email" name="email" placeholder="Email">
+                </label>
+                <label>
+                    <input required="" type="text" id="phone" name="phone" placeholder="Phone">
+                </label>
+                <label class="cs-label-message">
+                    <textarea required="" name="Message" id="message" placeholder="Write message..."></textarea>
+                </label>
+                <button class="cs-button-solid" type="submit">Submit Message</button>
+            </form>
+            
+        </div>
+    </section>
+
+  </div>
+</div>
+</span>
+
+
+
+
+
 
 
 <!-- ============================================ -->
-<!--                  Gallery                     -->
+<!--                   Timetable                  -->
 <!-- ============================================ -->
 
 
-<!-- ============================================ -->
-<!--                  Services                    -->
-<!-- ============================================ -->
 
 
-<section id="services-1064">
+<div style="display: flex;">
+
+<section id="timetable-1731" style="width: 100%;">
   <div class="cs-container">
-      <div class="cs-content">
-          <span class="cs-topper">Description</span>
-          <h2 class="cs-title">{{ property.address }}</h2>
-          <p class="cs-text">
-            {% if property.description %}
-              {{ property.description | markdownify | safe }}
+      <div class="cs-table-list">
+          <table class="cs-table" id="details_table">
+              <thead>
+                  <tr>
+                      <th scope="col" colspan="3" class="cs-topper">Details</th>
+                  </tr>
+              </thead>
+              <tbody>
+
+                
+          {% if property.price.sale_price or property.price.lease_rate%}
+          <tr>
+            {% if property.price.sale_price %}
+            <th scope="row">Sale Price</th>
+            <td>{{ property.price.sale_price | money}}</td>
+            {% elif property.price.lease_rate %}
+            <th scope="row">Lease Rate</th>
+            <td>{{ property.price.lease_rate }}</td>
             {% endif %}
-          </p>
-      </div>
-  </div>
-</section>
-
-<div id="split">
-<section id="services-1064">
-  <div class="cs-container">
-
-      <span class="cs-topper">Summary</span>
-      <ul class="cs-card-group">
-        {% if property.price.sale_price or property.price.lease_rate%}
-          <li class="cs-item">
-            <div style="margin: auto;display: flex;flex-direction: column;align-items: center;">
-              <picture class="cs-icon-wrapper">
-                  <img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/price-tag.svg" alt="car" width="48" height="48" style="filter: invert(1);">
-              </picture>
-              <h3 class="cs-h3">
-                {% if property.price.sale_price %}
-                <h3 class="cs-h3"><strong>Sale Price</strong></h3>
-                {% elif property.price.lease_rate %}
-                <h3 class="cs-h3"><strong>Lease Rate</strong></h3>
-                {% endif %}
-            </h3>
-              <p class="cs-item-text">
-                {% if property.price.sale_price %}
-                  <p class="price">{{ property.price.sale_price | money}}</p>
-                {% elif property.price.lease_rate %}
-                  <p class="price">{{ property.price.lease_rate }}</p>
-                {% endif %}
-              </p>
-            </div>
-          </li>
+          </tr>
           {% endif %}
+
+          
           {% if property.buildings.length %}
-            <li class="cs-item">
-              <div style="margin: auto;display: flex;flex-direction: column;align-items: center;">
-                <picture class="cs-icon-wrapper">
-                  <img class="cs-icon" src="/assets/svgs/expand.svg" alt="expand" width="48" height="48" style="filter: invert(1);" />
-                </picture>
-                <h3 class="cs-h3"><strong>Square Feet</strong></h3>
-                <p class="cs-item-text">
-                  {% for b in property.buildings %}
-                    {% if b.square_feet %}
-                      Building {{ loop.index }}: {{ b.square_feet | float }}<br>
-                    {% endif %}
-                  {% endfor %}
-                </p>
-              </div>
-            </li>
-            {% endif %}
+            {% for b in property.buildings %}
+            <tr>
+              {% if b.square_feet %}
+              <th scope="row">Building {{ loop.index }} Sqf</th>
+              <td scope="row">{{ b.square_feet | float }}</td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+          {% endif %}
+
 
           {% if property.buildings[0].lot_acres %}
-          <li class="cs-item">
-            <div style="margin: auto;display: flex;flex-direction: column;align-items: center;">
-              <picture class="cs-icon-wrapper">
-                  <img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/selection.svg" alt="car" width="48" height="48" style="filter: invert(1);">
-              </picture>
-              <h3 class="cs-h3">
-                <h3 class="cs-h3"><strong>Lot Size (Acres)</strong></h3>
-            </h3>
-              <p class="cs-item-text">
-                  <p class="price">{{ property.buildings[0].lot_acres | float }}</p>
-              </p>
-            </div>
-          </li>
-          {% endif %}
+          <tr>
+            <th scope="row">Lot Acres</th>
+            <td scope="row">{{ property.buildings[0].lot_acres | float }}</td>
+          </tr>
+        {% endif %}
 
-          
-          {% if property.buildings[0].year_built %}
-          <li class="cs-item">
-            <div style="margin: auto;display: flex;flex-direction: column;align-items: center;">
-              <picture class="cs-icon-wrapper">
-                  <img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/calendar.svg" alt="car" width="48" height="48" style="filter: invert(1);">
-              </picture>
-              <h3 class="cs-h3">
-                <h3 class="cs-h3"><strong>Year Built</strong></h3>
-            </h3>
-              <p class="cs-item-text">
-                  <p class="price">
-                    {% for b in property.buildings %}
-                    {% if b.year_built %}
-                      Building {{ loop.index }}: {{ b.year_built }}<br>
-                    {% endif %}
-                  {% endfor %}
-              </p>
-            </div>
-          </li>
-          {% endif %}
+
+
+
+
           {% if property.price.price_per %}
-          <li class="cs-item">
-            <div style="margin: auto;display: flex;flex-direction: column;align-items: center;">
-              <picture class="cs-icon-wrapper">
-                  <img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/cash-flow.svg" alt="car" width="48" height="48" style="filter: invert(1);">
-              </picture>
-              <h3 class="cs-h3">
-                <h3 class="cs-h3"><strong>Price Per Sqf</strong></h3>
-            </h3>
-              <p class="cs-item-text">
-                  <p class="price">{{ property.price.price_per | money}}</p>
-              </p>
-            </div>
-          </li>
+          <tr>
+            <th scope="row">Price Per Sqf</th>
+            <td scope="row">{{ property.price.price_per | money }}</td>
+          </tr>
           {% endif %}
           {% if property.misc.caprate %}
-          <li class="cs-item">
-            <div style="margin: auto;display: flex;flex-direction: column;align-items: center;">
-              <picture class="cs-icon-wrapper">
-                  <img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/taxes.svg" alt="car" width="48" height="48" style="filter: invert(1);">
-              </picture>
-              <h3 class="cs-h3">
-                <h3 class="cs-h3"><strong>Cap Rate</strong></h3>
-            </h3>
-              <p class="cs-item-text">
-                  <p class="price">{{ property.misc.caprate }}%</p>
-              </p>
-            </div>
-          </li>
+          <tr>
+            <th scope="row">Caprate</th>
+            <td scope="row">{{ property.misc.caprate }}%</td>
+          </tr>
           {% endif %}
-          {% if property.misc.caprate %}
-          <li class="cs-item">
-            <div style="margin: auto;display: flex;flex-direction: column;align-items: center;">
-              <picture class="cs-icon-wrapper">
-                  <img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/barrier.svg" alt="car" width="48" height="48" style="filter: invert(1);">
-              </picture>
-              <h3 class="cs-h3">
-                <h3 class="cs-h3"><strong>Zoning</strong></h3>
-            </h3>
-              <p class="cs-item-text">
-                  <p class="price">{{ property.misc.zoning }}</p>
-              </p>
-            </div>
-          </li>
+          {% if property.misc.zoning %}
+          <tr>
+            <th scope="row">Zoning</th>
+            <td scope="row">{{ property.misc.zoning }}</td>
+          </tr>
           {% endif %}
           {% if property.property_type %}
-          <li class="cs-item">
-            <div style="margin: auto;display: flex;flex-direction: column;align-items: center;">
-              <picture class="cs-icon-wrapper">
-                  <img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/building.svg" alt="car" width="48" height="48" style="filter: invert(1);">
-              </picture>
-              <h3 class="cs-h3">
-                <h3 class="cs-h3"><strong>Property Type</strong></h3>
-            </h3>
-              <p class="cs-item-text">
-                  <p class="price">{{ property.property_type }}</p>
-              </p>
-            </div>
-          </li>
+          <tr>
+            <th scope="row">Property Type</th>
+            <td scope="row">{{ property.property_type }}</td>
+          </tr>
           {% endif %}
-          {% for additional in property.sections %}
-          <li class="cs-item">
-            <div style="margin: auto;display: flex;flex-direction: column;align-items: center;">
-              <picture class="cs-icon-wrapper">
-                  <img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/tag.svg" alt="car" width="48" height="48" style="filter: invert(1);">
-              </picture>
-              <h3 class="cs-h3">
-                <h3 class="cs-h3"><strong>{{ additional.section_name }}</strong></h3>
-            </h3>
-              <p class="cs-item-text">
-                  <p class="price">{{ additional.section_description }}</p>
-              </p>
-            </div>
-          </li>
-          {% endfor %}
-          
-      </ul>
+          {% if property.sections %}
+            {% for additional in property.sections %}
+            <tr>
+              <th scope="row">{{ additional.section_name }}</th>
+              <td scope="row">{{ additional.section_description }}</td>
+            </tr>
+            {% endfor %}
+          {% endif %}
+
+              </tbody>
+          </table>
+          <table class="cs-table" id="description_table">
+              <thead>
+                  <tr>
+                      <th scope="col" colspan="3" class="cs-topper">Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+
+                
+          {% if property.description %}
+          <tr>
+            <th scope="row">{{ property.description | markdownify | safe }}</th>
+          </tr>
+          {% endif %}
+
+              </tbody>
+          </table>
+      </div>
   </div>
 </section>
+                              
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+{% if property.location.lat and property.location.lng %}
+<style>
+  .map-responsive {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .map-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  </style>
+
+<!-- <div style="display: flex;flex-direction: column;align-items: center;"> -->
+<div class="map-responsive">
+
+<iframe
+  width="600"
+  height="450"
+  style="border:0"
+  loading="lazy"
+  allowfullscreen
+  referrerpolicy="no-referrer-when-downgrade"
+  src="https://www.google.com/maps?q={{ property.location.lat }},{{ property.location.lng }}&z=15&output=embed">
+</iframe>
+
+
+</div>
+
+
+{% endif %}
+
+
+
+<script>
+
+function clickGallery(){
+  a.click()
+}
+function setGallery(img){
+  let a = document.getElementById("gallery_a")
+  a.href = img
+}
+
+
+function myFunction_first(imgs) {
+  var expandImg = document.getElementById("expandedImg");
+  var imgText = document.getElementById("imgtext");
+  expandImg.src = imgs.src;
+  imgText.innerHTML = imgs.alt;
+  expandImg.parentElement.style.display = "block";
+  // setGallery(imgs.dataset.url)
+}
+function myFunction(imgs) {
+  var expandImg = document.getElementById("expandedImg");
+  var imgText = document.getElementById("imgtext");
+  expandImg.src = imgs.src;
+  imgText.innerHTML = imgs.alt;
+  expandImg.parentElement.style.display = "block";
+  // setGallery(imgs.dataset.url)
+
+}
+
+
+// Auto-select the first image on page load
+window.onload = function () {
+  var firstImg = document.querySelector(".column img");
+  if (firstImg) {
+    myFunction_first(firstImg);
+  }
+};
+
+</script>
+
 
 {% if property.additional_images %}
   <!-- <div id="lightgallery" class="gallery-grid"> -->
@@ -362,7 +594,7 @@ function formatToUSDollars(amount) {
   <!-- </div> -->
 {% endif %}
 
-{% if property.additional_images %}
+<!-- {% if property.additional_images %}
   <div id="lightgallery" class="gallery-grid container_mosaic">
     {% for img in property.additional_images %}
       <div class="tile">
@@ -382,7 +614,7 @@ function formatToUSDollars(amount) {
       </div>
     {% endfor %}
   </div>
-{% endif %}
+{% endif %} -->
 
 </div>
 <style>

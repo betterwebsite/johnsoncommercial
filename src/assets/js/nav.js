@@ -33,14 +33,14 @@ const dropDowns = Array.from(document.querySelectorAll('#cs-navigation .cs-dropd
     }
 
 // after scrolling down 100px, add .scroll class to the #cs-navigation
-document.addEventListener('scroll', (e) => { 
-    const scroll = document.documentElement.scrollTop;
-    if(scroll >= 100){
-document.querySelector('#cs-navigation').classList.add('scroll')
-    } else {
-    document.querySelector('#cs-navigation').classList.remove('scroll')
-    }
-});
+// document.addEventListener('scroll', (e) => { 
+//     const scroll = document.documentElement.scrollTop;
+//     if(scroll >= 100){
+// document.querySelector('#cs-navigation').classList.add('scroll')
+//     } else {
+//     document.querySelector('#cs-navigation').classList.remove('scroll')
+//     }
+// });
                             
 
 
