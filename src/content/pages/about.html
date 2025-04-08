@@ -12,6 +12,7 @@ eleventyNavigation:
 
 {% block head %}
     <link rel="stylesheet" href="/assets/css/about.css">
+    <link rel="stylesheet" href="/assets/css/local.css">
 {% endblock %}
 
 {% block body %}
@@ -22,14 +23,13 @@ eleventyNavigation:
     <section id="int-hero">
         <h1 id="home-h">About Us</h1>
         <picture>
-            <source media="(max-width: 600px)" srcset="/assets/images/cabinets2-m.jpg">
-            <source media="(min-width: 601px)" srcset="/assets/images/cabinets2.jpg">
-            <img aria-hidden="true" decoding="async" src="/assets/images/cabinets2.jpg" alt="kitchen cabinets" loading="eager" width="2500" height="1667">
+            <source media="(max-width: 600px)" srcset="/assets/images/bg.jpg">
+            <source media="(min-width: 601px)" srcset="/assets/images/bg.jpg">
+            <img aria-hidden="true" decoding="async" src="/assets/images/bg.jpg" alt="kitchen cabinets" loading="eager" width="2500" height="1667">
         </picture>
 
     </section>
-
-    <!-- ============================================ -->
+<!-- ============================================ -->
     <!--                 Side By Side                 -->
     <!-- ============================================ -->
 
@@ -38,39 +38,120 @@ eleventyNavigation:
             <!-- Left Image Section -->
             <div class="cs-left">
                 <picture class="cs-picture cs-picture1">
-                    <source media="(max-width: 600px)" srcset="/assets/images/cabinets2-m.jpg">
-                    <source media="(min-width: 601px)" srcset="/assets/images/cabinets2.jpg">
-                    <img aria-hidden="true" decoding="async" src="/assets/images/cabinets2.jpg" alt="cabinets" loading="lazy" width="400" height="563">
+                    <source media="(max-width: 600px)" srcset="/assets/images/chris.jpg">
+                    <source media="(min-width: 601px)" srcset="/assets/images/chris.jpg">
+                    <img aria-hidden="true" decoding="async" src="/assets/images/chris.jpg" alt="cabinets" loading="lazy" width="400" height="563">
                 </picture>
-                <picture class="cs-picture cs-picture2">
-                    <source media="(max-width: 600px)" srcset="/assets/images/construction-m.jpg">
+                <!-- <picture class="cs-picture cs-picture2">
+                    <source media="(max-width: 600px)" srcset="/assets/images/construction.jpg">
                     <source media="(min-width: 601px)" srcset="/assets/images/construction.jpg">
                     <img aria-hidden="true" decoding="async" src="/assets/images/construction.jpg" alt="house" loading="lazy" width="400" height="563">
-                </picture>
+                </picture> -->
             </div>
             <!-- Right Content Section-->
             <div class="cs-right">
-                <span class="cs-topper">About Us</span>
-                <h2 class="cs-title">About Company Title</h2>
+                <span class="cs-topper">Our Team</span>
+                <h2 class="cs-title">Chris Johnson</h2>
                 <p class="cs-text">
-                    In consequat tincidunt turpis sit amet imperdiet. Praesent Class officelan nonatoureanor mauris laoreet, iaculis libero quis. Curabitur et tempus eri consequat tincidunt turpis sit amet imperdiet. Praesent nonatourean olei aptent taciti sociosqu ad litora torquent per.
+                    Chris Johnson is the owner of Johnson Commercial Group at Brick & Beam Realty in Norman, where he serves as a dedicated and experienced Commercial Broker. As a leading Commercial Broker in his industry and in his office, Chris is committed to providing exceptional service to his clients. 
                 </p>
                 <p class="cs-text">
-                    In consequat tincidunt turpis sit amet imperdiet. Praesent Class officelan nonatoureanor mauris laoreet, iaculis libero quis. Curabitur et tempus eri consequat tincidunt turpis sit amet imperdiet. Praesent nonatourean olei aptent taciti sociosqu ad litora torquent per.
+                    With over a decade of experience in the construction supply industry, building, and development, he has a deep understanding of the commercial real estate market and is well-positioned to represent clients in sales, acquisition, and leasing of commercial properties. 
+                </p>
+                <p class="cs-text">
+                    Chris's attention to detail and thorough work style make him a trusted partner for clients, and he is known for being smart, prompt, and easy to work with. He is passionate about responsible development and growth in Oklahoma's urban areas and stays educated and aware of real estate trends that will affect local communities. 
                 </p>
                 <div class="cs-flex-group">
                     <p class="cs-flex-p">
-                        In consequat tincidunt turpis sit amet imperdiet. Praesent Classei consequat tincidunt turpis sit amet imperdiet for mind.
+                        Chris Johnson
                     </p>
-                    <span class="cs-name">Justin Time</span>
-                    <span class="cs-job">CEO-Founder</span>
-                    <img class="cs-quote-icon" loading="lazy" decoding="async" src="https://csimg.nyc3.digitaloceanspaces.com/SideBySide/quote-white.svg" alt="gavel" width="136" height="77">
+                    <span class="cs-name">Broker Associate</span>
+                    <span class="cs-job"><a href="tel:405-435-3572" class="cs-link" style="text-decoration: none;"><span style="color: #b40101;">(405) 435-3572</span> </span>
+                    <span class="cs-job"><a href="mailto:Chris@jcgok.com" class="cs-link" style="text-decoration: none;"><span style="color: #b40101;text-decoration: none;">Chris@jcgok.com</span> </span>
                 </div>
-                <a href="/projects" class="cs-button-solid">Our Projects</a>
+                <a href="mailto:Chris@jcgok.com" class="cs-button-solid">Email</a>
+                <a href="tel:405-435-3572" class="cs-button-solid">Call</a>
             </div>
         </div>
     </section>
 
-    {% include 'components/cta.html' %}
+
+    <div class="custom-shape-divider-bottom-1744129428">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
+        </svg>
+    </div>
+
+
+<style>
+.custom-shape-divider-bottom-1744129428 {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1744129428 svg {
+    position: relative;
+    display: block;
+    width: calc(149% + 1.3px);
+    height: 86px;
+}
+
+.custom-shape-divider-bottom-1744129428 .shape-fill {
+    fill: #B40101;
+}
+</style>
+
+
+
+
+
+
+
+
+    <section id="sbs" style="background-color: #b40101;">
+        <div class="cs-container">
+            <!-- Left Image Section -->
+            <div class="cs-left">
+                <picture class="cs-picture cs-picture1">
+                    <source media="(max-width: 600px)" srcset="/assets/images/sally.jpg">
+                    <source media="(min-width: 601px)" srcset="/assets/images/sally.jpg">
+                    <img aria-hidden="true" decoding="async" src="/assets/images/sally.jpg" alt="cabinets" loading="lazy" width="400" height="563">
+                </picture>
+                <!-- <picture class="cs-picture cs-picture2">
+                    <source media="(max-width: 600px)" srcset="/assets/images/construction.jpg">
+                    <source media="(min-width: 601px)" srcset="/assets/images/construction.jpg">
+                    <img aria-hidden="true" decoding="async" src="/assets/images/construction.jpg" alt="house" loading="lazy" width="400" height="563">
+                </picture> -->
+            </div>
+            <!-- Right Content Section-->
+            <div class="cs-right">
+                <span class="cs-topper" style="color: white;">Our Team</span>
+                <h2 class="cs-title" style="color: white;">Sally Allen</h2>
+                <p class="cs-text" style="color: white;">
+                    Sally Allen's approach to commercial real estate in the Oklahoma City Metro Area is both innovative and community-focused. Her emphasis on collaborative and creative solutions speaks to a holistic understanding of the interconnectedness between businesses, communities, and real estate development. By prioritizing small-scale development, adaptive reuse, and public-private partnerships, Sally demonstrates a commitment to sustainable and inclusive growth.
+                </p>
+                <p class="cs-text" style="color: white;">
+                    Her dedication to driving positive change aligns with the evolving needs and aspirations of the Oklahoma City Metro Area. Sally's deep investment in the region reflects not only her professional expertise but also her personal connection to its residents and businesses. Through her role as an advisor, she bridges the gap between vision and execution, empowering clients to realize their goals while contributing to the overall prosperity of the community.
+                </p>
+                <p class="cs-text" style="color: white;">
+                    Whether embarking on a new venture or seeking to optimize existing assets, Sally's partnership offers invaluable support every step of the way.
+                </p>
+                <div class="cs-flex-group" style="background-color: #ff000038;">
+                    <p class="cs-flex-p" style="color: white;">
+                        Sally Allen
+                    </p>
+                    <span class="cs-name" style="color: white;">Commercial Broker </span>
+                    <span class="cs-job" ><a href="tel:405-623-7920" class="cs-link" style="text-decoration: none;"><span style="color: white">(405) 623-7920</span> </span>
+                    <span class="cs-job"><a href="mailto:sally@jcgok.com" class="cs-link" style="text-decoration: none;"><span style="color: white">sally@jcgok.com</span> </span>
+                </div>
+                <!-- <a href="/about" class="cs-button-solid">More About Us</a> -->
+            </div>
+        </div>
+    </section>
 
 {% endblock %}

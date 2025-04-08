@@ -136,7 +136,7 @@
         "caprate": 7
       },
       "address": "1808 W Lindsey Street, Norman, OK 73069",
-      "listing_type": "sold",
+      "listing_type": "closed",
       "location": {
         "state": "OK",
         "city": "Norman",
@@ -164,7 +164,7 @@
         "zoning": "C-0"
       },
       "address": "3000 12th Ave NE, Norman OK, 73071",
-      "listing_type": "sold",
+      "listing_type": "closed",
       "location": {
         "state": "OK",
         "city": "Norman",
