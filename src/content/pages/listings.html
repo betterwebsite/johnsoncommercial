@@ -428,7 +428,7 @@ eleventyNavigation:
   <input type="text" id="search-input" placeholder="Search by address, city, state, or zip">
 
 
-  <div class="filter-group">
+  <div class="filter-group hide-mobile">
     <div tabindex="0" class="multi-select">Property Types ▼</div>
     <div class="multi-options">
       <label><input type="checkbox" value="all" checked> Select All</label>
@@ -452,13 +452,13 @@ eleventyNavigation:
   </select>
   
 
-  <input type="text" id="min-sf" placeholder="Min SF">
-  <input type="text" id="max-sf" placeholder="Max SF">
+  <input type="text" id="min-sf" class="hide-mobile" placeholder="Min SF">
+  <input type="text" id="max-sf" class="hide-mobile" placeholder="Max SF">
 
 
   <!-- <button class="btn">More Filters</button>
   <button class="btn btn-secondary">Reset Filters</button> -->
-  <button id="reset-filters" class="btn" style="background-color: #999;">Reset Filters</button>
+  <button id="reset-filters" class="btn hide-mobile" style="background-color: #999;">Reset Filters</button>
 
 </div>
 <div id="container" class="layout show-list">
@@ -659,6 +659,7 @@ eleventyNavigation:
         const map_container = document.getElementById("map-container");
         const listing = document.getElementById("listing-view");
         const filter = document.getElementById("filter-bar-inline");
+        const results = document.getElementById("results-count-wrapper");
     
         if (nav && container) {
           const navHeight = nav.offsetHeight;
@@ -681,7 +682,8 @@ eleventyNavigation:
         if (nav && listing) {
           const navHeight = nav.offsetHeight;
           const filterHeight = filter.offsetHeight;
-          listing.style.height = (window.innerHeight -navHeight - filterHeight) + "px";
+          const resultHeight = results.offsetHeight;
+          listing.style.height = (window.innerHeight -navHeight - filterHeight - resultHeight) + "px";
           // listing.style.marginTop = navHeight + "px";
         }
         if (nav && filter) {
@@ -1011,7 +1013,40 @@ document.getElementById("reset-filters").addEventListener("click", () => {
 
 
 
+<style>
+  #search-input{
+  width: 250px !important;
+}
+      @media (max-width: 768px) {
+  #filter-bar-inline {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+    gap: 10px;
+  }
 
+  #filter-bar-inline input[type="text"],
+  #filter-bar-inline select {
+    width: 100%;
+  }
+
+  .multi-select {
+    width: 100%;
+  }
+
+  .multi-options {
+    width: 100%;
+  }
+
+  #reset-filters {
+    width: 100%;
+    text-align: center;
+  }
+  .hide-mobile {
+    display: none;
+  }
+}
+</style>
 
 
   <!-- Google JS -->

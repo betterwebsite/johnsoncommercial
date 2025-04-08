@@ -140,7 +140,7 @@ function formatToUSDollars(amount) {
 }
 </script>
 <div id="back-to-map">
-  <a href="/listings_google/" style="text-decoration: none;"><p><img src="/assets/svgs/left-arrow.svg" style="max-width: 10px;">  back to map</p></a>
+  <a href="/listings" style="text-decoration: none;"><p><img src="/assets/svgs/left-arrow.svg" style="max-width: 10px;">  back to map</p></a>
 </div>
 
 
@@ -283,37 +283,50 @@ function formatToUSDollars(amount) {
 
 <span id="overall_container">
 <div id="image-container">
-<div style="text-align:center">
-</div>
+  <div style="text-align:center"></div>
 
-
-<div class="img_container">
-    <img id="expandedImg" style="width:100%">
+  <!-- Main expanded image -->
+  <div class="img_container" style="display: block;">
+    <img id="expandedImg" style="width:100%" src="{% if property.additional_images and property.additional_images.length > 0 %}{{ property.additional_images[0] }}{% else %}{{ property.featured_image }}{% endif %}">
     <div id="imgtext"></div>
-</div>
+  </div>
 
-
-
-
-
-{% if property.additional_images %}
-
-
-<div class="row">
-  
-  {% for img in property.additional_images %}
-  <div class="column">
-    <div class="tile">
-      <!-- <a href="{{ img }}"> -->
-              <img src="{{ img }}" alt="Nature" style="width:100%" onclick="myFunction(this);" data-url="{{ img }}">
-          <!-- </a> -->
+  {% if property.image or (property.additional_images and property.additional_images.length > 0) %}
+  <div class="row">
+    {% if property.image %}
+    {% if property.additional_images.length > 0 %}
+      <div class="column">
+        <div class="tile">
+          <img src="{{ property.image }}" style="width:100%" onclick="myFunction(this);" data-url="{{ property.image }}" >
         </div>
       </div>
-    {% endfor %}
-    
+      
+      {% else %}
+      <div class="column">
+        <div class="tile" style="display: none;">
+          <img src="{{ property.image }}" style="width:100%" onclick="myFunction(this);" data-url="{{ property.image }}">
+        </div>
+      </div>
+
+    {% endif %}
+    {% endif %}
+
+    {% if property.additional_images %}
+      {% for img in property.additional_images %}
+        {% if img != property.image %}
+          <div class="column">
+            <div class="tile">
+              <img src="{{ img }}" style="width:100%" onclick="myFunction(this);" data-url="{{ img }}">
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
-  {% endif %}
+{% endif %}
+
 </div>
+
 
 
 <div id="broker-container">
@@ -702,26 +715,27 @@ window.onload = function () {
 <!-- Initialize LightGallery -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const galleryEl = document.getElementById("lightgallery");
-    const navEl = document.getElementById("cs-navigation");
+  const galleryEl = document.getElementById("lightgallery");
+  const navEl = document.getElementById("cs-navigation");
 
-    if (galleryEl && galleryEl.querySelector("a")) {
-      const lgInstance = lightGallery(galleryEl, {
-        selector: 'a',
-        plugins: [lgZoom, lgThumbnail],
-        speed: 400,
-      });
+  // Only initialize if lightgallery exists and has more than one image
+  if (galleryEl && galleryEl.querySelectorAll("a").length > 1) {
+    const lgInstance = lightGallery(galleryEl, {
+      selector: 'a',
+      plugins: [lgZoom, lgThumbnail],
+      speed: 400,
+    });
 
-      // Use `addEventListener` on `galleryEl` for LightGallery event hooks
-      galleryEl.addEventListener('lgAfterOpen', () => {
-        if (navEl) navEl.style.display = 'none';
-      });
+    galleryEl.addEventListener('lgAfterOpen', () => {
+      if (navEl) navEl.style.display = 'none';
+    });
 
-      galleryEl.addEventListener('lgAfterClose', () => {
-        if (navEl) navEl.style.display = 'flex';
-      });
-    }
-  });
+    galleryEl.addEventListener('lgAfterClose', () => {
+      if (navEl) navEl.style.display = 'flex';
+    });
+  }
+});
+
 </script>
 
 
