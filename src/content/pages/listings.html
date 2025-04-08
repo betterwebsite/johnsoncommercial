@@ -546,8 +546,8 @@ eleventyNavigation:
     const title = "{{ listing.address | escape }}";
     const imageUrl = "{{ listing.image }}";
     const price = {% if listing.price.sale_price %}"{{ listing.price.sale_price | money }}"{% elif listing.price.lease_rate %}"{{ listing.price.lease_rate }}"{% else %}"N/A"{% endif %};
-    const squareFeet = addCommasToFloat("{{ listing.buildings[0].square_feet or 'N/A' }}") +"Sq Ft";
-    const lotSize = addCommasToFloat("{{ listing.buildings[0].lot_acres or 'N/A' }}") + "acres";
+    const squareFeet = {% if listing.buildings[0].square_feet %}addCommasToFloat("{{ listing.buildings[0].square_feet}}") +" Sq Ft"{% else %}0{% endif %};
+    const lotSize = addCommasToFloat("{{ listing.buildings[0].lot_acres or 'N/A' }}") + " acres";
     const status = "{{ listing.listing_type | capitalize | replace("both", "For Sale/Lease") }}";
     const address = "{{ listing.address | escape }}";
     const agentName = "{{ listing.agent_name | escape }}";
@@ -949,7 +949,13 @@ document.getElementById("reset-filters").addEventListener("click", () => {
 
 <script>
   function addCommasToFloat(number) {
-    return number.toLocaleString('en-US');
+    if (isNaN(parseFloat(number))){
+      return 'N/A'
+    }
+    else{
+      return parseFloat(number).toLocaleString('en-US');
+    }
+
   }
   
   function formatToUSDollars(amount) {
@@ -1051,7 +1057,7 @@ document.getElementById("reset-filters").addEventListener("click", () => {
 
   <!-- Google JS -->
   <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2hIkZRxsZeKQhHXbdChn7tPd3FVY5LQ&callback=initMap&loading=async"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD28ditC6vFn4ZktSA-_ELqB5eEvzMxoM0&callback=initMap&loading=async"
   >
   </script>   
   
