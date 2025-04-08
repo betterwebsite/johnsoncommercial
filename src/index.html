@@ -75,80 +75,58 @@ eleventyNavigation:
 {% block body %}
 
 
+<!-- ============================================ -->
+<!--                    Hero                      -->
+<!-- ============================================ -->
+
+<section id="hero-541">
+    <div class="cs-container">
+        <div class="cs-content">
+            <h2 class="cs-title">Locally Known.<br>Globally Connected.</h2>
+            <p class="cs-text">
+            </p>
+            <a href="/listings" class="cs-button-solid">View Listings</a>
+        </div>
+    </div>
+    <!--Background Color-->
+    <picture class="cs-background">
+        <source media="(min-width: 1024px)" srcset="/assets/images/bg.jpg">
+        <source media="(min-width: 601px)" srcset="/assets/images/bg.jpg">
+        <source media="(max-width: 600px)" srcset="/assets/images/bg.jpg">
+        <img aria-hidden="true" loading="lazy" decoding="async" src="/assets/images/bg.jpg" alt="meeting" width="275" height="132">
+        </picture>
+</section>
+                                
+
+
+<!-- <div class="custom-shape-divider-bottom-1744070724">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M598.97 114.72L0 0 0 120 1200 120 1200 0 598.97 114.72z" class="shape-fill"></path>
+    </svg>
+</div> -->
+    </section>
+
 <style>
-    .custom-shape-divider-bottom-1742938869 {
-    position: absolute;
+    .custom-shape-divider-bottom-1744070724 {
+    position: relative;
     bottom: 0;
     left: 0;
     width: 100%;
     overflow: hidden;
     line-height: 0;
-    transform: rotate(180deg);
 }
 
-.custom-shape-divider-bottom-1742938869 svg {
+.custom-shape-divider-bottom-1744070724 svg {
     position: relative;
     display: block;
-    width: calc(149% + 1.3px);
-    height: 96px;
+    width: calc(142% + 1.3px);
+    height: 77px;
 }
 
-.custom-shape-divider-bottom-1742938869 .shape-fill {
+.custom-shape-divider-bottom-1744070724 .shape-fill {
     fill: #FFFFFF;
 }
-
-body.dark-mode {
-    .custom-shape-divider-bottom-1742938869 .shape-fill {
-        fill: #121212;
-    }
-    
-}
-
-
 </style>
-    <!-- ============================================ -->
-    <!--                    Hero                      -->
-    <!-- ============================================ -->
-
-    <section id="hero">
-        <div class="cs-container">
-            <div class="cs-flex-group">
-                <span class="cs-topper">Johnson Commercial Group</span>
-                <h1 class="cs-title">Locally Known <br>Globally Connected.</h1>
-                <p class="cs-text">
-                    
-                </p>
-                <a href="/listings_list" class="cs-button-solid">View Listings</a>
-                <a href="/listings" class="cs-button-transparent">
-                    <img
-                    class="cs-img"
-                    loading="lazy"
-                    decoding="async"
-                    src="https://csimg.nyc3.digitaloceanspaces.com/Hero/play.svg"
-                    alt="play icon"
-                    width="17"
-                    height="17"/>
-                    Map View
-                </a>
-            </div>
-        </div>
-
-        <!-- Background Image -->
-        <picture class="cs-picture">
-            <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/hero.jpg' | resize({ width: 1000, height:1000}) | webp %}">
-            <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/hero.jpg' | resize({ width: 1000, height:1000}) | webp %}">
-            <img aria-hidden="true" decoding="async" src="{% getUrl '/assets/images/hero.jpg' | resize({ width: 1500, height: 1500}) | webp %}" alt="new home" width="2500" height="1667" loading="eager">
-        </picture>
-
-
-        <div class="custom-shape-divider-bottom-1742938869">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
-            </svg>
-        </div>
-    </section>
-
-
 
     <!-- ============================================ -->
     <!--                 Side By Side                 -->
@@ -171,15 +149,18 @@ body.dark-mode {
             </div>
             <!-- Right Content Section-->
             <div class="cs-right">
-                <span class="cs-topper">About Us</span>
-                <h2 class="cs-title">About Company Title</h2>
+                <!-- <span class="cs-topper">About Us</span> -->
+                <h2 class="cs-title">Your Local Team</h2>
                 <p class="cs-text">
-                    In consequat tincidunt turpis sit amet imperdiet. Praesent Class officelan nonatoureanor mauris laoreet, iaculis libero quis. Curabitur et tempus eri consequat tincidunt turpis sit amet imperdiet. Praesent nonatourean olei aptent taciti sociosqu ad litora torquent per.
+                    Johnson Commercial Group is a team of dedicated specialists who are experts when it comes to commercial properties. Their agents possess a wealth of industry knowledge and are passionate about helping their clients reach their real estate goals. They consistently go above and beyond to ensure their clients' satisfaction. 
                 </p>
                 <p class="cs-text">
-                    In consequat tincidunt turpis sit amet imperdiet. Praesent Class officelan nonatoureanor mauris laoreet, iaculis libero quis. Curabitur et tempus eri consequat tincidunt turpis sit amet imperdiet. Praesent nonatourean olei aptent taciti sociosqu ad litora torquent per.
+                    Johnson Commercial Group is brokered by Brick and Beam Realty, a leading name in the real estate industry. With their help, Johnson Commercial Group is able to offer a range of services, including buying, selling, leasing, and investing in commercial real estate. No matter what the task may be, Johnson Commercial Group is devoted to providing exceptional service and ensuring their clients' success.
                 </p>
-                <div class="cs-flex-group">
+                <p class="cs-text">
+                    We are here to support you every step of the way, whether you are a first-time purchaser, an experienced investor, or require assistance with buying, selling, or renting. We ensure that you have a top-notch experience from start to finish.
+                </p>
+                <!-- <div class="cs-flex-group">
                     <p class="cs-flex-p">
                         In consequat tincidunt turpis sit amet imperdiet. Praesent Classei consequat tincidunt turpis sit amet imperdiet for mind.
                     </p>
@@ -193,7 +174,7 @@ body.dark-mode {
                     alt="gavel"
                     width="136"
                     height="77"/>
-                </div>
+                </div> -->
                 <a href="/about" class="cs-button-solid">More About Us</a>
             </div>
         </div>
@@ -203,35 +184,98 @@ body.dark-mode {
     <!--            Extra Content To Rank             -->
     <!-- ============================================ -->
 
-    <section id="sbs-r">
-        <div class="cs-container">
-            <!-- Left Image Section -->
-            <div class="cs-left">
-                <picture class="cs-picture cs-picture1">
-                    <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/back.jpg' | resize({ width: 500, height:500}) | webp %}">
-                    <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/back.jpg' | resize({ width: 1000, height:1000}) | webp %}">
-                    <img aria-hidden="true" decoding="async" src="{% getUrl '/assets/images/back.jpg' | resize({ width: 1000, height:1000}) | webp %}" alt="house" loading="lazy" width="400" height="560">
-                </picture>
-                <picture class="cs-picture cs-picture2">
-                    <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/sally.jpg' | resize({ width: 500, height:500}) | webp %}">
-                    <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/sally.jpg' | resize({ width: 1000, height:1000}) | webp %}">
-                    <img aria-hidden="true" decoding="async" src="{% getUrl '/assets/images/sally.jpg' | resize({ width: 1000, height:1000}) | webp %}" alt="cabinets" loading="lazy" width="400" height="560">
-                </picture>
-            </div>
-            <!-- Right Content Section-->
-            <div class="cs-right">
-                <span class="cs-topper">SEO Ranking</span>
-                <h2 class="cs-title">Talk about a main service keyword</h2>
-                <p class="cs-text">
-                    In consequat tincidunt turpis sit amet imperdiet. Praesent Class officelan nonatoureanor mauris laoreet, iaculis libero quis. Curabitur et tempus eri consequat tincidunt turpis sit amet imperdiet. Praesent nonatourean olei aptent taciti sociosqu ad litora torquent per.
-                </p>
-                <p class="cs-text">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non tenetur, iure nihil ipsam qui atque commodi id voluptatem nesciunt, quis animi fuga cum doloribus! Eaque laboriosam, unde consectetur iure asperiores ullam. Consequuntur debitis a voluptatibus vitae optio autem explicabo quia neque est quas, in placeat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus modi laudantium voluptatibus rem libero error minus quia eligendi sapiente eos.
-                </p>
-                <a href="/blog" class="cs-button-solid">Read our Blog</a>
-            </div>
-        </div>
-    </section>
 
+
+
+    <!-- ============================================ -->
+<!--                   Contact                    -->
+<!-- ============================================ -->
+
+<section id="contact-2145">
+    <div class="cs-container">
+        <div class="cs-content">
+            <!-- <span class="cs-topper">Contact Us</span> -->
+            <h2 class="cs-title">Contact Us</h2>
+            <p class="cs-text">
+                Would you like to schedule a confidential discussion today about how Johnson Commercial Group can take your business to new heights?
+            </p>
+            <ul class="cs-ul">
+                <li class="cs-li">
+                    <span class="cs-header">Location</span>
+                    <a href="" class="cs-link">615 24th Ave SW Suite B, Norman, OK 73069</a>
+                </li>
+                <li class="cs-li">
+                    <span class="cs-header">Phone</span>
+                    <a href="tel:405-435-3572" class="cs-link">C: <span style="color: #b40101">405-435-3572</span> 
+                    <a href="tel:405-439-9206" class="cs-link">O: <span style="color: #b40101">405-439-9206</span>
+                    </a>
+                </li>
+                <li class="cs-li">
+                    <span class="cs-header">Email</span>
+                    <a href="mailto:chris@jcgok.com" class="cs-link">chris@jcgok.com</a>
+                </li>
+            </ul>
+        </div>
+        <!--Form-->
+        <div class="cs-form-wrapper">
+            <form class="cs-form" id="cs-form-2145" name="Contact Form" method="post">
+                <div class="cs-form-content">
+                    <span class="cs-form-title">Fill out the form below</span>
+                </div>
+                <label class="cs-label">
+                    <input class="cs-input" required type="text" id="name-2145" name="name" placeholder="Name">
+                </label>
+                <label class="cs-label">
+                    <input class="cs-input" required type="email" id="email-2145" name="email" placeholder="Email">
+                </label>
+                <label class="cs-label">
+                    <input class="cs-input" type="number" id="phone-2145" name="phone" placeholder="Phone">
+                </label>
+                <!-- <label class="cs-label">
+                    <select class="cs-select" name="class" id="classes-2145" placeholder="Services">
+                        <option value="Service 1">Services</option>
+                        <option value="Service 2">Services</option>
+                        <option value="Service 3">Services</option>
+                        <option value="Service 4">Services</option>
+                    </select>
+                </label> -->
+                <label class="cs-label cs-message">
+                    <textarea class="cs-input cs-textarea" required name="Message" id="message-2145" placeholder="Message"></textarea>
+                </label>
+                <div class="cs-button-wrapper">
+                    <button class="cs-button-solid cs-submit" type="submit">Schedule Consultation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+<div class="custom-shape-divider-top-1744070269">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
+    </svg>
+</div>
+
+<style>
+    .custom-shape-divider-top-1744070269 {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1744070269 svg {
+    position: relative;
+    display: block;
+    width: calc(142% + 1.3px);
+    height: 77px;
+}
+
+.custom-shape-divider-top-1744070269 .shape-fill {
+    fill: #FBF5F1;
+}
+</style>
 
 {% endblock %}

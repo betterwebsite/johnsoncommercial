@@ -15,8 +15,7 @@ eleventyNavigation:
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 
   <style>
     #container {
@@ -114,6 +113,11 @@ eleventyNavigation:
   gap: 15px;
   width: 35%;
 }
+#leftcontainer {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+}
 
 #map-container {
   position: relative;
@@ -127,6 +131,13 @@ eleventyNavigation:
 
 
 /* Mobile: Only one view at a time */
+@media (max-width: 1200px) {
+  #leftcontainer {
+    width: 100%;
+    height: calc(100vh - 80px); /* Adjust if you have nav */
+  }
+
+}
 @media (max-width: 1200px) {
   #container.layout {
     flex-direction: column;
@@ -241,7 +252,7 @@ eleventyNavigation:
 
 .status-badge.sale { background-color: #e63946; }
 .status-badge.lease { background-color: #0077b6; }
-.status-badge.sold { background-color: #6c757d; }
+.status-badge.closed { background-color: #6c757d; }
 
 
 #sort-bar {
@@ -433,11 +444,11 @@ eleventyNavigation:
   
 
   <select id="listing-type-filter">
-    <option value="all">Sale, Lease & Sold</option>
+    <option value="sale-or-lease" selected>Sale/Lease</option>
     <option value="sale">Sale</option>
     <option value="lease">Lease</option>
-    <option value="both">Sale/Lease</option>
-    <option value="sold">Sold</option>
+    <option value="closed">Closed</option>
+    <option value="all">All</option>
   </select>
   
 
@@ -447,11 +458,20 @@ eleventyNavigation:
 
   <!-- <button class="btn">More Filters</button>
   <button class="btn btn-secondary">Reset Filters</button> -->
+  <button id="reset-filters" class="btn" style="background-color: #999;">Reset Filters</button>
+
 </div>
 <div id="container" class="layout show-list">
-  
-
-  <div id="listing-view">
+  <div id="leftcontainer">
+    {% set total = listings.listings.length %}
+  <div id="results-count-wrapper" style="padding: 5px 16px; font-size: 14px;">
+    <p>
+      <span id="results-count-text">
+        1 - {% if total > 30 %}30{% else %}{{ total }}{% endif %} results out of {{ total }} listings
+      </span>
+    </p>
+  </div>
+  <div id="listing-view" style="width: 100%;">
     {% for listing in listings.listings %}
     {% set total_sf = 0 %}
     {% for b in listing.buildings %}
@@ -459,14 +479,13 @@ eleventyNavigation:
     {% endfor %}
 
     <div class="listing-card"
+     href="/properties/{{ listing.address | slugify }}"
      data-lat="{{ listing.location.lat }}"
      data-lng="{{ listing.location.lng }}"
      data-type="{{ listing.listing_type }}"
      data-sf="{{ total_sf }}"
      data-property="{{ listing.property_type | lower }}"
      onclick="window.location.href='/properties/{{ listing.address | slugify }}'">
-
-
 
       <div class="image-wrapper">
         <img src="{{ listing.image }}" alt="{{ listing.address }}">
@@ -478,254 +497,149 @@ eleventyNavigation:
         <div class="listing-title">{{ listing.address }}</div>
         <div class="listing-sub">
           {% if listing.price.sale_price %}
-            ${{ listing.price.sale_price | int }}
+            {{ listing.price.sale_price | money }}
           {% elif listing.price.lease_rate %}
             {{ listing.price.lease_rate }}
           {% endif %}
         </div>
       </div>
-          <!-- NEW HOVER DETAILS -->
       <div class="hover-details">
         <div><strong>Address:</strong> {{ listing.address }}</div>
-        <div><strong>Square Feet:</strong> {{ listing.buildings[0].square_feet or "N/A" }}</div>
-        <div><strong>Lot Acres:</strong> {{ listing.buildings[0].lot_acres or "N/A" }}</div>
-        <div><strong>Year Built:</strong> {{ listing.buildings[0].year_built or "N/A" }}</div>
+        {% if listing.buildings[0].square_feet %}<div><strong>Square Feet:</strong> {{ listing.buildings[0].square_feet | float}}</div>{% endif %}
+        {% if listing.buildings[0].lot_acres %}<div><strong>Lot Acres:</strong> {{ listing.buildings[0].lot_acres | float }}</div>{% endif %}
+        {% if listing.buildings[0].year_built %}<div><strong>Year Built:</strong> {{ listing.buildings[0].year_built or "N/A" }}</div>{% endif %}
       </div>
     </div>
-    
-    
     {% endfor %}
   </div>
+  </div>
   <div id="map-container">
-    <div id="map"></div>
+    <div id="map" style="width: 100%; height: 100%;"></div>
   </div>
   <button id="toggle-view" onclick="toggleView()">Show Map</button>
 </div>
 
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-VeE+12I/a2/bjUUtTq3pyHdfrYrGP7uK+ZjE7rRkzEY="
-    crossorigin=""></script>
+<script defer>
+  let map;
+  let markers = [];
+  let allMarkers = [];
+  let openInfoWindow = null; // Track the currently open info window
 
-  <script>
-    // Initialize map
-    const map = L.map('map').setView([35.2216, -97.4446], 13); // Norman
-
-    // Define base layers
-    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
+  window.initMap = function () {
+    const center = { lat: 35.2216, lng: -97.4446 };
+    map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 13,
+      center: center,
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.TOP_LEFT,
+      },
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
     });
+  
+    {% for listing in listings.listings %}
+  (function() {
+    const lat = {{ listing.location.lat or 0 }};
+    const lng = {{ listing.location.lng or 0 }};
+    const title = "{{ listing.address | escape }}";
+    const imageUrl = "{{ listing.image }}";
+    const price = {% if listing.price.sale_price %}"{{ listing.price.sale_price | money }}"{% elif listing.price.lease_rate %}"{{ listing.price.lease_rate }}"{% else %}"N/A"{% endif %};
+    const squareFeet = addCommasToFloat("{{ listing.buildings[0].square_feet or 'N/A' }}") +"Sq Ft";
+    const lotSize = addCommasToFloat("{{ listing.buildings[0].lot_acres or 'N/A' }}") + "acres";
+    const status = "{{ listing.listing_type | capitalize | replace("both", "For Sale/Lease") }}";
+    const address = "{{ listing.address | escape }}";
+    const agentName = "{{ listing.agent_name | escape }}";
+    const agentUrl = "https://localhost:8080/properties/"+address;
 
-    var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-      attribution: 'Tiles © Esri'
-    });
-
-    // Add default layer to map
-    osm.addTo(map);
-
-    // Add base layer control in the top left
-    var baseMaps = {
-      "OpenStreetMap": osm,
-      "Satellite": satellite
-    };
-    L.control.layers(baseMaps, null, {position: 'topleft'}).addTo(map);
-
-    // Global array to store all markers
-    const allMarkers = [];
-
-    // Filter settings (default: all shown)
-    var filterSettings = {
-      sale: true,
-      lease: true,
-      sold: true
-    };
-
-    // Function to update marker visibility based on filter settings
-    function updateMarkersVisibility() {
-      allMarkers.forEach(function(marker) {
-        // Marker is visible if any of its categories is enabled
-        var visible = marker.categories.some(function(cat) {
-          return filterSettings[cat];
-        });
-        if (visible) {
-          if (!map.hasLayer(marker)) {
-            marker.addTo(map);
-          }
-        } else {
-          if (map.hasLayer(marker)) {
-            marker.remove();
-          }
-        }
-      });
-    }
-
-    // Custom control for filtering markers
-    var FilterControl = L.Control.extend({
-      options: { position: 'topleft' },
-      onAdd: function (map) {
-        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-        container.style.backgroundColor = 'white';
-        container.style.padding = '10px';
-        container.innerHTML = `
-          <strong>Filter Listings</strong><br>
-          <label><input type="checkbox" id="filter-sale" checked> For Sale</label><br>
-          <label><input type="checkbox" id="filter-lease" checked> For Lease</label><br>
-          <label><input type="checkbox" id="filter-sold" checked> Sold</label>
-        `;
-        L.DomEvent.disableClickPropagation(container);
-
-        container.querySelector("#filter-sale").addEventListener("change", function(e) {
-          filterSettings.sale = e.target.checked;
-          updateMarkersVisibility();
-        });
-        container.querySelector("#filter-lease").addEventListener("change", function(e) {
-          filterSettings.lease = e.target.checked;
-          updateMarkersVisibility();
-        });
-        container.querySelector("#filter-sold").addEventListener("change", function(e) {
-          filterSettings.sold = e.target.checked;
-          updateMarkersVisibility();
-        });
-        return container;
-      }
-    });
-    // map.addControl(new FilterControl());
-
-    // Marker icon generator
-    function getSvgIcon(color) {
-  return L.icon({
-        iconUrl: `/assets/images/pins/pin-${color}.svg`,
-        iconSize: [40, 40],
-        iconAnchor: [20, 40],
-        popupAnchor: [0, -40],
-      });
-    }
-
-    const redIcon = getSvgIcon("red");
-    const blueIcon = getSvgIcon("blue");
-    const blackIcon = getSvgIcon("black");
-    const purpleIcon = getSvgIcon("purple"); // or "violet" if you keep the naming
-
-    // Function to add a marker to the map and store its category for filtering
-    function addMarker({ lat, lng, color, title, imageUrl, price, squareFeet, lotSize, status, address, agentName, agentUrl, language, type }) {
-      let icon;
-      if (color === "red") icon = redIcon;
-      else if (color === "purple") icon = purpleIcon;
-      else if (color === "black") icon = blackIcon;
-      else if (color === "blue") icon = blueIcon;
-      else icon = redIcon; // default
-
-      const marker = L.marker([lat, lng], {
-        icon: icon,
-        title: title
-      }).addTo(map);
-
-      const popupHtml = `
+    const contentString = `
+      <div style="max-width: 280px; font-family: sans-serif; position: relative;">
         <div style="position: relative;">
-          <img src="${imageUrl}" alt="${title}" style="width: 100%; height: auto; display: block;">
-          <div class="status-badge ${status.toLowerCase()}">${status}</div>
-
+          <img src="${imageUrl}" alt="${title}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px;">
+          <div style="
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background-color: ${
+              status === "Lease" ? "#0077b6" :
+              status === "Closed" ? "#6c757d" :
+              status === "Sale" ? "#e63946" :
+              status === "For Sale/Lease" ? "#003f7d" :
+              "#000"
+            };
+            color: white;
+            padding: 2px 6px;
+            font-size: 12px;
+            border-radius: 3px;
+          ">
+            ${status}
+          </div>
         </div>
         <div style="padding: 10px;">
-          <div style="font-size: 18px; font-weight: bold;">${price}</div>
+          <div style="font-size: 16px; font-weight: bold; margin-bottom: 4px;">${price}</div>
           <div style="font-size: 14px; color: #444;">${squareFeet}</div>
-          <div style="font-size: 14px; color: #444;">${lotSize}${language}</div>
-          <div style="margin-top: 5px; font-size: 13px; color: #333;">${address}</div>
+          <div style="font-size: 14px; color: #444;">${lotSize}</div>
+          <div style="margin-top: 6px; font-size: 13px; color: #333;">${address}</div>
           <div style="margin-top: 8px; font-size: 12px;">
             <a href="${agentUrl}" target="_blank" style="color: #0074cc; text-decoration: none;">JOHNSON COMMERCIAL GROUP, ${agentName}</a>
           </div>
         </div>
-      `;
-      marker.bindPopup(popupHtml);
+        <button onclick="this.closest('.gm-style-iw').parentNode.style.display='none'" style="
+          position: absolute;
+          top: 6px;
+          right: 6px;
+          background: rgba(0,0,0,0.5);
+          border: none;
+          color: white;
+          font-size: 14px;
+          padding: 2px 6px;
+          border-radius: 3px;
+          cursor: pointer;
+          z-index: 9999;">✕</button>
+      </div>
+    `;
 
-      // Assign marker categories based on the "language" value
-      if (language === "For Sale") {
-        marker.categories = ["sale"];
-      } else if (language === "For Lease") {
-        marker.categories = ["lease"];
-      } else if (language === "Sold") {
-        marker.categories = ["sold"];
-      } else if (language === "For Sale/Lease") {
-        marker.categories = ["sale", "lease"];
-      } else {
-        marker.categories = [];
-      }
-      allMarkers.push(marker);
-    }
+    const marker = new google.maps.Marker({
+      position: { lat, lng },
+      map,
+      title,
+      icon: {
+        url:
+          status === "Sale"
+            ? "/assets/images/pins/pin-red.svg"
+            : status === "Lease"
+            ? "/assets/images/pins/pin-blue.svg"
+            : "/assets/images/pins/pin-black.svg",
+        scaledSize: new google.maps.Size(40, 40),
+      },
+    });
 
-    function addCommasToFloat(number) {
-      return number.toLocaleString('en-US');
-    }
+    const infowindow = new google.maps.InfoWindow({ content: contentString });
+    marker.set("infoContent", contentString);
 
-    function formatToUSDollars(amount) {
-      return amount.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
+
+    marker.addListener("click", () => {
+      if (openInfoWindow) openInfoWindow.close();
+      infowindow.open(map, marker);
+      google.maps.event.addListenerOnce(infowindow, 'domready', function () {
+        const closeBtn = document.querySelector('.gm-ui-hover-effect');
+        if (closeBtn) closeBtn.style.display = 'none';
       });
-    }
+      openInfoWindow = infowindow;
+    });
 
-    {% for listing in listings.listings %}
-      {% set type = listing.listing_type %}
-      {% if (type == 'lease' or type == 'both') and not listing.price.sale_price and listing.price.lease_rate %}
-        var rawPrice = "{{ listing.price.lease_rate }}";
-        var formattedPrice = rawPrice;
-      {% else %}
-        var rawPrice = {{ listing.price.sale_price or 0 }};
-        var formattedPrice = formatToUSDollars(rawPrice);
-      {% endif %}
+    marker.__lat = lat;
+    marker.__lng = lng;
+    allMarkers.push(marker);
+  })();
+{% endfor %}
 
-      var address = "{{ listing.address | default('', true) }}";
-      var listingImage = "{{ listing.image | default('', true) }}";
-      var agent_name = "{{ listing.agent_name | default('', true) }}";
-      {% set lotAcres_formatted = listing.buildings[0].lot_acres or 0 %}
-      var lotAcres = {% if listing.buildings and listing.buildings[0].lot_acres %}addCommasToFloat({{ lotAcres_formatted }}) + " acres - "{% else %}""{% endif %};
 
-      var formattedSqFt = "";
-      {% if listing.buildings and listing.buildings.length > 0 %}
-        {% set sqftA = listing.buildings[0].square_feet or 0 %}
-        {% set sqftB = listing.buildings[1].square_feet or 0 %}
-        {% if listing.buildings.length == 1 %}
-          formattedSqFt = addCommasToFloat({{ sqftA }}) + " Sqf";
-        {% elif listing.buildings.length == 2 %}
-          formattedSqFt = "A: " + addCommasToFloat({{ sqftA }}) + " Sqf / B: " + addCommasToFloat({{ sqftB }}) + " Sqf";
-        {% elif listing.buildings.length > 2 %}
-          formattedSqFt = "A: " + addCommasToFloat({{ sqftA }}) + " Sqf / B: " + addCommasToFloat({{ sqftB }}) + " Sqf . . .";
-        {% endif %}
-      {% endif %}
-
-      {% if type in ['sale', 'sold', 'lease', 'both'] %}
-        {% set marker = {
-          "sale": { "status": "Active", "language": "For Sale", "color": "red" },
-          "sold": { "status": "Sold", "language": "Sold", "color": "black" },
-          "lease": { "status": "Active", "language": "For Lease", "color": "blue" },
-          "both": { "status": "Active", "language": "For Sale/Lease", "color": "purple" }
-        }[type] %}
-
-        addMarker({
-  status: "{{ listing.listing_type | capitalize | replace('both', 'For Sale/Lease') }}",
-  color: "{% if listing.listing_type == 'sale' %}red{% elif listing.listing_type == 'lease' %}blue{% elif listing.listing_type == 'sold' %}black{% elif listing.listing_type == 'both' %}purple{% else %}red{% endif %}",
-  language: "{% if listing.listing_type == 'sale' %}For Sale{% elif listing.listing_type == 'lease' %}For Lease{% elif listing.listing_type == 'sold' %}Sold{% elif listing.listing_type == 'both' %}For Sale/Lease{% endif %}",
-
-  lat: {{ listing.location.lat or 0 }},
-  lng: {{ listing.location.lng or 0 }},
-  title: "{{ listing.address }}",
-  imageUrl: "{{ listing.image }}",
-  price: "{% if (listing.listing_type == 'lease' or listing.listing_type == 'both') and not listing.price.sale_price and listing.price.lease_rate %}{{ listing.price.lease_rate }}{% else %}{{ listing.price.sale_price | money }}{% endif %}",
-  squareFeet: "{% set sqftA = listing.buildings[0].square_feet or 0 %}{% set sqftB = listing.buildings[1].square_feet or 0 %}{% if listing.buildings.length == 1 %}{{ sqftA | float }} Sqf{% elif listing.buildings.length == 2 %}A: {{ sqftA | float }} Sqf / B: {{ sqftB | float}} Sqf{% elif listing.buildings.length > 2 %}A: {{ sqftA | float }} Sqf / B: {{ sqftB | float }} Sqf...{% else %}N/A{% endif %}",
-  lotSize: "{% if listing.buildings and listing.buildings[0].lot_acres %}{{ listing.buildings[0].lot_acres | float }} acres - {% else %}{% endif %}",
-  address: "{{ listing.address }}",
-  agentName: "{{ listing.agent_name }}",
-  agentUrl: "/properties/{{ listing.address | slugify }}"
-});
-
-      {% endif %}
-    {% endfor %}
+  }
   </script>
 
-    <script>
+    <script defer>
       window.onload = function () {
         const nav = document.getElementById("cs-navigation");
         const map = document.getElementById("map");
@@ -737,7 +651,7 @@ eleventyNavigation:
         }
       };
     </script>
-    <script>
+    <script defer>
       function adjustMapSize() {
         const nav = document.getElementById("cs-navigation");
         const container = document.getElementById("container");
@@ -791,7 +705,7 @@ eleventyNavigation:
 
 
 
-<script>
+<script defer>
   function toggleView() {
     
     const container = document.getElementById("container");
@@ -828,7 +742,7 @@ eleventyNavigation:
 
 
 
-<script>
+<script defer>
   document.addEventListener('DOMContentLoaded', function () {
     const toggle = document.querySelector('.dropdown-toggle');
     const menu = document.querySelector('.dropdown-menu');
@@ -856,55 +770,62 @@ eleventyNavigation:
 
 </script>
 
-
-<!-- filtering -->
-<script>
+<script defer>
   const searchInput = document.getElementById("search-input");
   const listingTypeSelect = document.getElementById("listing-type-filter");
   const minSFInput = document.getElementById("min-sf");
   const maxSFInput = document.getElementById("max-sf");
   const propertyCheckboxes = document.querySelectorAll('.multi-options input[type="checkbox"]');
 
+  // === Global Filter State ===
   const filterState = {
     searchQuery: "",
-    propertyTypes: new Set([...propertyCheckboxes].filter(cb => cb.value !== "all").map(cb => cb.value)),
-    listingType: "all",
+    propertyTypes: new Set([...propertyCheckboxes]
+      .filter(cb => cb.value !== "sale-or-lease")
+      .map(cb => cb.value)),
+    listingType: "sale-or-lease",
     minSF: 0,
     maxSF: Infinity
   };
 
-  function normalize(str) {
-    return str.toLowerCase().replace(/\s+/g, '');
-  }
-
+  // === Core Filter Logic ===
   function applyCombinedFilters() {
     const cards = document.querySelectorAll(".listing-card");
-    allMarkers.forEach(marker => marker.remove());
     let visibleMarkers = [];
+    const totalListings = cards.length;
+    let visibleCount = 0;
 
     cards.forEach(card => {
       const prop = (card.dataset.property || "").toLowerCase();
       const type = (card.dataset.type || "").toLowerCase();
       const sf = parseInt(card.dataset.sf) || 0;
       const addressText = card.querySelector(".listing-title").textContent.trim();
-      const normalizedAddress = normalize(addressText);
+      const normalizedAddress = addressText.toLowerCase().replace(/\s+/g, '');
 
       const matchesSearch = normalizedAddress.includes(filterState.searchQuery);
-      const matchesType = filterState.listingType === "all" || type === filterState.listingType;
+      const matchesType =
+      filterState.listingType === "all" ||
+      type === filterState.listingType ||
+      (filterState.listingType === "sale-or-lease" && (type === "sale" || type === "lease"));
+
       const matchesProperty = filterState.propertyTypes.has(prop);
       const matchesSF = sf >= filterState.minSF && sf <= filterState.maxSF;
 
       const show = matchesSearch && matchesType && matchesProperty && matchesSF;
+
       card.style.display = show ? "flex" : "none";
+      if (show) visibleCount++;
 
       const lat = parseFloat(card.dataset.lat);
       const lng = parseFloat(card.dataset.lng);
-      const marker = allMarkers.find(m => m.getLatLng().lat === lat && m.getLatLng().lng === lng);
-      if (marker && show) {
-        marker.addTo(map);
-        visibleMarkers.push(marker.getLatLng());
-      }
+      allMarkers.forEach(marker => {
+        if (marker.__lat === lat && marker.__lng === lng) {
+          marker.setMap(show ? map : null);
+          if (show) visibleMarkers.push(marker);
+        }
+      });
 
+      // Highlight match in address
       if (matchesSearch && show) {
         const regex = new RegExp(`(${filterState.searchQuery})`, 'ig');
         const highlighted = addressText.replace(regex, `<span style="color:black;">$1</span>`);
@@ -914,22 +835,30 @@ eleventyNavigation:
       }
     });
 
+    document.getElementById("results-count-text").textContent = `${visibleCount} result${visibleCount === 1 ? '' : 's'} out of ${totalListings} listings`;
+
     if (visibleMarkers.length > 0) {
-      map.fitBounds(L.latLngBounds(visibleMarkers), { padding: [50, 50] });
+      const bounds = new google.maps.LatLngBounds();
+      visibleMarkers.forEach(m => bounds.extend(m.getPosition()));
+      map.fitBounds(bounds);
     }
   }
 
   // === Event Listeners ===
+
+  // Search Input
   searchInput.addEventListener("input", function () {
-    filterState.searchQuery = normalize(this.value);
+    filterState.searchQuery = this.value.trim().toLowerCase().replace(/\s+/g, '');
     applyCombinedFilters();
   });
 
+  // Listing Type Dropdown
   listingTypeSelect.addEventListener("change", function () {
     filterState.listingType = this.value.toLowerCase();
     applyCombinedFilters();
   });
 
+  // Square Footage Inputs
   function updateSFRange() {
     filterState.minSF = parseInt(minSFInput.value) || 0;
     filterState.maxSF = parseInt(maxSFInput.value) || Infinity;
@@ -939,12 +868,14 @@ eleventyNavigation:
   minSFInput.addEventListener("input", updateSFRange);
   maxSFInput.addEventListener("input", updateSFRange);
 
+  // Property Type Checkboxes
   propertyCheckboxes.forEach(cb => {
     cb.addEventListener("change", () => {
       const isAll = cb.value === "all";
       const selectAllBox = document.querySelector('input[value="all"]');
 
       if (isAll) {
+        // "Select All" clicked
         filterState.propertyTypes.clear();
         propertyCheckboxes.forEach(other => {
           other.checked = true;
@@ -952,6 +883,7 @@ eleventyNavigation:
         });
       } else {
         if (selectAllBox.checked) {
+          // Deselect "All" and go into custom mode
           selectAllBox.checked = false;
           filterState.propertyTypes.clear();
           propertyCheckboxes.forEach(other => {
@@ -966,6 +898,7 @@ eleventyNavigation:
             filterState.propertyTypes.delete(cb.value);
           }
 
+          // If all unchecked, re-enable Select All
           if (filterState.propertyTypes.size === 0) {
             selectAllBox.checked = true;
             propertyCheckboxes.forEach(other => {
@@ -982,36 +915,115 @@ eleventyNavigation:
     });
   });
 
-  // === Reset Button ===
-  const resetBtn = document.createElement("button");
-  resetBtn.textContent = "Reset Filters";
-  resetBtn.className = "btn";
-  resetBtn.style.backgroundColor = "#999";
-  document.getElementById("filter-bar-inline").appendChild(resetBtn);
 
-  resetBtn.addEventListener("click", () => {
-    searchInput.value = "";
-    filterState.searchQuery = "";
+  // Reset Button
+document.getElementById("reset-filters").addEventListener("click", () => {
+  // Reset search
+  searchInput.value = "";
+  filterState.searchQuery = "";
 
-    listingTypeSelect.value = "all";
-    filterState.listingType = "all";
-
-    minSFInput.value = "";
-    maxSFInput.value = "";
-    filterState.minSF = 0;
-    filterState.maxSF = Infinity;
-
-    filterState.propertyTypes.clear();
-    propertyCheckboxes.forEach(cb => {
-      cb.checked = true;
-      if (cb.value !== "all") filterState.propertyTypes.add(cb.value);
-    });
-    document.querySelector('input[value="all"]').checked = true;
-
-    applyCombinedFilters();
+  // Reset property types
+  filterState.propertyTypes.clear();
+  propertyCheckboxes.forEach(cb => {
+    cb.checked = true;
+    if (cb.value !== "all") filterState.propertyTypes.add(cb.value);
   });
+  document.querySelector('input[value="all"]').checked = true;
+
+  // Reset listing type
+  listingTypeSelect.value = "all";
+  filterState.listingType = "all";
+
+  // Reset square footage
+  minSFInput.value = "";
+  maxSFInput.value = "";
+  filterState.minSF = 0;
+  filterState.maxSF = Infinity;
+
+  applyCombinedFilters();
+});
+
 </script>
 
+<script>
+  function addCommasToFloat(number) {
+    return number.toLocaleString('en-US');
+  }
+  
+  function formatToUSDollars(amount) {
+    return amount.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    });
+  }
+  </script>
 
-    
+
+
+
+<!-- hover markers -->
+
+<script defer>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cards = document.querySelectorAll(".listing-card");
+  
+    cards.forEach(card => {
+      const lat = parseFloat(card.dataset.lat);
+      const lng = parseFloat(card.dataset.lng);
+  
+      card.addEventListener("mouseenter", () => {
+        const marker = allMarkers.find(m => m.__lat === lat && m.__lng === lng);
+        if (marker) {
+          if (openInfoWindow) openInfoWindow.close();
+  
+          // Create a dummy InfoWindow to simulate hover popup
+          const infoContent = marker.get("infoContent");
+          const infoWindow = new google.maps.InfoWindow({ content: infoContent });
+          google.maps.event.addListenerOnce(infoWindow, 'domready', function () {
+          const closeBtn = document.querySelector('.gm-ui-hover-effect');
+          if (closeBtn) closeBtn.style.display = 'none';
+          });
+          infoWindow.open(map, marker);
+          openInfoWindow = infoWindow;
+          map.panTo(marker.getPosition());
+        }
+      });
+  
+      card.addEventListener("mouseleave", () => {
+        if (openInfoWindow) {
+          openInfoWindow.close();
+          openInfoWindow = null;
+        }
+      });
+    });
+  });
+  </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Google JS -->
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2hIkZRxsZeKQhHXbdChn7tPd3FVY5LQ&callback=initMap&loading=async"
+  >
+  </script>   
+  
+  <script async defer >
+    window.addEventListener("load", (event) => {
+      applyCombinedFilters()
+});
+  </script>
+
 {% endblock %}
