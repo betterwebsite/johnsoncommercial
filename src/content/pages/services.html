@@ -1,0 +1,315 @@
+---
+title: 'Services | Code Stitch Web Designs'
+description: 'Meta description for the page'
+preloadImg: '/assets/images/cabinets2.jpg'
+permalink: 'services/'
+eleventyNavigation:
+    key: Services
+    order: 200
+---
+
+{% extends "layouts/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/assets/css/services.css">
+    <link rel="stylesheet" href="/assets/css/local.css">
+{% endblock %}
+
+{% block body %}
+    <!-- ============================================ -->
+    <!--                    LANDING                   -->
+    <!-- ============================================ -->
+
+    <section id="int-hero" style="height: 30rem;">
+        <h1 id="home-h">Our Services</h1>
+        <picture>
+            <source media="(max-width: 600px)" srcset="/assets/images/bg.jpg">
+            <source media="(min-width: 601px)" srcset="/assets/images/bg.jpg">
+            <img aria-hidden="true" decoding="async" src="/assets/images/bg.jpg" alt="kitchen cabinets" loading="eager" width="2500" height="1667">
+        </picture>
+
+
+        <div class="custom-shape-divider-bottom-1744208180">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M892.25 114.72L0 0 0 120 1200 120 1200 0 892.25 114.72z" class="shape-fill"></path>
+            </svg>
+        </div>
+
+        <style>
+            .custom-shape-divider-bottom-1744208180 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-bottom-1744208180 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 120px;
+    transform: rotateY(180deg);
+    top: 1px;
+}
+
+.custom-shape-divider-bottom-1744208180 .shape-fill {
+    fill: #FFFFFF;
+}
+        </style>
+
+    </section>
+
+<!-- ============================================ -->
+<!--                Side By Side                  -->
+<!-- ============================================ -->
+
+<section id="RPsbs-1593">
+    <div class="cs-container">
+        <div class="cs-image-group">
+            <!--Top left image-->
+            <picture class="cs-picture cs-picture1">
+                <!--Mobile Image-->
+                <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/building1.jpg' | resize({ height: 500, width: 500 }) | webp %}">
+                <!--Tablet and above Image-->
+                <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/building1.jpg' | resize({ height: 1000, width: 1000 }) | webp %}">
+                <img loading="lazy" decoding="async" src="{% getUrl '/assets/images/building1.jpg' | resize({ height: 1000, width: 1000 }) | webp %}" alt="mechanic" width="413" height="500">
+            </picture>
+            <!--Top Right image-->
+            <picture class="cs-picture cs-picture2">
+                <!--Mobile Image-->
+                <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/image_black.png' | webp %}">
+                <!--Tablet and above Image-->
+                <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/image_black.png' | webp %}">
+                <img loading="lazy" decoding="async" src="{% getUrl '/assets/images/image_black.png' | webp %}" alt="mechanic" style="object-fit: scale-down;">
+            </picture>
+        </div>
+        <div class="cs-content">
+            <!-- <span class="cs-topper">About us</span> -->
+            <h2 class="cs-title">Property Investing</h2>
+            <p class="cs-text">
+                Johnson Commercial Group offers property investing services for clients at all levels of experience. Our experienced advisors work with you to develop a personalized investment plan that aligns with your goals and risk tolerance. We provide guidance on market trends, property valuation, financing options, and support throughout the entire investment process. 
+            </p>
+            <p class="cs-text">
+                <a class="cs-text" href="mailto:chris@jcgok.com?subject=Website%20Inquiry" style="color: #b60201;">Contact Us Today</a> to learn more about how we can help you build and grow your commercial real estate portfolio.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!--             Side By Side Reverse             -->
+<!-- ============================================ -->
+
+
+
+<div class="custom-shape-divider-bottom-1744207563">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
+    </svg>
+</div>
+<style>
+    .custom-shape-divider-bottom-1744207563 {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1744207563 svg {
+    position: relative;
+    display: block;
+    width: calc(145% + 1.3px);
+    height: 98px;
+}
+
+.custom-shape-divider-bottom-1744207563 .shape-fill {
+    fill: #e9e9e9;
+}
+</style>
+
+<section id="RPsbsr-1593">
+    <div class="cs-container">
+        <div class="cs-image-group">
+            <!--Top left image-->
+            <picture class="cs-picture cs-picture1">
+                <!--Mobile Image-->
+                <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/building2.jpg' | resize({ height: 500, width: 500 }) | webp %}">
+                <!--Tablet and above Image-->
+                <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/building2.jpg' | resize({ height: 500, width: 500 }) | webp %}">
+                <img loading="lazy" decoding="async" src="{% getUrl '/assets/images/building2.jpg' | resize({ height: 500, width: 500 }) | webp %}" alt="mechanic" width="413" height="500">
+            </picture>
+            <!--Top Right image-->
+            <picture class="cs-picture cs-picture2">
+                <!--Mobile Image-->
+                <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/image_black.png' | webp %}">
+                <!--Tablet and above Image-->
+                <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/image_black.png' | webp %}">
+                <img loading="lazy" decoding="async" src="{% getUrl '/assets/images/image_black.png' | webp %}" alt="mechanic" style="object-fit: scale-down;">
+            </picture>
+        </div>
+        <div class="cs-content">
+            <!-- <span class="cs-topper">About us</span> -->
+            <h2 class="cs-title">Property Management</h2>
+            <p class="cs-text">
+                The Johnson Commercial Group offers exceptional property management services that provide the single greatest benefit to our clients, the property owners. By enlisting our services, property owners can enjoy excellent value and peace of mind with minimum risk and stress.
+            </p>
+            <p class="cs-text">
+                Our property management team is dedicated to delivering exceptional service and ensuring that our clients' properties are well-maintained and profitable. We achieve this through extensive marketing, detailed tenant screening, systematic rent collection, and prompt property maintenance, which ensures that our clients receive top-dollar rental rates, and their properties remain in excellent condition. 
+            </p>
+            <p class="cs-text">
+                We pride ourselves on being responsive to our clients' needs and providing timely, professional, and effective property management services. <a  class="cs-text" href="mailto:chris@jcgok.com?subject=Website%20Inquiry" style="color: #b60201;">Let us help</a> you maximize the value of your property investment and minimize the stress of property ownership.
+            </p>
+            <!-- <a href="" class="cs-button-solid">View All Collections</a> -->
+        </div>
+    </div>
+</section>
+
+
+<div class="custom-shape-divider-bottom-1744207899">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M1200 0L0 0 892.25 114.72 1200 0z" class="shape-fill"></path>
+    </svg>
+</div>
+
+
+<style>
+    .custom-shape-divider-bottom-1744207899 {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+    background-color: #e9e9e9;
+}
+
+.custom-shape-divider-bottom-1744207899 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 98px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1744207899 .shape-fill {
+    fill: #FFFFFF;
+}
+</style>
+<!-- ============================================ -->
+<!--                Side By Side                  -->
+<!-- ============================================ -->
+
+<section id="RPsbs-1593">
+    <div class="cs-container">
+        <div class="cs-image-group">
+            <!--Top left image-->
+            <picture class="cs-picture cs-picture1">
+                <!--Mobile Image-->
+                <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/handshake.jpg' | resize({ height: 500, width: 500 }) | webp %}">
+                <!--Tablet and above Image-->
+                <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/handshake.jpg' | resize({ height: 1000, width: 1000 }) | webp %}">
+                <img loading="lazy" decoding="async" src="{% getUrl '/assets/images/handshake.jpg' | resize({ height: 1000, width: 1000 }) | webp %}" alt="mechanic" width="413" height="500">
+            </picture>
+            <!--Top Right image-->
+            <picture class="cs-picture cs-picture2">
+                <!--Mobile Image-->
+                <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/image_black.png' | webp %}">
+                <!--Tablet and above Image-->
+                <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/image_black.png' | webp %}">
+                <img loading="lazy" decoding="async" src="{% getUrl '/assets/images/image_black.png' | webp %}" alt="mechanic" style="object-fit: scale-down;">
+            </picture>
+        </div>
+        <div class="cs-content">
+            <!-- <span class="cs-topper">About us</span> -->
+            <h2 class="cs-title">Landlord Representation</h2>
+            <p class="cs-text">
+                At Johnson Commercial Group, we specialize in top-tier landlord representation services that get your property noticed. Our team of professionals goes the extra mile by employing professional photography and creating detailed floorplans, ensuring your property is presented in the best light. But we don't stop there – we strategically promote your listings to maximize visibility and attract a wide range of potential tenants. Experience unparalleled service and results with Johnson Commercial Group – your partner in successful property leasing.
+            </p>
+            <p class="cs-text">
+                <a class="cs-text" href="mailto:chris@jcgok.com?subject=Website%20Inquiry" style="color: #b60201;">Contact Us Today</a> to learn more about how we can help you build and grow your commercial real estate portfolio.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!--             Side By Side Reverse             -->
+<!-- ============================================ -->
+
+
+
+<div class="custom-shape-divider-bottom-1744207563">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="shape-fill"></path>
+    </svg>
+</div>
+<style>
+    .custom-shape-divider-bottom-1744207563 {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1744207563 svg {
+    position: relative;
+    display: block;
+    width: calc(145% + 1.3px);
+    height: 98px;
+}
+
+.custom-shape-divider-bottom-1744207563 .shape-fill {
+    fill: #e9e9e9;
+}
+</style>
+
+<section id="RPsbsr-1593">
+    <div class="cs-container">
+        <div class="cs-image-group">
+            <!--Top left image-->
+            <picture class="cs-picture cs-picture1">
+                <!--Mobile Image-->
+                <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/businessman.jpg' | resize({ height: 500, width: 500 }) | webp %}">
+                <!--Tablet and above Image-->
+                <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/businessman.jpg' | resize({ height: 500, width: 500 }) | webp %}">
+                <img loading="lazy" decoding="async" src="{% getUrl '/assets/images/businessman.jpg' | resize({ height: 500, width: 500 }) | webp %}" alt="mechanic" width="413" height="500">
+            </picture>
+            <!--Top Right image-->
+            <picture class="cs-picture cs-picture2">
+                <!--Mobile Image-->
+                <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/image_black.png' | webp %}">
+                <!--Tablet and above Image-->
+                <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/image_black.png' | webp %}">
+                <img loading="lazy" decoding="async" src="{% getUrl '/assets/images/image_black.png' | webp %}" alt="mechanic" style="object-fit: scale-down;">
+            </picture>
+        </div>
+        <div class="cs-content">
+            <!-- <span class="cs-topper">About us</span> -->
+            <h2 class="cs-title">Tenant Representation</h2>
+            <p class="cs-text">
+                Our team offers customized commercial space solutions for businesses of all sizes, including office, industrial and retail users. Our tenant representation specialists are dedicated to helping clients achieve occupancy cost savings while meeting their specific needs. We provide a range of services, including site selection and acquisition, market analysis and needs assessment, strategic marketing, transaction management, and property management. 
+            </p>
+            <p class="cs-text" style="color: #b60201; text-decoration: underline;">Partner with us for expert representation services.</p>
+            <ul class="cs-text" style="padding: 1rem">
+                <li class="cs-text">Site selection and acquisition </li>
+                <li class="cs-text">Market analysis and needs assessment </li>
+                <li class="cs-text">Strategic marketing </li>
+                <li class="cs-text">Transaction management </li>
+                <li class="cs-text">Property Management</li>
+            </ul>
+
+            <!-- <a href="" class="cs-button-solid">View All Collections</a> -->
+        </div>
+    </div>
+</section>
+                                
+{% endblock %}

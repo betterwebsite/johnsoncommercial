@@ -1,19 +1,17 @@
-<!-- ============================================ -->
-<!--                 Navigation                   -->
-<!-- ============================================ -->
+<!-- 
+
+
 
 <header id="cs-navigation">
-    <!--Nav Logo-->
     <a href="" class="cs-logo cs-desktop" aria-label="back to home">
         <div class="cs-logo-wrapper">
-            <!--Default Logo-->
             <img class="cs-default" src="/assets/images/NewProject.png" alt="logo" width="210" height="29" aria-hidden="true" decoding="async">
-            <!--Dark Mode Logo-->
+            
             <img class="cs-dark" src="/assets/images/NewProject.png" alt="logo" width="210" height="29" aria-hidden="true" decoding="async">
         </div>
     </a>
     <div class="cs-middle">
-        <!--Top Bar-->
+        
         <div class="cs-top-bar">
             <div class="cs-top-social">
                 <a href="https://www.facebook.com/JohnsonCommercialGroup?mibextid=LQQJ4d" class="cs-social-link" target="_blank">
@@ -33,15 +31,15 @@
         <div class="cs-bottom-bar">
             <a href="" class="cs-logo cs-mobile" aria-label="back to home">
                 <div class="cs-logo-wrapper">
-                    <!--Default Logo-->
+                    
                     <img class="cs-default" src="/assets/images/logo1.png" alt="logo" width="210" height="29" aria-hidden="true" decoding="async">
-                    <!--Dark Mode Logo-->
+                    
                     <img class="cs-dark" src="/assets/images/logo1.png" alt="logo" width="210" height="29" aria-hidden="true" decoding="async">
                 </div>
             </a>
-            <!--Navigation List-->
+            
             <nav class="cs-nav" role="navigation">
-                <!--Mobile Nav Toggle-->
+                
                 <button class="cs-toggle" aria-label="mobile menu toggle">
                     <div class="cs-box" aria-hidden="true">
                         <span class="cs-line cs-line1" aria-hidden="true"></span>
@@ -49,19 +47,13 @@
                         <span class="cs-line cs-line3" aria-hidden="true"></span>
                     </div>
                 </button>
-                <!-- We need a wrapper div so we can set a fixed height on the cs-ul in case the nav list gets too long from too many dropdowns being opened and needs to have an overflow scroll. This wrapper acts as the background so it can go the full height of the screen and not cut off any overflowing nav items while the cs-ul stops short of the bottom of the screen, which keeps all nav items in view no matter how mnay there are-->
+                
                 <div class="cs-ul-wrapper">
                     <ul id="cs-expanded" class="cs-ul" aria-expanded="false">
                         <li class="cs-li">
                             <a href="/" class="cs-li-link  {{ 'cs-active' if '' == page.fileSlug }}">
                                 Home
                             </a>
-                        </li>
-                        <!-- <li class="cs-li">
-                            <a href="/listings" class="cs-li-link  {{ 'cs-active' if 'listings' == page.fileSlug }}">
-                                Listings (Leaflet Map)
-                            </a>
-                        </li> -->
                         <li class="cs-li">
                             <a href="/listings" class="cs-li-link  {{ 'cs-active' if 'listings' == page.fileSlug }}">
                                 Listings
@@ -72,51 +64,109 @@
                                 About
                             </a>
                         </li>
-                        <!-- <li class="cs-li">
-                            <a href="" class="cs-li-link">
+                        <li class="cs-li">
+                            <a href="/services" class="cs-li-link {{ 'cs-active' if 'services' == page.fileSlug }}">
                                 Services
                             </a>
-                        </li> -->
+                        </li>
+                        <li class="cs-li">
+                            <a target="_blank" href="https://www.google.com/search?sca_esv=0843d60fe31b3c05&rlz=1C1UEAD_enUS1156US1156&sxsrf=AHTn8zoDl-861CBiS1GOkSjebEEDabKNHA:1744209121308&si=APYL9bs7Hg2KMLB-4tSoTdxuOx8BdRvHbByC_AuVpNyh0x2KzdvNdGpL-dLofteuKpR3IXHNk5NbrCh8PuQR3VkppBoDSWTUw61ZkcGcjkij5YtPTY9SQjqT4f4YUDOwoDhCVLMVu4Lcm_DOuRWpXs4isLBLM1-0kc_4HKez-taA5bJi47kWIbs%3D&q=Johnson+Commercial+Group+-+Brick+%26+Beam+Realty+Reviews&sa=X&ved=2ahUKEwizwduolcuMAxVGMdAFHWecFpsQ0bkNegQIOxAE&biw=1920&bih=945" class="cs-li-link">
+                                Reviews
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
-            <!-- <a class="cs-nav-button cs-tablet" href="">
-                <picture class="cs-wrapper">
-                    <img class="cs-icon" loading="lazy" decoding="async" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/red-phone1.svg" alt="icon" width="24" height="24">
-                </picture>
-                <div class="cs-info">
-                    <span class="cs-header">Free Contact 24/7</span>
-                    <span class="cs-link-content">(604) 555-0234</span>
-                </div>
-            </a> -->
-            <!-- <a href="" class="cs-button-border">
-                Get In Touch
-                <img class="cs-icon" loading="lazy" decoding="async" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/up-right-arrow.svg" alt="icon" width="20" height="20">
-            </a> -->
+            
+            </a> 
+            
             <a class="cs-button-border" style="padding: 0;border: none;">
                 <img class="cs-icon" loading="lazy" decoding="async" src="/assets/images/b&b.svg" alt="icon" width="100" height="50" style="width: 14.5rem;">
             </a>
-            <!--Dark Mode toggle, uncomment button code if you want to enable a dark mode toggle-->
-            <!-- <button id="dark-mode-toggle" aria-label="dark mode toggle">
-                <svg class="cs-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" style="enable-background:new 0 0 480 480" xml:space="preserve"><path d="M459.782 347.328c-4.288-5.28-11.488-7.232-17.824-4.96-17.76 6.368-37.024 9.632-57.312 9.632-97.056 0-176-78.976-176-176 0-58.4 28.832-112.768 77.12-145.472 5.472-3.712 8.096-10.4 6.624-16.832S285.638 2.4 279.078 1.44C271.59.352 264.134 0 256.646 0c-132.352 0-240 107.648-240 240s107.648 240 240 240c84 0 160.416-42.688 204.352-114.176 3.552-5.792 3.04-13.184-1.216-18.496z"/></svg>
-                <img class="cs-sun" aria-hidden="true" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons%2Fsun.svg" decoding="async" alt="moon" width="15" height="15">
-            </button> -->
+            
+        
         </div>
     </div>
-    <!-- <div class="cs-contact-wrapper"> -->
-        <!-- <a class="cs-desktop-button" href=""> -->
-            <!-- <picture class="cs-wrapper">
-                <img class="cs-button-icon" loading="lazy" decoding="async" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/red-phone1.svg" alt="icon" width="24" height="24">
-            </picture> -->
-            <!-- <div class="cs-info"> -->
-                <!-- <a href="tel:4054353572"><span class="cs-link-content">C: (405) 435-3572</span></a> -->
-                <!-- <a href="tel:4054399206"><span class="cs-link-content">O: (405) 439-9206</span></a> -->
-            <!-- </div> -->
-        <!-- </a> -->
-    <!-- </div> -->
+    
+    
+            
+                
+                
+            
+        
+    
 
 
 
 </header>
                                 
+                                 -->
+
+<!-- ============================================ -->
+<!--                 Navigation                   -->
+<!-- ============================================ -->
+
+<header id="cs-navigation">
+    <!--Nav Logo-->
+    <a href="" class="large_on_mobile" aria-label="back to home" style="background-color: white;width: 30%;padding: 4px;position: absolute;top: 0;left: 0;z-index: 100;height: 100%;display: flex;align-items: center;">
+            <img src="/assets/images/NewProject.png" alt="logo" aria-hidden="true" decoding="async" style="width: 100%;height: 100%;object-fit: contain;">
+            <img src="/assets/images/b&b.png" alt="logo" aria-hidden="true" decoding="async" style="width: 30%;height: 100%;object-fit: contain;border-right: 1px solid black;padding-right: 1rem;">
+    </a>
+    <!--Navigation List-->
+    <nav class="cs-nav" role="navigation" style="margin-left: auto;margin-right: 0;order: -1;">
+        <!--Mobile Nav Toggle-->
+        <button class="cs-toggle" aria-label="mobile menu toggle">
+            <div class="cs-box" aria-hidden="true">
+                <span class="cs-line cs-line1" aria-hidden="true"></span>
+                <span class="cs-line cs-line2" aria-hidden="true"></span>
+                <span class="cs-line cs-line3" aria-hidden="true"></span>
+            </div>
+        </button>
+        <!-- We need a wrapper div so we can set a fixed height on the cs-ul in case the nav list gets too long from too many dropdowns being opened and needs to have an overflow scroll. This wrapper acts as the background so it can go the full height of the screen and not cut off any overflowing nav items while the cs-ul stops short of the bottom of the screen, which keeps all nav items in view no matter how many there are-->
+        <div class="cs-ul-wrapper" style="box-shadow: none;">
+            <ul id="cs-expanded" class="cs-ul">
+                <li class="cs-li">
+                    <a href="/" class="cs-li-link {{ 'cs-active' if '' == page.fileSlug }}">
+                        Home
+                    </a>
+                </li>
+                <li class="cs-li">
+                    <a href="/listings" class="cs-li-link {{ 'cs-active' if 'listings' == page.fileSlug }}">
+                        Listings
+                    </a>
+                </li>
+                <li class="cs-li">
+                    <a href="/about" class="cs-li-link {{ 'cs-active' if 'about' == page.fileSlug }}">
+                        About
+                    </a>
+                </li>
+                <li class="cs-li">
+                    <a href="/services" class="cs-li-link {{ 'cs-active' if 'services' == page.fileSlug }}">
+                        Services
+                    </a>
+                </li>
+                <li class="cs-li">
+                    <a target="_blank" href="https://www.google.com/search?sca_esv=0843d60fe31b3c05&rlz=1C1UEAD_enUS1156US1156&sxsrf=AHTn8zoDl-861CBiS1GOkSjebEEDabKNHA:1744209121308&si=APYL9bs7Hg2KMLB-4tSoTdxuOx8BdRvHbByC_AuVpNyh0x2KzdvNdGpL-dLofteuKpR3IXHNk5NbrCh8PuQR3VkppBoDSWTUw61ZkcGcjkij5YtPTY9SQjqT4f4YUDOwoDhCVLMVu4Lcm_DOuRWpXs4isLBLM1-0kc_4HKez-taA5bJi47kWIbs%3D&q=Johnson+Commercial+Group+-+Brick+%26+Beam+Realty+Reviews&sa=X&ved=2ahUKEwizwduolcuMAxVGMdAFHWecFpsQ0bkNegQIOxAE&biw=1920&bih=945" class="cs-li-link">
+                        Reviews
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div style="margin: 0 0 0 auto;display: flex;">
+        <a href="https://www.instagram.com/johnson.commercial.group/" target="_blank"><img src="/assets/svgs/social/instagram.svg" alt="logo" aria-hidden="true" decoding="async" style="padding:3px;width: 40px;height: 100%;object-fit: contain;"></a>
+        <a href="https://www.facebook.com/JohnsonCommercialGroup" target="_blank"><img src="/assets/svgs/social/facebook.svg" alt="logo" aria-hidden="true" decoding="async" style="padding:3px;width: 40px;height: 100%;object-fit: contain;"></a>
+        <a href="https://www.linkedin.com/company/johnson-commercial-group/" target="_blank"><img src="/assets/svgs/social/linkedin.svg" alt="logo" aria-hidden="true" decoding="async" style="padding:3px;width: 40px;height: 100%;object-fit: contain;"></a>
+    </div>
+    <!--Dark Mode toggle, uncomment button code if you want to enable a dark mode toggle-->
+    <!-- <button id="dark-mode-toggle" aria-label="dark mode toggle">
+        <svg class="cs-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" style="enable-background:new 0 0 480 480" xml:space="preserve"><path d="M459.782 347.328c-4.288-5.28-11.488-7.232-17.824-4.96-17.76 6.368-37.024 9.632-57.312 9.632-97.056 0-176-78.976-176-176 0-58.4 28.832-112.768 77.12-145.472 5.472-3.712 8.096-10.4 6.624-16.832S285.638 2.4 279.078 1.44C271.59.352 264.134 0 256.646 0c-132.352 0-240 107.648-240 240s107.648 240 240 240c84 0 160.416-42.688 204.352-114.176 3.552-5.792 3.04-13.184-1.216-18.496z"/></svg>
+        <img class="cs-sun" aria-hidden="true" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons%2Fsun.svg" decoding="async" alt="moon" width="15" height="15">
+    </button> -->
+</header>
+
                                 
+
+
+
+
