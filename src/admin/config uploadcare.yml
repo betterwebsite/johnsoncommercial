@@ -169,7 +169,7 @@ collections:
                       - label: Listing Type
                         name: listing_type
                         widget: select
-                        options: ["sale", "lease", "both", "sold"]
+                        options: ["sale", "lease", "both", "closed"]
                         default: "sale"
 
                       - label: Property Type

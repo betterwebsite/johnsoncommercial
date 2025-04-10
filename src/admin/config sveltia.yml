@@ -2,6 +2,11 @@ backend:
     name: github
     repo: betterwebsite/johnsoncommercialLESS
 
+media_library:
+  name: uploadcare
+  config:
+    publicKey: 4bb2bfa91b9bf261537f
+
 
 
 local_backend: true
@@ -16,130 +21,6 @@ media_folder: src/assets/images/cms
 public_folder: /assets/images/cms
 
 collections:
-    # SETTINGS CONFIG
-    - label: Settings
-      name: settings
-      delete: false
-      editor:
-          preview: false
-      files:
-          - label: Website Settings
-            name: website_settings
-            file: src/_data/client.json
-            description: Allows a client to update their own contact information, through the default client.json file
-            fields:
-                - label: Business Name
-                  name: name
-                  widget: string
-                  summary: Used in browser tab and sharing links
-
-                - label: Email
-                  name: email
-                  widget: string
-                  summary: Main email for customers to contact you
-
-                - label: Unformatted Telephone
-                  name: phoneForTel
-                  widget: string
-                  summary: Used for clickable links to phone. Enter in format xxx-xxx-xxxx
-
-                - label: Formatted Telephone
-                  name: phoneFormatted
-                  widget: string
-                  summary: Used for display on website. Enter in your preferred format
-
-                - label: Address
-                  name: address
-                  widget: object
-                  collapsed: true
-                  fields:
-                      - label: Address Line One
-                        name: lineOne
-                        widget: string
-
-                      - label: Address Line Two
-                        name: lineTwo
-                        widget: string
-
-                      - label: City
-                        name: city
-                        widget: string
-
-                      - label: State
-                        name: state
-                        widget: string
-
-                      - label: Zip Code
-                        name: zip
-                        widget: string
-
-                      - label: Google Maps Link
-                        name: mapLink
-                        widget: string
-                        summary: Provide a Google Maps share link to guide visitors to your physical locations
-
-                - label: Social Media
-                  name: social
-                  widget: object
-                  collapsed: true
-                  fields:
-                      - label: Facebook
-                        name: facebook
-                        widget: string
-
-                      - label: Twitter
-                        name: twitter
-                        widget: string
-
-                      - label: Instagram
-                        name: instagram
-                        widget: string
-
-                      - label: Youtube
-                        name: youtube
-                        widget: string
-
-    # BLOG CONFIG
-    - label: Blog
-      name: blog
-      folder: src/content/blog
-      create: true
-      slug: "{{slug}}"
-      fields:
-          - label: Title
-            name: title
-            widget: string
-
-          - label: Description
-            name: description
-            widget: string
-
-          - label: Author
-            name: author
-            widget: string
-
-          - label: Date
-            name: date
-            widget: datetime
-
-          - label: Tags
-            name: tags
-            widget: list
-            default:
-                - post
-
-          - label: Featured Image
-            name: image
-            widget: image
-
-          - label: Image Caption
-            name: imageAlt
-            widget: string
-
-          - label: Body
-            name: body
-            widget: markdown
-
     # Listings CONFIG
     - label: Listings
       name: listings
@@ -297,6 +178,17 @@ collections:
                         media_library:
                           config:
                             multiple: true
+
+                      - name: gallery
+                        label: Gallery
+                        widget: list
+                        required: false
+                        allow_add: true
+                        summary: "{{fields.image}}"
+                        field:
+                          name: image
+                          label: Image
+                          widget: image
 
 
 
