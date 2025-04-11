@@ -5,10 +5,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
         <title>Content Manager</title>
+        <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" async></script>
+        <script>
+          window.addEventListener('load', function () {
+            const waitForUploadcare = setInterval(() => {
+              if (window.uploadcare) {
+                clearInterval(waitForUploadcare);
+        
+                fetch('/.netlify/functions/uploadcare-signature')
+                  .then(res => res.json())
+                  .then(({ secureSignature, secureExpire }) => {
+                    // Set global settings BEFORE any widgets are created
+                    uploadcare.settings.set('secureSignature', secureSignature);
+                    uploadcare.settings.set('secureExpire', secureExpire);
+        
+                    console.log("✅ Uploadcare secure settings applied globally.");
+                  })
+                  .catch((err) => console.error("🔴 Failed to fetch Uploadcare signature:", err));
+              }
+            }, 100);
+          });
+        </script>
         
     </head>
     <body>
-        <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" async></script>
+        
 
         <!-- Include the script that builds the page and powers Decap CMS -->
         <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script> -->
@@ -90,26 +111,7 @@
 
 
 
-          
-<script>
-  window.addEventListener('load', function () {
-    const waitForUploadcare = setInterval(() => {
-      if (window.uploadcare) {
-        clearInterval(waitForUploadcare);
-        fetch('/.netlify/functions/uploadcare-signature')
-          .then(res => res.json())
-          .then(({ secureSignature, secureExpire }) => {
-            uploadcare.start({
-              secureSignature,
-              secureExpire,
-            });
-            console.log("✅ Secure Uploadcare config applied");
-          })
-          .catch((err) => console.error("🔴 Failed to fetch signature:", err));
-      }
-    }, 100);
-  });
-</script>
+      
 
     </body>
 </html>
