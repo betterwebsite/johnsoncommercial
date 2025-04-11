@@ -1,3 +1,4 @@
+const { triggerAsyncId } = require("async_hooks");
 const crypto = require("crypto");
 
 exports.handler = async function () {

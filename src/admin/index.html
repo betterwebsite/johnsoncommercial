@@ -3,44 +3,57 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Netlify Identity (if you use it) -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <title>Content Manager</title>
+  </head>
+  <body>
+    <!-- 1. Load Uploadcare synchronously -->
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"
+      data-uploadcare-public-key="4bb2bfa91b9bf261537f"
+      onload="initUploadcareAndLoadCMS();">
+    </script>
+  
     <script>
-      // Function to fetch the secure signature and reinitialize Uploadcare with secure options
-      function initUploadcare() {
+      function initUploadcareAndLoadCMS(){
+        // 2. Fetch your secure signature from your Netlify function
         fetch('/.netlify/functions/uploadcare-signature')
-          .then(res => res.json())
-          .then(({ secureSignature, secureExpire }) => {
-            if (window.uploadcare && typeof window.uploadcare.start === "function") {
-              // Call start() with secure options so that all widget instances pick up the secure settings.
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(data){
+            var secureSignature = data.secureSignature;
+            var secureExpire = data.secureExpire;
+            // 3. Apply secure settings via uploadcare.start()
+            if(window.uploadcare && typeof window.uploadcare.start === "function"){
               window.uploadcare.start({
                 secureSignature: secureSignature,
                 secureExpire: secureExpire
               });
               console.log("✅ Uploadcare secure settings applied globally via start().");
+              
+              // 4. Now that secure settings are applied, load Decap CMS.
+              var cmsScript = document.createElement("script");
+              cmsScript.src = "https://cdn.jsdelivr.net/npm/decap-cms@3.6.2/dist/decap-cms.js";
+              cmsScript.onload = function(){
+                console.log("✅ Decap CMS loaded.");
+              };
+              document.body.appendChild(cmsScript);
             } else {
-              console.error("Uploadcare is not available to call start()", window.uploadcare);
+              console.error("Uploadcare is not available to call start().", window.uploadcare);
             }
           })
-          .catch(err => console.error("🔴 Failed to fetch Uploadcare signature:", err));
+          .catch(function(err){
+            console.error("🔴 Failed to fetch Uploadcare signature:", err);
+          });
       }
     </script>
-  </head>
-  <body>
-    <!-- Load Uploadcare synchronously (no async attribute) so it’s ready when our init function runs -->
-    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"
-      data-uploadcare-public-key="4bb2bfa91b9bf261537f"
-      onload="initUploadcare();">
-    </script>
-
-    <!-- Load Decap CMS -->
-    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.6.2/dist/decap-cms.js"></script>
-
-    <!-- Your custom widgets, if any -->
+    
+    <!-- Load your custom widgets after CMS is loaded -->
     <script src="/admin/custom-widgets/mywidget.js"></script>
     <script src="/admin/custom-widgets/listingspreview.js"></script>
     <script src="/admin/custom-widgets/BulkImageUploadWidget.js"></script>
-
+    
     <!-- Additional custom scripts remain unchanged -->
     <script>
       window.addEventListener("message", function(e) {
@@ -78,14 +91,11 @@
             if (expandBtn) {
               expandBtn.click();
               listingContainer.scrollIntoView({ behavior: "smooth", block: "center" });
-            } else {
-              console.warn("No expand button found in the listing container for address", targetAddress);
             }
-          } else {
-            console.warn("No listing container found for address", targetAddress);
           }
         }
       });
     </script>
+  
   </body>
 </html>
