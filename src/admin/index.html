@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Netlify Identity (if you use it) -->
+    <!-- Netlify Identity (if using it) -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <title>Content Manager</title>
   </head>
@@ -11,28 +11,28 @@
     <!-- 1. Load Uploadcare synchronously -->
     <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"
       data-uploadcare-public-key="4bb2bfa91b9bf261537f"
-      onload="initUploadcareAndLoadCMS();">
+      onload="initUploadcareAndThenLoadCMS();">
     </script>
-  
+    
     <script>
-      function initUploadcareAndLoadCMS(){
-        // 2. Fetch your secure signature from your Netlify function
+      function initUploadcareAndThenLoadCMS(){
+        // 2. Fetch the secure signature from our backend Netlify function.
         fetch('/.netlify/functions/uploadcare-signature')
-          .then(function(response) {
+          .then(function(response){
             return response.json();
           })
           .then(function(data){
             var secureSignature = data.secureSignature;
             var secureExpire = data.secureExpire;
-            // 3. Apply secure settings via uploadcare.start()
+            // 3. Call uploadcare.start() with secure options.
             if(window.uploadcare && typeof window.uploadcare.start === "function"){
               window.uploadcare.start({
                 secureSignature: secureSignature,
                 secureExpire: secureExpire
               });
-              console.log("✅ Uploadcare secure settings applied globally via start().");
+              console.log("✅ Uploadcare secure settings applied via start().");
               
-              // 4. Now that secure settings are applied, load Decap CMS.
+              // 4. Now that Uploadcare is configured, dynamically load the Decap CMS script.
               var cmsScript = document.createElement("script");
               cmsScript.src = "https://cdn.jsdelivr.net/npm/decap-cms@3.6.2/dist/decap-cms.js";
               cmsScript.onload = function(){
@@ -49,30 +49,25 @@
       }
     </script>
     
-    <!-- Load your custom widgets after CMS is loaded -->
+    <!-- Place any custom widget scripts that depend on Decap CMS below -->
     <script src="/admin/custom-widgets/mywidget.js"></script>
     <script src="/admin/custom-widgets/listingspreview.js"></script>
     <script src="/admin/custom-widgets/BulkImageUploadWidget.js"></script>
     
-    <!-- Additional custom scripts remain unchanged -->
+    <!-- Additional custom scripts (if any) can follow -->
     <script>
+      // Example: Your auto-expander script remains unchanged.
       window.addEventListener("message", function(e) {
         if (e.data && e.data.action === "focusListingByAddress") {
           var targetAddress = e.data.address.trim();
           var container = document.getElementById("listings-field-1");
-          if (!container) {
-            console.warn("No listings container (id='listings-field-1') found");
-            return;
-          }
+          if (!container) return;
           
           var escapedAddress = targetAddress.replace(/'/g, "\\'");
           var xpath = ".//div[normalize-space(text()) = '" + escapedAddress + "']";
           var result = document.evaluate(xpath, container, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
           
-          if (result.snapshotLength === 0) {
-            console.warn("No element found with address:", targetAddress);
-            return;
-          }
+          if (result.snapshotLength === 0) return;
           
           var addressElement = result.snapshotItem(0);
           var current = addressElement;
@@ -96,6 +91,5 @@
         }
       });
     </script>
-  
   </body>
 </html>
