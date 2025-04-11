@@ -9,26 +9,20 @@
     </head>
     <body>
         <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" async></script>
-        <script>
-          window.addEventListener('load', function () {
-            const waitForUploadcare = setInterval(() => {
-              if (window.uploadcare) {
-                clearInterval(waitForUploadcare);
-        
-                fetch('/.netlify/functions/uploadcare-signature')
-                  .then(res => res.json())
-                  .then(({ secureSignature, secureExpire }) => {
-                    // Set global settings BEFORE any widgets are created
-                    uploadcare.settings.set('secureSignature', secureSignature);
-                    uploadcare.settings.set('secureExpire', secureExpire);
-        
-                    console.log("✅ Uploadcare secure settings applied globally.");
-                  })
-                  .catch((err) => console.error("🔴 Failed to fetch Uploadcare signature:", err));
-              }
-            }, 100);
-          });
-        </script>
+        <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"
+        data-uploadcare-public-key="4bb2bfa91b9bf261537f"
+        onload="
+          fetch('/.netlify/functions/uploadcare-signature')
+            .then(res => res.json())
+            .then(({ secureSignature, secureExpire }) => {
+              uploadcare.settings.set('secureSignature', secureSignature);
+              uploadcare.settings.set('secureExpire', secureExpire);
+              console.log('✅ Uploadcare secure settings applied globally.');
+            })
+            .catch(err => console.error('🔴 Failed to fetch Uploadcare signature:', err));
+        ">
+</script>
+
 
         <!-- Include the script that builds the page and powers Decap CMS -->
         <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script> -->
