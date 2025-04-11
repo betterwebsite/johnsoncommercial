@@ -89,16 +89,22 @@
 
           
 <script>
-  if (window.uploadcare) {
-    fetch("/.netlify/functions/uploadcare-signature")
-      .then(res => res.json())
-      .then(({ secureSignature, secureExpire }) => {
-        uploadcare.start({
-          secureSignature,
-          secureExpire,
-        });
-      });
-  }
+  window.addEventListener('load', function () {
+    if (window.uploadcare) {
+      fetch('/.netlify/functions/uploadcare-signature')
+        .then(res => res.json())
+        .then(({ secureSignature, secureExpire }) => {
+          uploadcare.start({
+            secureSignature,
+            secureExpire,
+          });
+          console.log("✅ Uploadcare signed upload configured.");
+        })
+        .catch((err) => console.error("🔴 Uploadcare signature error:", err));
+    } else {
+      console.error("🔴 Uploadcare not loaded");
+    }
+  });
 </script>
     </body>
 </html>
