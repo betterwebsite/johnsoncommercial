@@ -5,8 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
         <title>Content Manager</title>
+        
     </head>
     <body>
+        <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" async></script>
+
         <!-- Include the script that builds the page and powers Decap CMS -->
         <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script> -->
         <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.6.2/dist/decap-cms.js"></script>
@@ -90,21 +93,23 @@
           
 <script>
   window.addEventListener('load', function () {
-    if (window.uploadcare) {
-      fetch('/.netlify/functions/uploadcare-signature')
-        .then(res => res.json())
-        .then(({ secureSignature, secureExpire }) => {
-          uploadcare.start({
-            secureSignature,
-            secureExpire,
-          });
-          console.log("✅ Uploadcare signed upload configured.");
-        })
-        .catch((err) => console.error("🔴 Uploadcare signature error:", err));
-    } else {
-      console.error("🔴 Uploadcare not loaded");
-    }
+    const waitForUploadcare = setInterval(() => {
+      if (window.uploadcare) {
+        clearInterval(waitForUploadcare);
+        fetch('/.netlify/functions/uploadcare-signature')
+          .then(res => res.json())
+          .then(({ secureSignature, secureExpire }) => {
+            uploadcare.start({
+              secureSignature,
+              secureExpire,
+            });
+            console.log("✅ Secure Uploadcare config applied");
+          })
+          .catch((err) => console.error("🔴 Failed to fetch signature:", err));
+      }
+    }, 100);
   });
 </script>
+
     </body>
 </html>
