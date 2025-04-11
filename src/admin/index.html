@@ -5,48 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <title>Content Manager</title>
-    <!-- Define our function to fetch the signature and set Uploadcare settings -->
     <script>
+      // Function to fetch the secure signature and reinitialize Uploadcare with secure options
       function initUploadcare() {
         fetch('/.netlify/functions/uploadcare-signature')
-          .then(function(res) {
-            return res.json();
-          })
-          .then(function(data) {
-            const { secureSignature, secureExpire } = data;
-            if (window.uploadcare && window.uploadcare.settings) {
-              window.uploadcare.settings.set('secureSignature', secureSignature);
-              window.uploadcare.settings.set('secureExpire', secureExpire);
-              console.log('✅ Uploadcare secure settings applied globally.');
+          .then(res => res.json())
+          .then(({ secureSignature, secureExpire }) => {
+            if (window.uploadcare && typeof window.uploadcare.start === "function") {
+              // Call start() with secure options so that all widget instances pick up the secure settings.
+              window.uploadcare.start({
+                secureSignature: secureSignature,
+                secureExpire: secureExpire
+              });
+              console.log("✅ Uploadcare secure settings applied globally via start().");
             } else {
-              console.error('Uploadcare is not available yet:', window.uploadcare);
+              console.error("Uploadcare is not available to call start()", window.uploadcare);
             }
           })
-          .catch(function(err) {
-            console.error('🔴 Failed to fetch Uploadcare signature:', err);
-          });
+          .catch(err => console.error("🔴 Failed to fetch Uploadcare signature:", err));
       }
     </script>
   </head>
   <body>
-    <!-- Load Uploadcare synchronously (removed async) so it’s available immediately -->
-    <script
-      src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"
+    <!-- Load Uploadcare synchronously (no async attribute) so it’s ready when our init function runs -->
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"
       data-uploadcare-public-key="4bb2bfa91b9bf261537f"
       onload="initUploadcare();">
     </script>
 
-    <!-- Decap CMS -->
+    <!-- Load Decap CMS -->
     <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.6.2/dist/decap-cms.js"></script>
 
-    <!-- Custom Widgets (if any) -->
+    <!-- Your custom widgets, if any -->
     <script src="/admin/custom-widgets/mywidget.js"></script>
     <script src="/admin/custom-widgets/listingspreview.js"></script>
     <script src="/admin/custom-widgets/BulkImageUploadWidget.js"></script>
-    
-    <!-- Any additional custom scripts -->
+
+    <!-- Additional custom scripts remain unchanged -->
     <script>
-      window.addEventListener("message", function (e) {
+      window.addEventListener("message", function(e) {
         if (e.data && e.data.action === "focusListingByAddress") {
           var targetAddress = e.data.address.trim();
           var container = document.getElementById("listings-field-1");
