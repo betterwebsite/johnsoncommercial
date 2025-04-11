@@ -8,20 +8,24 @@
         
     </head>
     <body>
-        <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" async></script>
+        <!-- Uploadcare Secure Upload Script -->
         <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"
         data-uploadcare-public-key="4bb2bfa91b9bf261537f"
-        onload="
+        onload="(function(){
           fetch('/.netlify/functions/uploadcare-signature')
             .then(res => res.json())
             .then(({ secureSignature, secureExpire }) => {
-              uploadcare.settings.set('secureSignature', secureSignature);
-              uploadcare.settings.set('secureExpire', secureExpire);
-              console.log('✅ Uploadcare secure settings applied globally.');
+              if (window.uploadcare) {
+                uploadcare.settings.set('secureSignature', secureSignature);
+                uploadcare.settings.set('secureExpire', secureExpire);
+                console.log('✅ Uploadcare secure settings applied globally.');
+              } else {
+                console.error('🔴 Uploadcare is not available');
+              }
             })
             .catch(err => console.error('🔴 Failed to fetch Uploadcare signature:', err));
-        ">
-</script>
+        })();">
+      </script>
 
 
         <!-- Include the script that builds the page and powers Decap CMS -->
