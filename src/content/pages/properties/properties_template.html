@@ -294,35 +294,16 @@ function formatToUSDollars(amount) {
     <div id="imgtext"></div>
   </div>
 
-  {% if property.image or (property.additional_images and property.additional_images.length > 0) %}
+  {% if property.images and property.images.length > 0 %}
   <div class="row">
-    {% if property.image %}
-    {% if property.additional_images.length > 0 %}
-      <div class="column">
-        <div class="tile">
-          <img src="{{ property.image }}" style="width:100%" onclick="myFunction(this);" data-url="{{ property.image }}" >
-        </div>
-      </div>
-      
-      {% else %}
-      <div class="column">
-        <div class="tile" style="display: none;">
-          <img src="{{ property.image }}" style="width:100%" onclick="myFunction(this);" data-url="{{ property.image }}">
-        </div>
-      </div>
 
-    {% endif %}
-    {% endif %}
-
-    {% if property.additional_images %}
-      {% for img in property.additional_images %}
-        {% if img != property.image %}
+    {% if property.images %}
+      {% for img in property.images %}
           <div class="column">
             <div class="tile">
               <img src="{{ img }}" style="width:100%" onclick="myFunction(this);" data-url="{{ img }}">
             </div>
           </div>
-        {% endif %}
       {% endfor %}
     {% endif %}
   </div>

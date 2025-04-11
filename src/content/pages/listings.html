@@ -488,7 +488,7 @@ eleventyNavigation:
      onclick="window.location.href='/properties/{{ listing.address | slugify }}'">
 
       <div class="image-wrapper">
-        <img src="{{ listing.image }}" alt="{{ listing.address }}">
+        <img src="{{ listing.images[0] }}" alt="{{ listing.address }}">
         <div class="status-badge {{ listing.listing_type }}">
           {{ listing.listing_type | capitalize | replace("both", "For Sale/Lease") }}
         </div>
@@ -544,7 +544,7 @@ eleventyNavigation:
     const lat = {{ listing.location.lat or 0 }};
     const lng = {{ listing.location.lng or 0 }};
     const title = "{{ listing.address | escape }}";
-    const imageUrl = "{{ listing.image }}";
+    const imageUrl = "{{ listing.images[0] }}";
     const price = {% if listing.price.sale_price %}"{{ listing.price.sale_price | money }}"{% elif listing.price.lease_rate %}"{{ listing.price.lease_rate }}"{% else %}"N/A"{% endif %};
     const squareFeet = {% if listing.buildings[0].square_feet %}addCommasToFloat("{{ listing.buildings[0].square_feet}}") +" Sq Ft"{% else %}''{% endif %};
     const lotSize = {% if listing.buildings[0].lot_acres %}addCommasToFloat("{{ listing.buildings[0].lot_acres}}") +" acres"{% else %}''{% endif %};

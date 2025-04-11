@@ -107,8 +107,8 @@ var ListingsPreview = createClass({
               },
                 // Left container: image and address.
                 h("div", { style: { display: "flex", alignItems: "center" } },
-                  item.image && h("img", { 
-                    src: item.image, 
+                  item.images[0] && h("img", { 
+                    src: item.images[0], 
                     style: { width: "150px", height: "150px", objectFit: "cover", marginRight: "10px" } 
                   }),
                   h("span", { style: textStyle }, item.address || "No address")

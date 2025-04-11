@@ -11,7 +11,17 @@
         "caprate": 7,
         "zoning": "C2"
       },
-      "additional_images": [
+      "address": "1808 W Lindsey Street, Norman, OK 73069",
+      "listing_type": "sale",
+      "location": {
+        "state": "OK",
+        "city": "Norman",
+        "zipcode": "73069",
+        "lat": 35.20361057261892,
+        "lng": -97.4686254059876
+      },
+      "images": [
+        "https://ucarecdn.com/a83ace83-53f0-4398-a199-3aa08da2981f/",
         "https://ucarecdn.com/05aff345-1f5b-4a10-b215-a8adb39c4fb5/",
         "https://ucarecdn.com/82653607-1386-4c1f-a6c2-5b26d5ce1bea/",
         "https://ucarecdn.com/cff6f4fb-baa0-4e76-b308-88487abc9380/",
@@ -103,16 +113,6 @@
         "https://ucarecdn.com/8fb2149d-8f1c-4f4b-bae9-b6066a5a1076/",
         "https://ucarecdn.com/ee2f160d-cabf-4aef-916c-e7ac36b6ef74/"
       ],
-      "address": "1808 W Lindsey Street, Norman, OK 73069",
-      "listing_type": "sale",
-      "location": {
-        "state": "OK",
-        "city": "Norman",
-        "zipcode": "73069",
-        "lat": 35.20361057261892,
-        "lng": -97.4686254059876
-      },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/67cb38affe6d7a4d84cf5750/1741371572312/1808+West+Lindsey+Street%2C+Social+Media.png?format=1500w",
       "description": "This fully leased 7,200 SF retail center at 1808 W Lindsey St, Norman, OK is located at the SW corner of Lindsey St. and McGee St., just 1.5 miles from the University of Oklahoma. The property sits on 0.87 acres and is zoned C-2. Built in 2007, it features four units with NNN leases, 170 feet of frontage along Lindsey St., and 40 parking spaces. Situated in a high-traffic retail area with easy access to I-35, this property offers strong visibility and consistent foot traffic, making it a solid investment opportunity.",
       "buildings": [
         {
@@ -132,12 +132,23 @@
       "misc": {
         "zoning": "Commercial"
       },
-      "additional_images": [
+      "address": "201 W Main Street Purcell, OK 73080",
+      "listing_type": "sale",
+      "location": {
+        "state": "OK",
+        "city": "Norman",
+        "zipcode": "73069",
+        "lat": 35.01246049714646,
+        "lng": -97.36133646283355
+      },
+      "images": [
+        "https://ucarecdn.com/71d7bd32-534d-4c1b-b789-1d889a78f093/",
         "https://ucarecdn.com/5683ceb2-1bf4-4c7d-95b8-4552c2c9914d/",
         "https://ucarecdn.com/4dfee5b7-55dc-470b-bc98-b6e2fe166644/",
         "https://ucarecdn.com/e708bdfe-15ad-44e9-a3dc-a9359ecc87d3/",
         "https://ucarecdn.com/83512e33-bcd7-494e-8abc-af4b675c53bd/",
         "https://ucarecdn.com/12781f9b-ac79-4223-9a20-57a0a7a00016/",
+        "https://ucarecdn.com/455e6cb5-3918-4bff-a7fa-f1a31738fd3c/",
         "https://ucarecdn.com/4beb88d8-f1e4-4146-a17f-b73ebf701a44/",
         "https://ucarecdn.com/8e8da552-7bef-4313-b52c-99a682d20aad/",
         "https://ucarecdn.com/85c20220-9922-4d59-9b17-e15207bab631/",
@@ -195,16 +206,6 @@
         "https://ucarecdn.com/dc1b01db-9bb5-4a39-828d-1c621e086460/",
         "https://ucarecdn.com/33a22677-1eaf-4849-91f4-8e9d35147f0f/"
       ],
-      "address": "201 W Main Street Purcell, OK 73080",
-      "listing_type": "sale",
-      "location": {
-        "state": "OK",
-        "city": "Norman",
-        "zipcode": "73069",
-        "lat": 35.01246049714646,
-        "lng": -97.36133646283355
-      },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/676087f8c736aa28faf23a97/1734379518677/W+Main+St%2C+Purcell%2C+OK+73080.png?format=1500w",
       "description": "Prime investment opportunity in downtown Purcell! This two-story, 8,894 SF building on 1.76 lots features three units, one of which has a month-to-month tenant, while the other two are vacant. The property is being sold as-is, offering endless potential for redevelopment or income generation in a high-visibility location.",
       "buildings": [
         {
@@ -232,7 +233,17 @@
           "section_description": "$265,000"
         }
       ],
-      "additional_images": [
+      "address": "2700 S Sooner Dr, Moore, OK 73165",
+      "listing_type": "sale",
+      "location": {
+        "state": "OK",
+        "city": "Norman",
+        "zipcode": "73069",
+        "lat": 35.309385,
+        "lng": -97.434402
+      },
+      "images": [
+        "https://ucarecdn.com/076a119a-303e-4edd-b017-55c6430bc8a5/",
         "https://ucarecdn.com/64810d9a-5a7b-4565-bdf6-06bf42b3688c/",
         "https://ucarecdn.com/1bacc5d2-3247-43fc-af65-ff4ddfaaf6d4/",
         "https://ucarecdn.com/2273f118-8104-4daf-bc83-d97ad7215206/",
@@ -274,16 +285,6 @@
         "https://ucarecdn.com/0c306885-9e64-4624-9cfa-88b453d05c2d/",
         "https://ucarecdn.com/dcd5b4ab-5519-4f0e-b117-523869962774/"
       ],
-      "address": "2700 S Sooner Dr, Moore, OK 73165",
-      "listing_type": "sale",
-      "location": {
-        "state": "OK",
-        "city": "Norman",
-        "zipcode": "73069",
-        "lat": 35.309385,
-        "lng": -97.434402
-      },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/66cca7e5ecb9854a0777477a/1724688362342/1907+Sooner+Dr.png?format=1500w",
       "description": "These three tracts, ranging from 9.93 to 10.57 acres, offer exceptional potential. Recently surveyed, cleaned, and leveled, each tract presents a unique opportunity: - Tract 1: 9.93 acres, priced at $255,000. - Tract 2: 10.57 acres, priced at $265,000. While requiring well and septic systems, the property promises modern amenities amidst its natural beauty. Don't miss this opportunity to own a meticulously prepared property with endless possibilities.",
       "buildings": [
         {
@@ -302,7 +303,17 @@
         "caprate": 7.5,
         "zoning": "I-1"
       },
-      "additional_images": [
+      "address": "2845 Broce Drive Norman, OK 73072",
+      "listing_type": "sale",
+      "location": {
+        "state": "OK",
+        "city": "Norman",
+        "zipcode": "73069",
+        "lat": 35.25098717842701,
+        "lng": -97.49092710714606
+      },
+      "images": [
+        "https://ucarecdn.com/d708fd43-0a11-42be-a239-5fe6b0d71ae1/",
         "https://ucarecdn.com/72a21792-0f8f-4c63-9172-dabd97799c95/",
         "https://ucarecdn.com/e7ecc2a7-92a1-44d3-a54f-1c3206e61f61/",
         "https://ucarecdn.com/d8fe9368-2f35-4df3-b281-be257953f32f/",
@@ -331,16 +342,6 @@
         "https://ucarecdn.com/8c4ab442-01a6-44ec-90f9-0da682df195a/",
         "https://ucarecdn.com/c92bc037-211b-44ef-8c95-0c55cd159e26/"
       ],
-      "address": "2845 Broce Drive Norman, OK 73072",
-      "listing_type": "sale",
-      "location": {
-        "state": "OK",
-        "city": "Norman",
-        "zipcode": "73069",
-        "lat": 35.25098717842701,
-        "lng": -97.49092710714606
-      },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/679bd69190dfba5273a42600/1738266264069/2845+Broce+Drive+Norman%2C+OK+73072.png?format=1500w",
       "description": "Located at 2845 Broce Drive, this fully leased investment property presents a compelling opportunity. Renovated in 2018, it includes two buildings totaling 10,250 SF. Building 1 includes 2 units totaling 6,250 sqft with 13 offices, 3 bathrooms, a commercial kitchen, conference room, and warehouse space. Building 2 features 2 units totaling 4,000 sqft, including 11 offices, 3 bathrooms, a commercial kitchen, a large open entryway, and warehouse. With four units currently leased, this property offers a promising investment opportunity with potential for strong returns.",
       "buildings": [
         {
@@ -365,7 +366,16 @@
       "misc": {
         "zoning": "C-0"
       },
-      "additional_images": [
+      "address": "3000 12th Ave NE, Norman OK, 73071",
+      "listing_type": "sale",
+      "location": {
+        "state": "OK",
+        "city": "Norman",
+        "zipcode": "73069",
+        "lat": 35.2551749975317,
+        "lng": -97.42372820903994
+      },
+      "images": [
         "https://ucarecdn.com/652d358c-b504-42eb-8d27-66713e5dbfa4/",
         "https://ucarecdn.com/e7d32b7e-3448-489f-a0d0-101c1cfabb04/",
         "https://ucarecdn.com/0c0e0d24-929d-4c33-954c-acb4df728d95/",
@@ -390,16 +400,6 @@
         "https://ucarecdn.com/6c9f08c8-43da-4afb-a555-ef1af045ff3b/",
         "https://ucarecdn.com/a5745319-6a1c-437f-8fb7-847b521279a7/"
       ],
-      "address": "3000 12th Ave NE, Norman OK, 73071",
-      "listing_type": "sale",
-      "location": {
-        "state": "OK",
-        "city": "Norman",
-        "zipcode": "73069",
-        "lat": 35.2551749975317,
-        "lng": -97.42372820903994
-      },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/67be0ed797ca8472250fac8c/1740508893671/3000+12th+Ave+NE.png?format=1500w",
       "description": "Prime Commercial Land: 6.164 acres MOL with CO zoning (Suburban Office) at 3000 12th Ave NE, Norman, OK 73010. With 837' of frontage on 12th Ave NE, this easily accessible property offers natural water detention, along with adjacent water and sewer connections. Conveniently located just 4 miles from the University of Oklahoma and offering effortless access to I-35, this is an exceptional opportunity for various commercial ventures. Don't miss out on this prime location to realize your business's full potential. Act now and seize this rare gem! Listed at $499,000.00. Call today for more information.",
       "buildings": [
         {
@@ -419,7 +419,16 @@
       "misc": {
         "zoning": "O-2"
       },
-      "additional_images": [
+      "address": "3124 S Pennsylvania Ave, OKC",
+      "listing_type": "sale",
+      "location": {
+        "state": "OK",
+        "city": "Norman",
+        "zipcode": "73069",
+        "lat": 35.433683,
+        "lng": -97.547541
+      },
+      "images": [
         "https://ucarecdn.com/ef043113-9cd9-4c2c-8d8f-f203b150c04d/",
         "https://ucarecdn.com/7918f540-184e-422b-92a9-3f09c4a0e3c6/",
         "https://ucarecdn.com/61edb424-df84-477e-8b22-46068872e883/",
@@ -466,16 +475,6 @@
         "https://ucarecdn.com/ac984675-ea3b-4a8e-bffc-cc53e86d7dd2/",
         "https://ucarecdn.com/c8cfe35a-7aec-4483-8b2e-ba5807969400/"
       ],
-      "address": "3124 S Pennsylvania Ave, OKC",
-      "listing_type": "sale",
-      "location": {
-        "state": "OK",
-        "city": "Norman",
-        "zipcode": "73069",
-        "lat": 35.433683,
-        "lng": -97.547541
-      },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/67000fd0f9c79569023296e5/1728057303816/3124+S.+Pennsylvania+Ave.+OKC%2C+OK+73119.png?format=1500w",
       "description": "Discover a great opportunity at 3124 S Pennsylvania Ave, the former Dreamland Child Center. This 4,875 square-foot facility, built in 1981, is fully set up for a daycare operation and was licensed for 91 children. The HVAC, lighting, flooring, and paint have all been recently replaced, ensuring a fresh, updated space ready for immediate use. With a functional layout designed for childcare, it’s an ideal space for those looking to open or expand a daycare center. Located in a prime area, this building offers a fantastic turn-key business venture.",
       "buildings": [
         {
@@ -503,7 +502,20 @@
         "lat": 35.25720611605194,
         "lng": -97.46997721573199
       },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/66baab1ce508fb13382898b4/1723509537310/CoStar+Map.JPG?format=1500w",
+      "images": [
+        "https://ucarecdn.com/7b3f5a5b-cfc6-4f7a-be98-d8fdaab24989/",
+        "https://ucarecdn.com/29ec4274-17fb-4452-86ac-88ab90eec967/",
+        "https://ucarecdn.com/930bf5b3-4fca-48bd-af38-0316da414fc7/",
+        "https://ucarecdn.com/b522f7e4-3c84-4adb-8bd7-ffbc34f056d1/",
+        "https://ucarecdn.com/10d689a9-2e0d-4a26-acf8-5415b25bf636/",
+        "https://ucarecdn.com/695d8ef9-527f-4bb2-aee3-16768280a285/",
+        "https://ucarecdn.com/5375c2c0-c150-4439-9f83-d79c2529810f/",
+        "https://ucarecdn.com/6dadac0f-ca40-42bf-9be3-93f9b829f5c9/",
+        "https://ucarecdn.com/6fa3610d-97a0-46f5-b396-ac19f211dc57/",
+        "https://ucarecdn.com/4531b990-885a-4d18-ae17-d086f967e2ae/",
+        "https://ucarecdn.com/d62e1903-abce-4ccc-8a56-daa931ffbd56/",
+        "https://ucarecdn.com/048973fb-ab95-42d7-9547-a7c2179a2de6/"
+      ],
       "description": "Introducing 3233 N Flood Avenue, a prime .70-acre parcel of raw land with I-1 (Light Industrial) zoning. Located in a high-visibility area with a traffic count exceeding 23,000 cars daily (2022), this property offers an exceptional opportunity for development. Whether you're looking to establish or expand your business, this strategically positioned lot provides the ideal foundation to capitalize on the steady flow of traffic and the growing demand in the area.",
       "buildings": [
         {
@@ -533,7 +545,25 @@
         "lat": 35.18812,
         "lng": -97.374483
       },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/669e699dd9728a7dceacf075/1721657762061/36th+E+%26+Highway+9+.png?format=1500w",
+      "images": [
+        "https://ucarecdn.com/7adf07a3-733d-4aaa-ad0a-4c2cd17eedff/",
+        "https://ucarecdn.com/5e33a7f8-9dcf-4f29-aa7e-80daaba71959/",
+        "https://ucarecdn.com/1aee47f0-2b41-43cb-bf85-be4f2571ad6d/",
+        "https://ucarecdn.com/3ce15a29-64a3-4c61-b4d4-4e84e89ba714/",
+        "https://ucarecdn.com/da8175ee-45d4-4d41-bbd3-5c1a6cb251db/",
+        "https://ucarecdn.com/55229d18-9865-47f3-877e-ce9e78377a8c/",
+        "https://ucarecdn.com/d53e5acd-26cb-4dcd-ae33-ed4425f29244/",
+        "https://ucarecdn.com/a1130cd9-4db4-44fa-a404-6f2cd4de91f5/",
+        "https://ucarecdn.com/12f7c989-b197-454b-87ef-f7b780e2e2e0/",
+        "https://ucarecdn.com/ae676828-7cf8-410f-965e-67ddb9ebbc98/",
+        "https://ucarecdn.com/32e587e1-0602-4a3f-927c-523688a1b24f/",
+        "https://ucarecdn.com/f8bf7371-be6e-4e0d-a86e-8853539a16ac/",
+        "https://ucarecdn.com/365b0e08-9a36-427c-98eb-251d338cc2b6/",
+        "https://ucarecdn.com/590b3943-0ed3-486e-beb0-65238c889704/",
+        "https://ucarecdn.com/89842105-66aa-4b55-ac70-6df193447ee2/",
+        "https://ucarecdn.com/22efa856-0e14-41ed-b6b7-eaeee7f7f7cd/",
+        "https://ucarecdn.com/15590042-4aa2-4a76-af03-c041e3a1abc4/"
+      ],
       "description": "This expansive 79.01-acre parcel of agricultural land offers a prime location in Norman, Oklahoma, situated at the intersection of Highway 9 and 36th Ave SE. With 613 feet of frontage on Highway 9, the property provides significant visibility and accessibility. Just 1.5 miles from Highway 77 and 5.5 miles from Interstate 35, this land is ideally positioned for those seeking a balance between rural and convenient access to major transportation routes and city amenities. City utilities are nearby, enhancing the potential for future development or improvements. Whether you are interested in farming, ranching, or investing in a valuable piece of land, this property presents a unique and promising opportunity. Don't miss out on the chance to own a substantial agricultural parcel in a strategic location",
       "buildings": [
         {
@@ -560,7 +590,44 @@
         "lat": 35.22353704396566,
         "lng": -97.4373864603312
       },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/66da1fc8209d2d75b8cad035/1726087593541/527+East+Main+Street%2C+Norman%2C+OK+73071.png?format=1500w",
+      "images": [
+        "https://ucarecdn.com/7153231c-d593-4ad5-9920-6b636c25cb80/",
+        "https://ucarecdn.com/89ed28ed-ea3b-47ed-a413-4cfb4f1aa995/",
+        "https://ucarecdn.com/da8cfb91-7258-417c-a729-9e2e0e828de2/",
+        "https://ucarecdn.com/7ecf8696-225d-4153-a823-b1835ae99b21/",
+        "https://ucarecdn.com/3511131a-1ea6-4de9-ad01-f085cd065ae8/",
+        "https://ucarecdn.com/a89f9dfe-f002-496f-b685-5dd0281bb099/",
+        "https://ucarecdn.com/bf6cda3b-158f-4567-a9de-7373d734e748/",
+        "https://ucarecdn.com/e8608c6c-93e0-4237-8a66-79f77cc8c2f6/",
+        "https://ucarecdn.com/1d923494-077d-47c0-9386-670782e808a5/",
+        "https://ucarecdn.com/b002c588-ac58-4551-96e9-1e2211cb23ba/",
+        "https://ucarecdn.com/3b0191a2-9f60-4be6-9109-2b5f2e81021c/",
+        "https://ucarecdn.com/b89bb25c-bc6d-4d25-b568-29fa41b64db1/",
+        "https://ucarecdn.com/ec40a0d8-60d2-4a97-94ba-1bc770eb9e0f/",
+        "https://ucarecdn.com/2bf48789-2f16-43c3-b8f8-4d68c60d4650/",
+        "https://ucarecdn.com/54d12de5-a77f-4af5-94ba-bab532948c6f/",
+        "https://ucarecdn.com/d1c80cbb-436f-4047-a5c2-4e0fb77586d5/",
+        "https://ucarecdn.com/b13e1cc1-486a-4845-a272-4a0783e30eee/",
+        "https://ucarecdn.com/69bd9d58-0446-42f0-9a77-4ce1fb4dd96a/",
+        "https://ucarecdn.com/15ef6878-d521-4c8f-8330-4514cf74f79a/",
+        "https://ucarecdn.com/6d0fa8ba-908a-4897-8e03-0c6e3dfdc707/",
+        "https://ucarecdn.com/67d9b5b6-20d5-44fa-9d69-bd9f4e575d69/",
+        "https://ucarecdn.com/1afc2694-e318-4d6b-b216-505185efacb9/",
+        "https://ucarecdn.com/14d52fc9-f572-4f69-a91d-2ba1b3a05430/",
+        "https://ucarecdn.com/af5e07ca-b202-4115-a8c8-cd0a6dd51628/",
+        "https://ucarecdn.com/4fc9a3da-79b5-417a-822e-9d6bff8b15e4/",
+        "https://ucarecdn.com/f5d5e5e2-e70e-4c9f-822e-069f53db68a2/",
+        "https://ucarecdn.com/cebde20a-1742-45eb-a34b-b9b126b4ea93/",
+        "https://ucarecdn.com/13c9c979-48be-483a-bf57-96e91611a47d/",
+        "https://ucarecdn.com/92a97b21-c511-4576-983e-ce4a3ef9cea3/",
+        "https://ucarecdn.com/9bdcf87b-74c0-4c43-958f-2d7d583059b9/",
+        "https://ucarecdn.com/eb46e880-a23f-445a-8ec4-a5678a996125/",
+        "https://ucarecdn.com/6ea9c946-f72a-4517-81dd-0f0aba6033a7/",
+        "https://ucarecdn.com/cda3a8d3-35b7-4960-ba91-b6f27ba74cf9/",
+        "https://ucarecdn.com/a6c0634c-75d6-4913-8915-21c0afdd6dbc/",
+        "https://ucarecdn.com/d190265b-5bb0-478d-b7c0-8e7ca39409a2/",
+        "https://ucarecdn.com/ed9d3e2f-e21b-4bf3-a98b-d58745f07a3d/"
+      ],
       "description": "This versatile property, currently leased to a single tenant, offers a beautifully remodeled interior and is suitable for retail, restaurant, or office use. Featuring new stucco, electrical, plumbing, and HVAC systems, this space has been renovated from the studs up. The property includes private parking in the back and public parking in front of the building, and the fenced backyard offers additional parking.",
       "buildings": [
         {
@@ -591,7 +658,22 @@
         "lat": 35.496075407275555,
         "lng": -97.23872136958757
       },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/677ef667e9528b1bcb19a801/1736373869122/8701+SW+59th+St.+Oklahoma+City%2C+OK+73179.png?format=1500w",
+      "images": [
+        "https://ucarecdn.com/397f47b1-1fb4-429c-adfb-3ae2b92c8319/",
+        "https://ucarecdn.com/de73fe34-5426-419d-9568-86393ed0b117/",
+        "https://ucarecdn.com/470a9716-38d8-40f6-b690-487d6208cfdc/",
+        "https://ucarecdn.com/d14d0af8-c9da-4e88-8e04-40b7639221e0/",
+        "https://ucarecdn.com/facc8154-9ef3-478c-bb32-49a727088bca/",
+        "https://ucarecdn.com/f3f24a45-5bc7-494f-903a-eb721723201f/",
+        "https://ucarecdn.com/8ea1c846-fa3c-445b-bcf3-5e9f273865cd/",
+        "https://ucarecdn.com/6208afea-e566-4741-9677-62a7db067275/",
+        "https://ucarecdn.com/7739c6b3-fefe-40d1-9a73-a93cfa61b21b/",
+        "https://ucarecdn.com/a6dc6589-587c-4961-820f-0ab6c77b4a7b/",
+        "https://ucarecdn.com/f221ecdf-13c2-4907-a7c9-815645f477e7/",
+        "https://ucarecdn.com/2c1409d2-9a74-4d17-b8ff-3e3440eaaed6/",
+        "https://ucarecdn.com/e8e7276a-d52a-429d-ab74-6cc475554d97/",
+        "https://ucarecdn.com/1880ff6a-08fd-4676-a0f8-631721823533/"
+      ],
       "description": "Prime 2.86-acre commercial lot at 8701 SW 59th St, Oklahoma City, OK 73179. Zoned C-3/PUD-103, this 124,582 sq. ft. property offers endless business potential. Located near Highway 152 and SW 59th, behind a Valero gas station, it provides excellent visibility and accessibility. Priced at $817,930 ($6.57/sq. ft.), this is a fantastic opportunity for investors and developers to grow with the area.",
       "buildings": [
         {
@@ -620,7 +702,26 @@
         "lat": 35.4960397,
         "lng": -97.2377938
       },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/67e30c6f6d2b5904d0d39bd5/1742933103026/Industrial+Rd+Social+.png?format=1500w",
+      "images": [
+        "https://ucarecdn.com/ddb1a2e6-2d86-4285-81ac-dafaf350fa39/",
+        "https://ucarecdn.com/4372ff44-c809-486e-be3b-172e4e196c63/",
+        "https://ucarecdn.com/0025e5b8-04d4-4799-8148-a1eb9138ca42/",
+        "https://ucarecdn.com/6b10207d-cb22-42dd-b50d-5357a5d3c827/",
+        "https://ucarecdn.com/9bd35566-45c3-4866-aa87-b520029964fa/",
+        "https://ucarecdn.com/e9fcceae-2eae-4630-8166-eb800989deea/",
+        "https://ucarecdn.com/bc80eb89-c89b-455e-97c5-38b7102049bf/",
+        "https://ucarecdn.com/98276372-da78-4d6c-b333-5dbbb1eebe36/",
+        "https://ucarecdn.com/dbff4bc1-82ec-4143-8b3a-a3eb96f08a93/",
+        "https://ucarecdn.com/49625615-f8e1-45d9-97c9-6dcfd34c8461/",
+        "https://ucarecdn.com/2119817b-c62b-4c84-b4b2-3270a75ce83a/",
+        "https://ucarecdn.com/9fab56d0-152c-41e9-ba51-d2f6ca402b0c/",
+        "https://ucarecdn.com/288353e9-2de8-4c23-bb4d-80760a82dbd1/",
+        "https://ucarecdn.com/5608082c-6737-498d-b14d-50c620ef49cc/",
+        "https://ucarecdn.com/24950d6f-312d-4f15-b3e4-7f60292ebfbc/",
+        "https://ucarecdn.com/e8503683-0fe7-45a2-8f90-ef57203730b6/",
+        "https://ucarecdn.com/c0cbcd10-666f-4b00-909b-cbbf8c26843d/",
+        "https://ucarecdn.com/df517bab-b7b5-40ea-9970-0ef7708c0dd5/"
+      ],
       "description": "For sale: Parcel ID# R123581100, a 2.89-acre commercial property located north of NE 23rd Street in Choctaw. Zoned for light industrial use, this site offers space for retail, office, or mixed-use development. Existing infrastructure streamlines construction. Situated in a busy industrial park with nearby amenities, it provides potential for returns and growth. Contact us to explore this opportunity",
       "buildings": [
         {
@@ -647,7 +748,24 @@
         "lat": 35.247411,
         "lng": -97.423505
       },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/677eeaa79eecea56e244b64f/1736370862367/NE+12th+Ave+and+Rock+Creek+Road.png?format=1500w",
+      "images": [
+        "https://ucarecdn.com/30a16d34-51ea-468b-bd22-e996c0d80dc4/",
+        "https://ucarecdn.com/5f66da22-bd73-4edd-bb39-5a78aaf3b823/",
+        "https://ucarecdn.com/171474da-ce5f-419f-aadc-4278eaa930cc/",
+        "https://ucarecdn.com/051cd92c-888f-4e03-b2e4-fe22bac10b54/",
+        "https://ucarecdn.com/775a5c37-7544-43e0-a54b-7e65d9f0c259/",
+        "https://ucarecdn.com/8cf49af4-cbf1-4b98-9499-e9f57c1491e8/",
+        "https://ucarecdn.com/2f9d1aba-1e67-473b-8e2a-cc5206574c53/",
+        "https://ucarecdn.com/3ba7a48d-28f2-4d85-8aa5-565b3e093423/",
+        "https://ucarecdn.com/165a228b-66c0-409f-b98d-d6d8f3d15731/",
+        "https://ucarecdn.com/a8d098ef-c677-4957-af67-f3f7c54e7ea6/",
+        "https://ucarecdn.com/773ed394-2b28-47b5-a400-4563879f1520/",
+        "https://ucarecdn.com/b6534fc3-d81a-414f-b1e6-b180180161b1/",
+        "https://ucarecdn.com/880ed0f8-ab2e-4111-aeaf-20977b2e541d/",
+        "https://ucarecdn.com/ac42153d-0510-4832-b935-662a087c7b3a/",
+        "https://ucarecdn.com/df88e257-fc24-485d-91ee-e7678b6b2359/",
+        "https://ucarecdn.com/fe41f5cf-2a43-4e39-b386-d9e3061805fd/"
+      ],
       "description": "Discover the perfect location for your next development at the corner of NE 12th and Rock Creek Road in Norman. Two tracts of commercial land are available, each offering 38,350 SF (0.88 acres) of prime space to bring your vision to life. With high visibility and easy access, this location is ideal for a variety of commercial projects. Each tract is priced at $306,800 ($8/SF).**Owner/Broker**",
       "buildings": [
         {
@@ -676,7 +794,30 @@
         "lat": 35.29498680158394,
         "lng": -97.58209178466092
       },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/65c93f8fa8a6c268eed5eecd/1707687827376/805+NE+34th+St+Fb+post.png?format=1500w",
+      "images": [
+        "https://ucarecdn.com/82f2c3e9-855f-40a7-91a0-770ba6e72bcb/",
+        "https://ucarecdn.com/b0811886-ffc6-43d1-974b-a50e0fcdd629/",
+        "https://ucarecdn.com/d7b61db2-1c1f-471a-924c-770830edca18/",
+        "https://ucarecdn.com/7f605487-fb16-4867-8563-662df84f8cd4/",
+        "https://ucarecdn.com/9007e772-c172-4978-8c2d-c755542875da/",
+        "https://ucarecdn.com/3319db36-4d08-4b58-8660-1d6c8f2a116e/",
+        "https://ucarecdn.com/546615ad-ff97-43e7-8d39-a540eadf4a80/",
+        "https://ucarecdn.com/b1fcfd6e-3952-49eb-8448-55151000e9a5/",
+        "https://ucarecdn.com/6f5ba1a4-f86d-4d26-85c7-c43cdf97ee74/",
+        "https://ucarecdn.com/e0fc017f-3f1f-47e5-8623-845bfe88e64f/",
+        "https://ucarecdn.com/b782d936-e042-4365-ba04-3126d4815815/",
+        "https://ucarecdn.com/819f5dea-e43b-4e68-ad9e-abe4fce93b56/",
+        "https://ucarecdn.com/451137b4-014c-4ac6-b896-dea68c75873b/",
+        "https://ucarecdn.com/42aca754-54e3-4a40-9aa5-1b95b4903b8c/",
+        "https://ucarecdn.com/85e8f981-f04c-46aa-b171-4d842fab5798/",
+        "https://ucarecdn.com/0d01a4fc-7f51-423e-a73a-3ae1a2be0dcf/",
+        "https://ucarecdn.com/9336e229-a7eb-4851-8b97-4004b591e7cf/",
+        "https://ucarecdn.com/c66780ac-248f-4867-aa50-4c77d615e51f/",
+        "https://ucarecdn.com/ede36666-f8c7-4215-ac7a-87bf4a16b532/",
+        "https://ucarecdn.com/f62472ff-0f9f-4671-a065-688c854eb28a/",
+        "https://ucarecdn.com/1b42c726-2f80-4825-8b05-b207d1b7546b/",
+        "https://ucarecdn.com/1e890235-7738-4628-8059-76d810c6a524/"
+      ],
       "description": "UNDER CONTRACT For Sale: Future Frontage for new Turnpike. 98.67 Acres. Discover an exceptional opportunity in Newcastle, Oklahoma! With 98.67 acres near the future Oklahoma Turnpike, this vacant land offers limitless potential for commercial or industrial development. Featuring prime real estate, it offers unmatched visibility and accessibility, ideal for strategic business placement. Close to major transportation routes, it ensures seamless connectivity to regional hubs. Currently zoned industrial, this property holds immense promise for future development, appealing to investors and developers. Its prime location alongside the Canadian River presents a rare chance to shape the community's future. **No address for this property has been established.**",
       "buildings": [
         {
@@ -706,7 +847,38 @@
         "lat": 34.74661300031342,
         "lng": -97.26895635954999
       },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/66c48c625618166c6251ef43/1724157031201/For+Sale+Pauls+Valley.png?format=1500w",
+      "images": [
+        "https://ucarecdn.com/d74253a8-f517-433d-9b76-799f47cfc2ee/",
+        "https://ucarecdn.com/5f79aff3-14f5-4468-b01b-4aadba9e65e6/",
+        "https://ucarecdn.com/7fed7a6e-f2cf-4e04-87f9-0c8a77ecb4f1/",
+        "https://ucarecdn.com/9943cc5c-2918-4c31-be61-3f63fde78035/",
+        "https://ucarecdn.com/5ef388da-3ef3-41d9-a732-711ee5b140c7/",
+        "https://ucarecdn.com/3c27b23d-ee45-4f5a-8fb2-c7fcdae446d7/",
+        "https://ucarecdn.com/586b6567-9b00-42da-9d33-50e0b8989b09/",
+        "https://ucarecdn.com/c5bb5803-84db-4da6-8374-85945e81850e/",
+        "https://ucarecdn.com/6c4ea75c-f10d-4342-9778-1df7bbdda466/",
+        "https://ucarecdn.com/d30eccf8-89f9-45ad-9175-dcf0413dedc2/",
+        "https://ucarecdn.com/a24ab53e-a9cf-4480-a512-17103480abc6/",
+        "https://ucarecdn.com/5ad77da9-145c-4228-be86-01dc4d19eeaa/",
+        "https://ucarecdn.com/34ff8fe3-e7a4-47fe-b22f-48e9fe10c5ef/",
+        "https://ucarecdn.com/8ee95b04-13c7-4793-b58e-7833e68ecc00/",
+        "https://ucarecdn.com/9d280a17-6898-4cd1-8137-2f9b6a3122b5/",
+        "https://ucarecdn.com/20b7b9d7-1a67-4e78-b2d2-fdebfcf1299c/",
+        "https://ucarecdn.com/1999b7bb-51cf-4482-8cb3-10c54a452bde/",
+        "https://ucarecdn.com/56265f6d-3e18-443d-9173-a4a5edee9bc0/",
+        "https://ucarecdn.com/f81aab65-d73b-4968-ab1a-de7731eeee6f/",
+        "https://ucarecdn.com/d8af20fd-3281-4a54-8462-fa815634a654/",
+        "https://ucarecdn.com/8e5bafd0-d0ac-4c5e-9184-b757be5eec00/",
+        "https://ucarecdn.com/5e892304-fa7a-43e1-acf4-94ab041da21a/",
+        "https://ucarecdn.com/c01fcf78-28a5-4005-9000-8b49fafdbf60/",
+        "https://ucarecdn.com/78552eb6-f028-4bba-b957-6efa594f9b52/",
+        "https://ucarecdn.com/154240ee-f696-49d0-85f9-811e7f359b05/",
+        "https://ucarecdn.com/e59e68f2-2639-4886-9748-12307afee9f2/",
+        "https://ucarecdn.com/1d72003f-0763-49f1-9d04-ef79d3994a6d/",
+        "https://ucarecdn.com/e989d41c-ddb6-4531-8ba0-670eda6e8ab0/",
+        "https://ucarecdn.com/7367cd73-3b13-4e04-8a2e-0b441f313d1a/",
+        "https://ucarecdn.com/cff90932-7df1-454a-bb79-84789c2d5fbf/"
+      ],
       "description": "Prime 1.83-acre commercial lot with C-5 zoning and high visibility along I-35. Located on the service road between Starbucks and McDonald's, near established businesses including restaurants, a truck stop, and auto dealerships. Seller has approved plans for a restaurant building. One of the few remaining sites available in this area. "
     },
     {
@@ -729,7 +901,26 @@
         "lat": 35.45087668684662,
         "lng": -97.51860949489405
       },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/67d355dd4bc34173d4cdae77/1741903332804/Social+Post+Parcel+ID+R090078934.png?format=1500w",
+      "images": [
+        "https://ucarecdn.com/4d1b62d0-32b4-457f-8704-222c69f1cfa7/",
+        "https://ucarecdn.com/6a01e17a-227a-4f12-b1ef-29bf2ff42bf8/",
+        "https://ucarecdn.com/130eb546-2aeb-4c8e-9a03-fcc2ce468b86/",
+        "https://ucarecdn.com/db51a455-0986-4ea1-a85c-9e592bf96a17/",
+        "https://ucarecdn.com/e823a435-d621-4f46-becd-a95c5025e004/",
+        "https://ucarecdn.com/d9d2064d-c7bd-410d-9746-75431b9db3ed/",
+        "https://ucarecdn.com/db9d3bd5-854b-4cc6-babe-023574391f5e/",
+        "https://ucarecdn.com/c8f50648-4781-49ef-945d-672d2d64ec1c/",
+        "https://ucarecdn.com/1acf151c-f0c2-4c14-8844-8adee25337b8/",
+        "https://ucarecdn.com/685ed08a-3355-41d1-96a0-32550a226b7b/",
+        "https://ucarecdn.com/dbf007b0-2c65-4ba4-8deb-3104bca90c14/",
+        "https://ucarecdn.com/9a2dfde3-a2dc-47bd-94f9-6034f9ef2c08/",
+        "https://ucarecdn.com/1554947a-b85e-4590-bec7-41f23439cf50/",
+        "https://ucarecdn.com/10f40d11-6282-438a-9503-70ea9c0bb34b/",
+        "https://ucarecdn.com/1080add3-ef90-4717-958c-430a683cc29d/",
+        "https://ucarecdn.com/584cc491-be1e-4e57-a581-6f6a07e2d60b/",
+        "https://ucarecdn.com/8611ebf1-e4f5-48b8-be6c-39b200e78fdf/",
+        "https://ucarecdn.com/a167559a-093c-43bf-85cd-c34272ff9205/"
+      ],
       "description": "Located in the heart of Oklahoma City’s thriving urban core, this 50' x 184' vacant lot (0.2112 acres) offers endless development possibilities. With zoning that allows for residential, commercial, and high-density use, you can bring your vision to life—whether it's a dream home, retail space, or office building. Positioned within The North Shore at Scissortail Park, this prime location is surrounded by the newly built 70-acre Scissortail Park, providing unparalleled access to green space, walking trails, and vibrant city amenities. Don’t miss this rare opportunity to invest in one of OKC’s most dynamic and sought-after neighborhoods!",
       "buildings": [
         {
@@ -756,7 +947,14 @@
         "lat": 35.79719637163834,
         "lng": -97.3336683047866
       },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/663a8882ea5f3948ac7bd176/1715112071137/S+Westminster+Blvd.+Guthrie%2C+OK+73044+Tax+ID+0010762.png?format=1500w",
+      "images": [
+        "https://ucarecdn.com/58af172d-4330-4d36-bbce-925e764961e2/",
+        "https://ucarecdn.com/6cc9a069-11f5-4918-b5c8-97788649b1e8/",
+        "https://ucarecdn.com/1af7a863-95ef-488b-9351-56a0bf085b94/",
+        "https://ucarecdn.com/41a23500-2fc4-4efd-a2b7-f42bbda8850d/",
+        "https://ucarecdn.com/b4f1979c-958e-4e5b-b147-e7631cc9ba88/",
+        "https://ucarecdn.com/3706aa57-bfb7-4fc1-8a5d-2e65497561c2/"
+      ],
       "description": "Just a quick 10-minute drive East of I-35 lies this expansive 32-acre plot of land, now available for sale. Positioned a mere 6 miles from the renowned Lazy E arena and a 20-minute commute from downtown Guthrie. TAX ID 0010762",
       "buildings": [
         {
@@ -774,7 +972,16 @@
       "misc": {
         "zoning": "C-5"
       },
-      "additional_images": [
+      "address": "TAX ID:090155961  Mustang, OK 73064",
+      "listing_type": "sale",
+      "location": {
+        "state": "OK",
+        "city": "Norman",
+        "zipcode": "73069",
+        "lat": 35.3967493560699,
+        "lng": -97.7605586097978
+      },
+      "images": [
         "https://ucarecdn.com/e62f8e99-7261-4ac1-8cea-29b8361b79dd/",
         "https://ucarecdn.com/28f4db52-b8d0-4311-bbf4-f0aa3e4278af/",
         "https://ucarecdn.com/34b9dc82-10ed-4351-a388-61665c743d62/",
@@ -792,16 +999,6 @@
         "https://ucarecdn.com/8a88257f-6932-4427-b273-9f0f163cff8d/",
         "https://ucarecdn.com/81b0476f-ecb6-4998-abd1-7fcb28c95b4a/"
       ],
-      "address": "TAX ID:090155961  Mustang, OK 73064",
-      "listing_type": "sale",
-      "location": {
-        "state": "OK",
-        "city": "Norman",
-        "zipcode": "73069",
-        "lat": 35.3967493560699,
-        "lng": -97.7605586097978
-      },
-      "image": "http://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/6760b2eb02adaf0ef287b11e/1734390517173/TAX+ID090155961%2C+Mustang%2C+OK+73064.png?format=1500w",
       "description": "2.68 Acres of Commercial Land in Mustang, OK TAX ID: 090155961 Located 0.4 miles north of Highway 152 on N Clear Springs Rd, this 2.68-acre property is zoned C-5, offering versatile commercial development opportunities. Ideal for retail, office, or service use in a high-growth area.**Owner/Broker**",
       "buildings": [
         {

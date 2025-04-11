@@ -59,10 +59,6 @@ collections:
                         widget: string
                         required: false
 
-                      - label: Featured Image
-                        name: image
-                        widget: image
-
                       - label: Buildings
                         name: buildings
                         label_singular: Building
@@ -175,8 +171,8 @@ collections:
                         widget: string
 
 
-                      - label: Additional Images
-                        name: additional_images
+                      - label: Images
+                        name: images
                         widget: image
                         required: false
                         media_library:
