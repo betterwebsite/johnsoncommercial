@@ -88,6 +88,17 @@
 
 
           
-
+<script>
+  if (window.uploadcare) {
+    fetch("/.netlify/functions/uploadcare-signature")
+      .then(res => res.json())
+      .then(({ secureSignature, secureExpire }) => {
+        uploadcare.start({
+          secureSignature,
+          secureExpire,
+        });
+      });
+  }
+</script>
     </body>
 </html>
