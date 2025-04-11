@@ -3,71 +3,79 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Netlify Identity (if using it) -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <title>Content Manager</title>
   </head>
   <body>
-    <!-- 1. Load Uploadcare synchronously -->
-    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"
-      data-uploadcare-public-key="4bb2bfa91b9bf261537f"
-      onload="initUploadcareAndThenLoadCMS();">
-    </script>
-    
-    <script>
-      function initUploadcareAndThenLoadCMS(){
-        // 2. Fetch the secure signature from our backend Netlify function.
-        fetch('/.netlify/functions/uploadcare-signature')
-          .then(function(response){
-            return response.json();
-          })
-          .then(function(data){
-            var secureSignature = data.secureSignature;
-            var secureExpire = data.secureExpire;
-            // 3. Call uploadcare.start() with secure options.
-            if(window.uploadcare && typeof window.uploadcare.start === "function"){
-              window.uploadcare.start({
-                secureSignature: secureSignature,
-                secureExpire: secureExpire
-              });
-              console.log("✅ Uploadcare secure settings applied via start().");
-              
-              // 4. Now that Uploadcare is configured, dynamically load the Decap CMS script.
-              var cmsScript = document.createElement("script");
-              cmsScript.src = "https://cdn.jsdelivr.net/npm/decap-cms@3.6.2/dist/decap-cms.js";
-              cmsScript.onload = function(){
-                console.log("✅ Decap CMS loaded.");
-              };
-              document.body.appendChild(cmsScript);
-            } else {
-              console.error("Uploadcare is not available to call start().", window.uploadcare);
-            }
-          })
-          .catch(function(err){
-            console.error("🔴 Failed to fetch Uploadcare signature:", err);
-          });
-      }
-    </script>
-    
-    <!-- Place any custom widget scripts that depend on Decap CMS below -->
+    <!-- Load Uploadcare synchronously (no async attribute) so it’s ready when our init function runs -->
+     <!-- 1. Load Uploadcare synchronously. This is required so that its API is available. -->
+     <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"
+     data-uploadcare-public-key="4bb2bfa91b9bf261537f"
+     onload="initUploadcareAndThenLoadCMS();">
+   </script>
+   
+   <script>
+     function initUploadcareAndThenLoadCMS(){
+       // 2. Fetch the secure signature from your Netlify function.
+       fetch('/.netlify/functions/uploadcare-signature')
+         .then(function(response){
+           return response.json();
+         })
+         .then(function(data){
+           var secureSignature = data.secureSignature;
+           var secureExpire = data.secureExpire;
+           // 3. Apply secure settings using uploadcare.start()
+           if(window.uploadcare && typeof window.uploadcare.start === "function"){
+             window.uploadcare.start({
+               secureSignature: secureSignature,
+               secureExpire: secureExpire
+             });
+             console.log("✅ Uploadcare secure settings applied via start().");
+             
+             // 4. Now load Decap CMS so that its media library uses the secure configuration.
+             var cmsScript = document.createElement("script");
+             cmsScript.src = "https://cdn.jsdelivr.net/npm/decap-cms@3.6.2/dist/decap-cms.js";
+             cmsScript.onload = function(){
+               console.log("✅ Decap CMS loaded.");
+             };
+             document.body.appendChild(cmsScript);
+           } else {
+             console.error("Uploadcare is not available to call start().", window.uploadcare);
+           }
+         })
+         .catch(function(err){
+           console.error("🔴 Failed to fetch Uploadcare signature:", err);
+         });
+     }
+   </script>
+
+    <!-- Load Decap CMS -->
+    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.6.2/dist/decap-cms.js"></script>
+
+    <!-- Your custom widgets, if any -->
     <script src="/admin/custom-widgets/mywidget.js"></script>
     <script src="/admin/custom-widgets/listingspreview.js"></script>
     <script src="/admin/custom-widgets/BulkImageUploadWidget.js"></script>
-    
-    <!-- Additional custom scripts (if any) can follow -->
+
+    <!-- Additional custom scripts remain unchanged -->
     <script>
-      // Example: Your auto-expander script remains unchanged.
       window.addEventListener("message", function(e) {
         if (e.data && e.data.action === "focusListingByAddress") {
           var targetAddress = e.data.address.trim();
           var container = document.getElementById("listings-field-1");
-          if (!container) return;
+          if (!container) {
+            console.warn("No listings container (id='listings-field-1') found");
+            return;
+          }
           
           var escapedAddress = targetAddress.replace(/'/g, "\\'");
           var xpath = ".//div[normalize-space(text()) = '" + escapedAddress + "']";
           var result = document.evaluate(xpath, container, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
           
-          if (result.snapshotLength === 0) return;
+          if (result.snapshotLength === 0) {
+            console.warn("No element found with address:", targetAddress);
+            return;
+          }
           
           var addressElement = result.snapshotItem(0);
           var current = addressElement;
@@ -86,7 +94,11 @@
             if (expandBtn) {
               expandBtn.click();
               listingContainer.scrollIntoView({ behavior: "smooth", block: "center" });
+            } else {
+              console.warn("No expand button found in the listing container for address", targetAddress);
             }
+          } else {
+            console.warn("No listing container found for address", targetAddress);
           }
         }
       });
