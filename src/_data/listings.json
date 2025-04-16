@@ -250,11 +250,11 @@
       "property_type": "Industrial",
       "agent_name": "Chris Johnson",
       "price": {
-        "sale_price": 1250000,
-        "price_per": 121.95
+        "sale_price": 1150000,
+        "price_per": 112.2
       },
       "misc": {
-        "caprate": 7.5,
+        "caprate": 8.37,
         "zoning": "I-1"
       },
       "address": "2845 Broce Drive Norman, OK 73072",
@@ -267,7 +267,6 @@
         "lng": -97.49092710714606
       },
       "images": [
-        "https://ucarecdn.com/d708fd43-0a11-42be-a239-5fe6b0d71ae1/",
         "https://ucarecdn.com/72a21792-0f8f-4c63-9172-dabd97799c95/",
         "https://ucarecdn.com/e7ecc2a7-92a1-44d3-a54f-1c3206e61f61/",
         "https://ucarecdn.com/d8fe9368-2f35-4df3-b281-be257953f32f/",
@@ -286,7 +285,6 @@
         "https://ucarecdn.com/fbe8a2a6-bbe1-4815-8745-796f7d696821/",
         "https://ucarecdn.com/1d1791e5-402d-47ca-b9b6-79e9c5ec0e42/",
         "https://ucarecdn.com/7917c6d8-ce80-4fad-b94b-6da534f1636a/",
-        "https://ucarecdn.com/c6a4abbb-915f-4c8e-85ff-51870b15e7d1/",
         "https://ucarecdn.com/1711a625-db54-49ed-9722-f51d658f97ae/",
         "https://ucarecdn.com/041090b1-6486-45db-af0e-d88d4a18c6bd/",
         "https://ucarecdn.com/ea2475e7-1379-47ea-aaa2-805f72b64188/",
