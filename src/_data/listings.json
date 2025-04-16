@@ -11,6 +11,7 @@
         "caprate": 7,
         "zoning": "C2"
       },
+      "sections": [],
       "address": "1808 W Lindsey Street, Norman, OK 73069",
       "listing_type": "sale",
       "location": {
@@ -96,7 +97,6 @@
         "lng": -97.36133646283355
       },
       "images": [
-        "https://ucarecdn.com/71d7bd32-534d-4c1b-b789-1d889a78f093/",
         "https://ucarecdn.com/5683ceb2-1bf4-4c7d-95b8-4552c2c9914d/",
         "https://ucarecdn.com/4dfee5b7-55dc-470b-bc98-b6e2fe166644/",
         "https://ucarecdn.com/e708bdfe-15ad-44e9-a3dc-a9359ecc87d3/",
