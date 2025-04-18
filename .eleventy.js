@@ -13,8 +13,7 @@ const configServer = require("./src/config/server");
 const filterPostDate = require("./src/config/postDate");
 const isProduction = configServer.isProduction;
 const eleventyPluginSharpImages = require("@codestitchofficial/eleventy-plugin-sharp-images");
-
-
+const blocksToHtml = require('@sanity/block-content-to-html');
 
 const markdownIt = require("markdown-it");
 module.exports = function (eleventyConfig) {
@@ -44,6 +43,13 @@ module.exports = function (eleventyConfig) {
         outputDir: "public/assets/images",
     });
 
+
+    eleventyConfig.addFilter('sanityBlockContent', function(blocks) {
+        if (!blocks) return '';
+        return blocksToHtml({
+          blocks: blocks
+        });
+      });
     
 
 
@@ -118,13 +124,44 @@ module.exports = function (eleventyConfig) {
       });
 
     eleventyConfig.addFilter("money", function(value) {
-        return value.toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        });
+    // Handle undefined, null, or empty string
+    if (value === undefined || value === null || value === '') {
+        return '';
+    }
+    
+    // Convert string to number if needed
+    let numValue;
+    if (typeof value === 'string') {
+        // Remove any existing currency symbols or commas
+        const cleanValue = value.replace(/[$,]/g, '');
+        numValue = parseFloat(cleanValue);
+        
+        // If we couldn't parse it as a number, return the original
+        if (isNaN(numValue)) {
+            return value;
+        }
+    } else if (typeof value === 'number') {
+        numValue = value;
+    } else {
+        // For other types, try to convert or return as is
+        try {
+            numValue = Number(value);
+            if (isNaN(numValue)) {
+                return String(value);
+            }
+        } catch (e) {
+            return String(value);
+        }
+    }
+    
+    // Format the number as currency
+    return numValue.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
     });
+});
     
     const md = new markdownIt({ html: true });
     eleventyConfig.addFilter("markdownify", str => {

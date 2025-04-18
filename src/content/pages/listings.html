@@ -12,10 +12,6 @@ eleventyNavigation:
 {% block head %}
   <link rel="stylesheet" href="/assets/css/cms-menu.css">
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-
 
   <style>
     #container {
@@ -472,7 +468,17 @@ eleventyNavigation:
     </p>
   </div>
   <div id="listing-view" style="width: 100%;">
-    {% for listing in listings.listings %}
+    <script>console.log("TEST1")</script>
+    {% for listing in sanityListings %}
+      <script>console.log("TEST")</script>
+      <script>console.log(" {{ listing.address }} ")</script>
+      <script>console.log(" {{ listing.gallery[0].asset._ref }} ")</script>
+      <script>console.log(" {{ listing.gallery[0] }} ")</script>
+      <script>console.log(" {{ listing.gallery[0].url }} ")</script>
+      <script>console.log(" {{ listing.pdf }} ")</script>
+      <script>console.log(" {{ listing.pdf.url }} ")</script>
+    {% endfor %}
+    {% for listing in sanityListings %}
     {% set total_sf = 0 %}
     {% for b in listing.buildings %}
       {% set total_sf = total_sf + (b.square_feet or 0) %}
@@ -488,7 +494,7 @@ eleventyNavigation:
      onclick="window.location.href='/properties/{{ listing.address | slugify }}'">
 
       <div class="image-wrapper">
-        <img src="{{ listing.images[0] }}" alt="{{ listing.address }}">
+        <img src="{{ listing.gallery[0].url }}?h=300" alt="{{ listing.address }}">
         <div class="status-badge {{ listing.listing_type }}">
           {{ listing.listing_type | capitalize | replace("both", "For Sale/Lease") }}
         </div>
@@ -539,12 +545,11 @@ eleventyNavigation:
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     });
   
-    {% for listing in listings.listings %}
+    {% for listing in sanityListings %}
   (function() {
     const lat = {{ listing.location.lat or 0 }};
     const lng = {{ listing.location.lng or 0 }};
     const title = "{{ listing.address | escape }}";
-    const imageUrl = "{{ listing.images[0] }}";
     const price = {% if listing.price.sale_price %}"{{ listing.price.sale_price | money }}"{% elif listing.price.lease_rate %}"{{ listing.price.lease_rate }}"{% else %}"N/A"{% endif %};
     const squareFeet = {% if listing.buildings[0].square_feet %}addCommasToFloat("{{ listing.buildings[0].square_feet}}") +" Sq Ft"{% else %}''{% endif %};
     const lotSize = {% if listing.buildings[0].lot_acres %}addCommasToFloat("{{ listing.buildings[0].lot_acres}}") +" acres"{% else %}''{% endif %};
@@ -556,7 +561,7 @@ eleventyNavigation:
     const contentString = `
       <div style="max-width: 280px; font-family: sans-serif; position: relative;">
         <div style="position: relative;">
-          <img src="${imageUrl}" alt="${title}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px;">
+          <img src="{{ listing.gallery[0].url }}?h=300" alt="${title}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px;">
           <div style="
             position: absolute;
             top: 8px;
@@ -1057,7 +1062,7 @@ document.getElementById("reset-filters").addEventListener("click", () => {
 
   <!-- Google JS -->
   <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2hIkZRxsZeKQhHXbdChn7tPd3FVY5LQ&callback=initMap&loading=async"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9OwRhTcIOiamT9WaK8wfPRcVHAE-ScX0&callback=initMap&loading=async"
   >
   </script>   
   

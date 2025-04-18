@@ -1,6 +1,6 @@
 ---
 pagination:
-  data: listings.listings
+  data: sanityListings
   size: 1
   alias: property
   addAllPagesToCollections: true
@@ -290,18 +290,19 @@ function formatToUSDollars(amount) {
 
   <!-- Main expanded image -->
   <div class="img_container" style="display: block;">
-    <img id="expandedImg" style="width:100%" src="{% if property.additional_images and property.additional_images.length > 0 %}{{ property.additional_images[0] }}{% else %}{{ property.featured_image }}{% endif %}">
+    <!-- <img id="expandedImg" style="width:100%" src="{% if property.gallery and property.gallery.length > 0 %}{{ property.gallery[0].url }}{% else %}{{ property.gallery[0].url }}{% endif %}"> -->
+    <img id="expandedImg" style="width:100%" src="{{ property.gallery[0].url }}?h=800">
     <div id="imgtext"></div>
   </div>
 
-  {% if property.images and property.images.length > 0 %}
+  {% if property.gallery and property.gallery.length > 0 %}
   <div class="row">
 
-    {% if property.images %}
-      {% for img in property.images %}
+    {% if property.gallery %}
+      {% for img in property.gallery %}
           <div class="column">
             <div class="tile">
-              <img src="{{ img }}" style="width:100%" onclick="myFunction(this);" data-url="{{ img }}">
+              <img src="{{ img.url }}?h=800" style="width:100%" onclick="myFunction(this);" data-url="{{ img.url }}?h=800">
             </div>
           </div>
       {% endfor %}
@@ -317,11 +318,15 @@ function formatToUSDollars(amount) {
 
 
   <div style="display: flex;flex-direction: column;align-items: center;padding: 1rem;">
-    <a href="" style="width: 100%;display: flex;text-decoration: none;" target="_blank"><button class="" style="width: 100%;line-height: 2.125rem;display: flex;justify-content: center;align-items: center;padding: 0.25rem;"><img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/blank-page.svg" alt="car" width="20" height="20" style="width: 20px;"><p style="font-weight: 600;font-size: 1rem;">Print Listing</p></button></a>
-
+    <script>console.log("property.pdf ")</script>
+    <script>console.log("{{ property.pdf[0] }}")</script>
+    <script>console.log("{{ property.pdf[0].url }}")</script>
+    {% if property.pdf %}
+    <a href="{{ property.pdf.url }}" style="width: 100%;display: flex;text-decoration: none;" target="_blank"><button class="" style="width: 100%;line-height: 2.125rem;display: flex;justify-content: center;align-items: center;padding: 0.25rem;"><img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/blank-page.svg" alt="car" width="20" height="20" style="width: 20px;"><p style="font-weight: 600;font-size: 1rem;">Print Listing</p></button></a>
+    {% endif %}
 
     <div id="agent_info" style="display: flex; align-items: center; font-family: Arial, sans-serif; gap: 15px;padding: 1rem;">
-        <img src="/assets/images/chris.png" alt="Josh White" style="width: 80px; height: 80px; border-radius: 50%;background-color: #33302f;">
+        <img src="/assets/images/chris.jpg" alt="Josh White" style="width: 80px; height: 80px; border-radius: 50%;background-color: #33302f;">
         <div>
           <strong style="font-size: 1.1em;">Chris Johnson</strong><br>
           <!-- <span>Sales Associate, CCIM</span><br> -->
@@ -474,7 +479,7 @@ function formatToUSDollars(amount) {
                 
           {% if property.description %}
           <tr>
-            <th scope="row">{{ property.description | markdownify | safe }}</th>
+            <th scope="row">{{ property.description[0].children[0].text | markdownify | safe }}</th>
           </tr>
           {% endif %}
 
@@ -581,37 +586,7 @@ window.onload = function () {
 </script>
 
 
-{% if property.additional_images %}
-  <!-- <div id="lightgallery" class="gallery-grid"> -->
-    {% for img in property.additional_images %}
-      <!-- <a href="{{ img }}" class="gallery-item"> -->
-        <!-- <img src="{{ img }}" alt="Additional Image" /> -->
-      <!-- </a> -->
-    {% endfor %}
-  <!-- </div> -->
-{% endif %}
 
-<!-- {% if property.additional_images %}
-  <div id="lightgallery" class="gallery-grid container_mosaic">
-    {% for img in property.additional_images %}
-      <div class="tile">
-        {% if loop.index0 <= 10 %}
-        <a href="{{ img }}">
-          <img src="{{ img }}" alt="Additional Image" />
-          {% if loop.index0 == 10 %}
-            <div class="overlay">View All</div>
-          {% endif %}
-          
-        </a>
-        {% else %}
-        <a href="{{ img }}">
-        <img src="{{ img }}" alt="Additional Image" style="display: none;">
-        </a>
-        {% endif %}
-      </div>
-    {% endfor %}
-  </div>
-{% endif %} -->
 
 </div>
 <style>

@@ -74,11 +74,11 @@ function formatToUSDollars(amount) {
 
       {% for category in ['one', 'two', 'three'] %}
       <div class="cs-listing{% if category != 'one' %} cs-hidden{% endif %}" data-category="{{ category }}">
-        {% for listing in listings.listings %}
+        {% for listing in sanityListings.listings %}
           {% set type = listing.listing_type %}
           {% set categoryClass = categoryMap[type] %}
           {% if categoryClass == category %}
-            {% set image = listing.image or 'https://via.placeholder.com/305x400' %}
+            {% set image = listing.image.asset.url or 'https://via.placeholder.com/305x400' %}
             {% set address = listing.address or 'No Address Provided' %}
             {% set sqftA = listing.buildings[0].square_feet or 0 %}
             {% set sqftB = listing.buildings[1].square_feet or 0 %}

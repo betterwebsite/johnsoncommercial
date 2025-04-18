@@ -15,3 +15,18 @@ package = "netlify-plugin-cache"
   ]
 [functions]
   directory = "netlify/functions"
+
+[[redirects]]
+  from = "/admin/*"
+  to = "https://lgrua1a8.sanity.studio"
+  status = 301
+  force = true
+
+[build]
+  command = "npm run build"
+  publish = "_site"
+
+[build.environment]
+  SANITY_PROJECT_ID = "lgrua1a8"
+  SANITY_DATASET = "production"
+  SANITY_API_VERSION = "2023-05-03"

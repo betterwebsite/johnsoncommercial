@@ -2,10 +2,15 @@ backend:
     name: git-gateway
     branch: main
 
-media_library:
-  name: uploadcare
-  config:
-    publicKey: 4bb2bfa91b9bf261537f
+
+# backend:
+#     name: github
+#     repo: betterwebsite/johnsoncommercialLESS
+
+# media_library:
+#   name: uploadcare
+#   config:
+#     publicKey: 4bb2bfa91b9bf261537f
 
 
 local_backend: true
@@ -45,7 +50,7 @@ collections:
                       - label: Listing Type
                         name: listing_type
                         widget: select
-                        options: ["sale", "lease", "both", "closed"]
+                        options: ["sale", "lease", "closed", "under_contract"]
                         default: "sale"
 
                       - label: Property Type
@@ -54,9 +59,9 @@ collections:
                         options: ["Industrial", "Land", "Medical", "Office", "Retail", "Special Purpose", "Residential"]
                         default: "Industrial"
 
-                      - label: Pdf Url
-                        name: pdf_url
-                        widget: string
+                      - label: Pdf Image
+                        name: pdf
+                        widget: file
                         required: false
 
                       - label: Buildings
@@ -170,6 +175,16 @@ collections:
                         name: agent_name
                         widget: string
 
+
+                      - label: "Gallery"
+                        name: "gallery"
+                        widget: "list"
+                        field:
+                          label: "Image"
+                          name: "image"
+                          widget: "image"
+
+                          
 
                       - label: Images
                         name: images

@@ -107,10 +107,20 @@ var ListingsPreview = createClass({
               },
                 // Left container: image and address.
                 h("div", { style: { display: "flex", alignItems: "center" } },
-                  item.images[0] && h("img", { 
-                    src: item.images[0], 
-                    style: { width: "150px", height: "150px", objectFit: "cover", marginRight: "10px" } 
-                  }),
+                  (item.images && item.images[0]) 
+                    ? h("img", { 
+                        src: item.images[0], 
+                        style: { width: "150px", height: "150px", objectFit: "cover", marginRight: "10px" } 
+                      })
+                    : h("div", {
+                        style: { 
+                          width: "150px", 
+                          height: "150px", 
+                          backgroundColor: "white", 
+                          marginRight: "10px",
+                          border: "1px solid #eee"
+                        }
+                      }),
                   h("span", { style: textStyle }, item.address || "No address")
                 ),
                 // "Edit" link.
