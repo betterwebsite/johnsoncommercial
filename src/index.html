@@ -141,10 +141,10 @@ eleventyNavigation:
                     <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/back.jpg' | resize({ width: 1000, height:1000}) | webp %}">
                     <img aria-hidden="true" decoding="async" src="{% getUrl '/assets/images/back.jpg' | resize({ width: 1000, height:1000}) | webp %}" alt="cabinets" loading="lazy" width="400" height="563">
                 </picture>
-                <picture class="cs-picture cs-picture2">
-                    <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/chris.jpg' | resize({ width: 500, height:500}) | webp %}">
-                    <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/chris.jpg' | resize({ width: 1000, height:1000}) | webp %}">
-                    <img aria-hidden="true" decoding="async" src="{% getUrl '/assets/images/chris.jpg' | resize({ width: 1000, height:1000}) | webp %}" alt="house" loading="lazy" width="400" height="563">
+                <picture class="cs-picture cs-picture2" style="background-color: unset;border: none;box-shadow: none;height: 26em;">
+                    <source media="(max-width: 600px)" srcset="{% getUrl '/assets/images/chris.png' | resize({ width: 500, height:500})  %}">
+                    <source media="(min-width: 601px)" srcset="{% getUrl '/assets/images/chris.png' | resize({ width: 900, height:900})  %}">
+                    <img aria-hidden="true" decoding="async" src="{% getUrl '/assets/images/chris.png' | resize({ width: 900, height:900})  %}" alt="house" loading="lazy" width="400" height="563">
                 </picture>
             </div>
             <!-- Right Content Section-->

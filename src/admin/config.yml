@@ -3,14 +3,6 @@ backend:
     branch: main
 
 
-# backend:
-#     name: github
-#     repo: betterwebsite/johnsoncommercialLESS
-
-# media_library:
-#   name: uploadcare
-#   config:
-#     publicKey: 4bb2bfa91b9bf261537f
 
 
 local_backend: true
