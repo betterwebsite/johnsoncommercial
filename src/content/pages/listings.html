@@ -27,7 +27,7 @@ eleventyNavigation:
       box-sizing: border-box;
       background-color: #f9f9f9;
       display: grid;
-      grid-template-columns: 1fr 1fr; /* two columns */
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 15px;
     }
 
@@ -105,7 +105,7 @@ eleventyNavigation:
   padding: 10px;
   background: #f9f9f9;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 15px;
   width: 35%;
 }
@@ -148,7 +148,7 @@ eleventyNavigation:
 
   #container.layout.show-list #listing-view {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 1 column on mobile */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   #container.layout.show-map #map-container {
@@ -249,6 +249,10 @@ eleventyNavigation:
 .status-badge.sale { background-color: #e63946; }
 .status-badge.lease { background-color: #0077b6; }
 .status-badge.closed { background-color: #6c757d; }
+.status-badge.under_contract {
+  background-color: #6c757d; /* Same as closed */
+}
+
 
 
 #sort-bar {
@@ -443,9 +447,11 @@ eleventyNavigation:
     <option value="sale-or-lease" selected>Sale/Lease</option>
     <option value="sale">Sale</option>
     <option value="lease">Lease</option>
+    <option value="under_contract">Under Contract</option>
     <option value="closed">Closed</option>
     <option value="all">All</option>
   </select>
+  
   
 
   <input type="text" id="min-sf" class="hide-mobile" placeholder="Min SF">
@@ -468,20 +474,17 @@ eleventyNavigation:
     </p>
   </div>
   <div id="listing-view" style="width: 100%;">
-    <script>console.log("TEST1")</script>
     {% for listing in sanityListings %}
-      <script>console.log("TEST")</script>
-      <script>console.log(" {{ listing.address }} ")</script>
-      <script>console.log(" {{ listing.gallery[0].asset._ref }} ")</script>
-      <script>console.log(" {{ listing.gallery[0] }} ")</script>
-      <script>console.log(" {{ listing.gallery[0].url }} ")</script>
-      <script>console.log(" {{ listing.pdf }} ")</script>
-      <script>console.log(" {{ listing.pdf.url }} ")</script>
-    {% endfor %}
-    {% for listing in sanityListings %}
+
+    {% if not listing.gallery[0] %}
+    {% else %}
+
     {% set total_sf = 0 %}
     {% for b in listing.buildings %}
-      {% set total_sf = total_sf + (b.square_feet or 0) %}
+    {% set total_sf = total_sf + (b.square_feet or 0) %}
+
+
+
     {% endfor %}
 
     <div class="listing-card"
@@ -494,10 +497,17 @@ eleventyNavigation:
      onclick="window.location.href='/properties/{{ listing.address | slugify }}'">
 
       <div class="image-wrapper">
-        <img src="{{ listing.gallery[0].url }}?h=300&fit=max&auto=format&q=35" alt="{{ listing.address }}">
+        <img src="{{ listing.gallery[0].url }}?h=300&fit=max&auto=format&q=75" alt="{{ listing.address }}">
         <div class="status-badge {{ listing.listing_type }}">
-          {{ listing.listing_type | capitalize | replace("both", "For Sale/Lease") }}
+          {% if listing.listing_type == "both" %}
+            For Sale/Lease
+          {% elif listing.listing_type == "under_contract" %}
+            Pending
+          {% else %}
+            {{ listing.listing_type | capitalize }}
+          {% endif %}
         </div>
+        
       </div>
       <div class="listing-info">
         <div class="listing-title">{{ listing.address }}</div>
@@ -516,6 +526,8 @@ eleventyNavigation:
         {% if listing.buildings[0].year_built %}<div><strong>Year Built:</strong> {{ listing.buildings[0].year_built or "N/A" }}</div>{% endif %}
       </div>
     </div>
+    
+    {% endif %}
     {% endfor %}
   </div>
   </div>
@@ -546,6 +558,9 @@ eleventyNavigation:
     });
   
     {% for listing in sanityListings %}
+    {% if not listing.gallery[0] %}
+    {% else %}
+    
   (function() {
     const lat = {{ listing.location.lat or 0 }};
     const lng = {{ listing.location.lng or 0 }};
@@ -553,7 +568,12 @@ eleventyNavigation:
     const price = {% if listing.price.sale_price %}"{{ listing.price.sale_price | money }}"{% elif listing.price.lease_rate %}"{{ listing.price.lease_rate }}"{% else %}"N/A"{% endif %};
     const squareFeet = {% if listing.buildings[0].square_feet %}addCommasToFloat("{{ listing.buildings[0].square_feet}}") +" Sq Ft"{% else %}''{% endif %};
     const lotSize = {% if listing.buildings[0].lot_acres %}addCommasToFloat("{{ listing.buildings[0].lot_acres}}") +" acres"{% else %}''{% endif %};
-    const status = "{{ listing.listing_type | capitalize | replace("both", "For Sale/Lease") }}";
+    const statusRaw = "{{ listing.listing_type }}";
+    const status = 
+      statusRaw === "both" ? "For Sale/Lease" :
+      statusRaw === "under_contract" ? "Pending" :
+      statusRaw.charAt(0).toUpperCase() + statusRaw.slice(1);
+
     const address = "{{ listing.address | escape }}";
     const agentName = "{{ listing.agent_name | escape }}";
     const agentUrl = "https://localhost:8080/properties/"+address;
@@ -561,7 +581,7 @@ eleventyNavigation:
     const contentString = `
       <div style="max-width: 280px; font-family: sans-serif; position: relative;">
         <div style="position: relative;">
-          <img src="{{ listing.gallery[0].url }}?h=300&fit=max&auto=format&q=35" alt="${title}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px;" loading="lazy">
+          <img src="{{ listing.gallery[0].url }}?h=300&fit=max&auto=format&q=75" alt="${title}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px;" loading="lazy">
           <div style="
             position: absolute;
             top: 8px;
@@ -571,8 +591,9 @@ eleventyNavigation:
               status === "Closed" ? "#6c757d" :
               status === "Sale" ? "#e63946" :
               status === "For Sale/Lease" ? "#003f7d" :
-              "#000"
+              status === "Pending" ? "#6c757d" : "#000"
             };
+
             color: white;
             padding: 2px 6px;
             font-size: 12px;
@@ -615,9 +636,12 @@ eleventyNavigation:
             ? "/assets/images/pins/pin-red.svg"
             : status === "Lease"
             ? "/assets/images/pins/pin-blue.svg"
+            : status === "Pending" || status === "Closed"
+            ? "/assets/images/pins/pin-black.svg"
             : "/assets/images/pins/pin-black.svg",
         scaledSize: new google.maps.Size(40, 40),
       },
+
     });
 
     const infowindow = new google.maps.InfoWindow({ content: contentString });
@@ -638,6 +662,7 @@ eleventyNavigation:
     marker.__lng = lng;
     allMarkers.push(marker);
   })();
+  {% endif %}
 {% endfor %}
 
 
