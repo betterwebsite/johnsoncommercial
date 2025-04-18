@@ -1,0 +1,211 @@
+{
+  "listings": [
+    {
+      "pdf_url": "https://static1.squarespace.com/static/63402aad59ee1e64a2820c16/t/67cb3b04c5f3ef533c155866/1741372167424/1808+W+Lindsey+St.+Flyer+3.7.pdf",
+      "property_type": "Industrial",
+      "agent_name": "Chris Johnson",
+      "price": {
+        "sale_price": 1250000,
+        "price_per": 121.95
+      },
+      "misc": {
+        "caprate": 7.5,
+        "zoning": "I-1"
+      },
+      "sections": [
+        {
+          "section_name": "additional 1",
+          "section_description": "description for additional 1"
+        },
+        {
+          "section_description": "description for additional 2",
+          "section_name": "additional 2"
+        },
+        {
+          "section_name": "Account ID",
+          "section_description": "901283409"
+        }
+      ],
+      "additional_images": [
+        "https://ucarecdn.com/21779ffa-1c94-4abe-9b38-689df57e6e64/",
+        "https://ucarecdn.com/41f3bba0-4a0c-4cc8-aade-b1a9d275ff77/",
+        "https://ucarecdn.com/d7c06ad4-5a65-4bb4-a98b-d6e1e65cc09a/",
+        "https://ucarecdn.com/87079ff8-fb0b-4dc3-97ba-641c37880c85/",
+        "https://ucarecdn.com/fb55b9af-bb40-4ffd-8737-5909112a9232/",
+        "https://ucarecdn.com/84e5b022-7d32-4a07-a172-43d7892140e0/",
+        "https://ucarecdn.com/192c7486-f0a2-4831-bd31-b7615b794249/",
+        "https://ucarecdn.com/efad0a6b-a33c-4c3e-8ab1-c6de8d4d70fa/",
+        "https://ucarecdn.com/535f3a35-3a9a-4ca2-965b-96ff989eca94/",
+        "https://ucarecdn.com/125d7c3c-0b1f-4ba8-9c37-47bbca25fc66/",
+        "https://ucarecdn.com/f5059f52-591a-4b2c-af40-b893230b25ad/",
+        "https://ucarecdn.com/d1f197c3-4f3f-4796-b312-505b4efa4fb3/",
+        "https://ucarecdn.com/2f97e48b-ef32-485d-9f2a-9e9dcc7a7bcf/",
+        "https://ucarecdn.com/f1c81d52-3a7a-4770-b3f1-b489bf2ceadf/",
+        "https://ucarecdn.com/402cef96-a14b-4185-a239-e09f2c35ab9f/",
+        "https://ucarecdn.com/5efb556c-84d3-48d5-ad78-4c68ecb90e14/",
+        "https://ucarecdn.com/f9f8e814-0965-42f6-b39b-ae4e691ac745/",
+        "https://ucarecdn.com/37026bc1-3bfa-41d6-8aec-cad4d73a5003/",
+        "https://ucarecdn.com/43559257-88ff-468a-a14b-a5bf6226e3b0/",
+        "https://ucarecdn.com/aa1bf930-65bd-4471-a5fd-917fb688a264/",
+        "https://ucarecdn.com/0750551b-5fe7-457c-9159-9913cb1a22df/",
+        "https://ucarecdn.com/2a1f6e99-da9e-4f38-bed7-a140e8b72667/",
+        "https://ucarecdn.com/c75042f2-989e-4dc7-9b0d-a73e14e6e59d/",
+        "https://ucarecdn.com/2e716be2-6241-487d-89c1-4f9778a61c77/",
+        "https://ucarecdn.com/3a5b2278-55f6-468d-88df-de5ee693635d/",
+        "https://ucarecdn.com/7467559e-4559-440f-a762-7df838cb1895/",
+        "https://ucarecdn.com/b9f9733c-b226-43e9-8822-be420d6321ba/",
+        "https://ucarecdn.com/83ae22a6-2172-4d3d-a23f-68733d5e2302/",
+        "https://ucarecdn.com/330090fb-89e1-4fd8-8ff3-f969587ec335/",
+        "https://ucarecdn.com/5059782b-ee3f-4704-ba36-5a0e32ba418f/",
+        "https://ucarecdn.com/fd66a3e2-7dd0-4f75-affa-c63c0db501f2/",
+        "https://ucarecdn.com/04a8f7d4-c303-4a54-85ff-3160ed11f4db/",
+        "https://ucarecdn.com/dd72c4ad-db2b-4251-ad9c-bdb8d0a31b4d/",
+        "https://ucarecdn.com/19edbcd0-d6a3-4899-9e2f-91a9771f9508/",
+        "https://ucarecdn.com/50ec6faa-4cb6-4c47-b716-dea10e2ca0c9/",
+        "https://ucarecdn.com/710b43c3-2928-4e4e-8dc7-b05563132d7c/",
+        "https://ucarecdn.com/e0a16b34-344a-4924-b10b-b7d46d2482cd/",
+        "https://ucarecdn.com/a0a6b53e-b145-4473-a463-f7793f45ea82/",
+        "https://ucarecdn.com/16d76571-3c26-4391-9b9e-bb81e06b941b/",
+        "https://ucarecdn.com/8f02dcf0-0778-4d70-82fc-9c5dbec606e5/",
+        "https://ucarecdn.com/9c8e7bac-5fe7-48bf-a6a9-b341e2e8395f/",
+        "https://ucarecdn.com/c38b7dd7-e5bd-4b4b-812c-828c5b668ed3/",
+        "https://ucarecdn.com/3bcd2f9d-1da9-4af9-8012-a253f726ec2e/",
+        "https://ucarecdn.com/9ef75dc1-4425-48d6-9221-7945e71cc331/",
+        "https://ucarecdn.com/38a9bbec-f53b-4d5e-9b98-4647cdd66501/"
+      ],
+      "address": "2845 Broce Drive, Norman, OK 73072",
+      "listing_type": "sale",
+      "location": {
+        "state": "OK",
+        "city": "Norman",
+        "zipcode": "73072",
+        "lat": 35.252234,
+        "lng": -97.489476
+      },
+      "image": "/assets/images/cms/2845-broce-dr-norman-ok-6.jpg",
+      "description": "***For Sale: Warehouse Space in Norman***\n\n**Located at 2845 Broce Drive, this fully leased investment property presents a compelling opportunity. Renovated in 2018, it includes two buildings totaling 10,250 SF. Building 1 includes 2 units totaling 6,250 sqft with 13 offices, 3 bathrooms, a commercial kitchen, conference room, and warehouse space. Building 2 features 2 units totaling 4,000 sqft, including 11 offices, 3 bathrooms, a commercial kitchen, a large open entryway, and warehouse. With four units currently leased, this property offers a promising investment opportunity with potential for strong returns.**",
+      "buildings": [
+        {
+          "square_feet": 6250,
+          "lot_acres": 10250,
+          "year_built": 1982
+        },
+        {
+          "square_feet": 4000,
+          "lot_acres": 10250,
+          "year_built": 2018
+        }
+      ]
+    },
+    {
+      "property_type": "Industrial",
+      "agent_name": "Chris Johnson",
+      "price": {
+        "lease_rate": "$150/Sf/Mo"
+      },
+      "misc": {
+        "zoning": "C-1"
+      },
+      "address": "3221 Bart Conner Dr, STE H, Norman OK, 73072 ",
+      "listing_type": "lease",
+      "location": {
+        "state": "OK",
+        "city": "Norman",
+        "zipcode": "73072",
+        "lat": 35.250968,
+        "lng": -97.490289
+      },
+      "image": "/assets/images/cms/3221-bart-conner-suite-h-norman-oklahoma-13.jpg",
+      "description": "***For Lease: IndustSpace In Norman!***\n\n**2,250 SF industrial unit in NW Norman, offering a versatile layout with 1,150 SF +/- of warehouse space featuring a 10’x12’ overhead door, unit heater, and 15’ clear height, along with 1,100 +/- SF of office space equipped with central HVAC. The unit includes one restroom and provides ample parking, making it an excellent option for businesses seeking a well-located, functional space with easy access and flexibility.**",
+      "buildings": [
+        {
+          "square_feet": 2250,
+          "year_built": 1983
+        }
+      ]
+    },
+    {
+      "property_type": "Retail",
+      "agent_name": "Chris Johnson",
+      "price": {
+        "sale_price": 2108000,
+        "price_per": 290
+      },
+      "misc": {
+        "zoning": "C2",
+        "caprate": 7
+      },
+      "address": "1808 W Lindsey Street, Norman, OK 73069",
+      "listing_type": "closed",
+      "location": {
+        "state": "OK",
+        "city": "Norman",
+        "zipcode": "73069",
+        "lat": 35.203226,
+        "lng": -97.470405
+      },
+      "image": "/assets/images/cms/1808-w-lindsay-st-norman-oklahoma-2.jpg",
+      "description": "***For Sale: Retail Space In Norman!***\n\n**This fully leased 7,200 SF retail center at 1808 W Lindsey St, Norman, OK is located at the SW corner of Lindsey St. and McGee St., just 1.5 miles from the University of Oklahoma. The property sits on 0.87 acres and is zoned C-2. Built in 2007, it features four units with NNN leases, 170 feet of frontage along Lindsey St., and 40 parking spaces. Situated in a high-traffic retail area with easy access to I-35, this property offers strong visibility and consistent foot traffic, making it a solid investment opportunity.**",
+      "buildings": [
+        {
+          "square_feet": 7200,
+          "lot_acres": 0.87
+        }
+      ]
+    },
+    {
+      "property_type": "Land",
+      "agent_name": "Chris Johnson",
+      "price": {
+        "sale_price": 499000,
+        "price_per": 1.86
+      },
+      "misc": {
+        "zoning": "C-0"
+      },
+      "address": "3000 12th Ave NE, Norman OK, 73071",
+      "listing_type": "closed",
+      "location": {
+        "state": "OK",
+        "city": "Norman",
+        "zipcode": "73071",
+        "lat": 35.255654,
+        "lng": -97.424335
+      },
+      "image": "/assets/images/cms/image.jpg",
+      "description": "***For Sale: Land In Norman!***\n\n**Prime Commercial Land: 6.164 acres MOL with CO zoning (Suburban Office) at 3000 12th Ave NE, Norman, OK 73010. With 837' of frontage on 12th Ave NE, this easily accessible property offers natural water detention, along with adjacent water and sewer connections. Conveniently located just 4 miles from the University of Oklahoma and offering effortless access to I-35, this is an exceptional opportunity for various commercial ventures. Don't miss out on this prime location to realize your business's full potential. Act now and seize this rare gem! Listed at $499,000.00. Call today for more information.**",
+      "buildings": [
+        {
+          "lot_acres": 6.164,
+          "year_built": ""
+        }
+      ]
+    },
+    {
+      "property_type": "Special Purpose",
+      "agent_name": "Chris Johnson",
+      "price": {
+        "sale_price": 185000
+      },
+      "misc": {
+        "zoning": "I-1"
+      },
+      "address": "0000n Industrial Dr",
+      "listing_type": "sale",
+      "location": {
+        "state": "OK",
+        "city": "Shawnee",
+        "lat": 35.374884,
+        "lng": -96.995857,
+        "zipcode": "73070"
+      },
+      "image": "/assets/images/cms/closed-post-37316-old-highway-270-shawnee-ok-74804.png",
+      "description": "Test",
+      "buildings": [
+        {
+          "square_feet": 1250
+        }
+      ]
+    }
+  ]
+}

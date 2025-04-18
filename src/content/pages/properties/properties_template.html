@@ -291,7 +291,7 @@ function formatToUSDollars(amount) {
   <!-- Main expanded image -->
   <div class="img_container" style="display: block;">
     <!-- <img id="expandedImg" style="width:100%" src="{% if property.gallery and property.gallery.length > 0 %}{{ property.gallery[0].url }}{% else %}{{ property.gallery[0].url }}{% endif %}"> -->
-    <img id="expandedImg" style="width:100%" src="{{ property.gallery[0].url }}?h=800">
+    <img id="expandedImg" style="width:100%" src="{{ property.gallery[0].url }}?h=800&fit=max&auto=format&q=35">
     <div id="imgtext"></div>
   </div>
 
@@ -302,7 +302,7 @@ function formatToUSDollars(amount) {
       {% for img in property.gallery %}
           <div class="column">
             <div class="tile">
-              <img src="{{ img.url }}?h=800" style="width:100%" onclick="myFunction(this);" data-url="{{ img.url }}?h=800">
+              <img src="{{ img.url }}?h=800&fit=max&auto=format&q=35" style="width:100%" onclick="myFunction(this);" data-url="{{ img.url }}?h=800&fit=max&auto=format&q=35" loading="lazy">
             </div>
           </div>
       {% endfor %}
