@@ -325,8 +325,10 @@ function formatToUSDollars(amount) {
     <a href="{{ property.pdf.url }}" style="width: 100%;display: flex;text-decoration: none;" target="_blank"><button class="" style="width: 100%;line-height: 2.125rem;display: flex;justify-content: center;align-items: center;padding: 0.25rem;"><img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/blank-page.svg" alt="car" width="20" height="20" style="width: 20px;"><p style="font-weight: 600;font-size: 1rem;">Print Listing</p></button></a>
     {% endif %}
 
+
+    {% if property.agent_name == 'Chris Johnson' %}
     <div id="agent_info" style="display: flex; align-items: center; font-family: Arial, sans-serif; gap: 15px;padding: 1rem;">
-        <img src="/assets/images/chris.jpg" alt="Josh White" style="width: 80px; height: 80px; border-radius: 50%;background-color: #33302f;">
+        <img src="/assets/images/chris.jpg" alt="Chris Johnson" style="width: 80px; height: 80px; border-radius: 50%;background-color: #33302f;">
         <div>
           <strong style="font-size: 1.1em;">Chris Johnson</strong><br>
           <!-- <span>Sales Associate, CCIM</span><br> -->
@@ -337,6 +339,20 @@ function formatToUSDollars(amount) {
       
 
     </div>
+    {% elif property.agent_name == 'Sally Allen' %}
+    <div id="agent_info" style="display: flex; align-items: center; font-family: Arial, sans-serif; gap: 15px;padding: 1rem;">
+      <img src="/assets/images/sally.png" alt="Sally Allen" style="width: 80px; height: 80px; border-radius: 50%;background-color: #33302f;">
+      <div>
+        <strong style="font-size: 1.1em;">Sally Allen</strong><br>
+        <!-- <span>Sales Associate, CCIM</span><br> -->
+        <!-- <span>OK #123456</span><br> -->
+        <a href="tel:405-623-7920" style="text-decoration: none; color: #1a73e8;">(405) 623-7920</a><br>
+        <a href="mailto:sally@jcgok.com" style="text-decoration: none; color: #1a73e8;">Sally@jcgok.com</a>
+      </div>
+    
+
+  </div>
+    {% endif %}
 
     <section id="cs-contact" style="
     padding: 1rem;
