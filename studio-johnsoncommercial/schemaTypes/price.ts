@@ -1,6 +1,5 @@
 import {defineField, defineType} from 'sanity'
 import CurrencyInput from '../components/CurrencyInput'
-import CurrencyInputRate from '../components/CurrencyInputRate'
 
 
 export const priceType = defineType({
@@ -21,10 +20,7 @@ export const priceType = defineType({
       name: 'lease_rate',
       title: 'Lease Rate',
       type: 'string',
-      description: 'Please format this with "$" and "/SF/Mo/Yr" example: $150/Sf/Mo',
-      components: {
-        input: CurrencyInputRate
-      }
+      description: 'Please format this with "$" and "/SF/Mo/Yr" example: $150/Sf/Mo'
     }),
     defineField({
       name: 'price_per',
