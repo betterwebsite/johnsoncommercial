@@ -12,7 +12,6 @@ const configServer = require("./src/config/server");
 // Other
 const filterPostDate = require("./src/config/postDate");
 const isProduction = configServer.isProduction;
-const eleventyPluginSharpImages = require("@codestitchofficial/eleventy-plugin-sharp-images");
 const blocksToHtml = require('@sanity/block-content-to-html');
 
 const markdownIt = require("markdown-it");
@@ -38,10 +37,6 @@ module.exports = function (eleventyConfig) {
     /**=====================================================================
                                 END EXTENSIONS
     =======================================================================*/
-    eleventyConfig.addPlugin(eleventyPluginSharpImages, {
-        urlPath: "/assets/images",
-        outputDir: "public/assets/images",
-    });
 
 
     eleventyConfig.addFilter('sanityBlockContent', function(blocks) {
