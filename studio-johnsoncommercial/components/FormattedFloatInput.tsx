@@ -22,7 +22,7 @@ export default function FormattedFloatInput({value, onChange}: StringInputProps)
       if (!isNaN(numeric)) {
         const formatted = numeric.toLocaleString(undefined, {
           minimumFractionDigits: 0,
-          maximumFractionDigits: 2,
+          maximumFractionDigits: 6,
         })
 
         input = cleaned.replace(original, formatted)

@@ -440,7 +440,19 @@ function formatToUSDollars(amount) {
           {% endif %}
 
 
+          <script>
+            console.log("here1")
+            {% for b in property.buildings %}
+            {% if b.lot_size %}
+              console.log("Building {{ loop.index }} SF")
+              console.log("{{ b.lot_size }}")
+              {% endif %}
+            {% endfor %}
+          </script>
           {% if property.buildings[0].lot_size %}
+          <script>
+            console.log("here2")
+          </script>
           <tr>
             <th scope="row">Size</th>
             <td scope="row">{{ property.buildings[0].lot_size }}</td>

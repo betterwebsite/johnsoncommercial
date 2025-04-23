@@ -28,7 +28,7 @@ module.exports = async function() {
     image,
     "buildings": buildings[]{
       square_feet,
-      lot_acres,
+      lot_size,
       year_built
     },
     price {

@@ -522,7 +522,7 @@ eleventyNavigation:
       <div class="hover-details">
         <div><strong>Address:</strong> {{ listing.address }}</div>
         {% if listing.buildings[0].square_feet %}<div><strong>Square Feet:</strong> {{ listing.buildings[0].square_feet}}</div>{% endif %}
-        {% if listing.buildings[0].lot_size %}<div><strong>Lot Acres:</strong> {{ listing.buildings[0].lot_size  }}</div>{% endif %}
+        {% if listing.buildings[0].lot_size %}<div><strong>Size:</strong> {{ listing.buildings[0].lot_size  }}</div>{% endif %}
         {% if listing.buildings[0].year_built %}<div><strong>Year Built:</strong> {{ listing.buildings[0].year_built or "N/A" }}</div>{% endif %}
       </div>
     </div>
@@ -568,8 +568,8 @@ eleventyNavigation:
     console.log({{ listing.location.lat or 0 }}, {{ listing.location.lat or 0 }},  "{{ listing.address | escape }}");
     const title = "{{ listing.address | escape }}";
     const price = {% if listing.price.sale_price %}"{{ listing.price.sale_price }}"{% elif listing.price.lease_rate %}"{{ listing.price.lease_rate }}"{% else %}"N/A"{% endif %};
-    const squareFeet = {% if listing.buildings[0].square_feet %}"{{ listing.buildings[0].square_feet}}" +" Sq Ft"{% else %}''{% endif %};
-    const lotSize = {% if listing.buildings[0].lot_size %}"{{ listing.buildings[0].lot_size}}" +" acres"{% else %}''{% endif %};
+    const squareFeet = {% if listing.buildings[0].square_feet %}"{{ listing.buildings[0].square_feet}}"{% else %}''{% endif %};
+    const lotSize = {% if listing.buildings[0].lot_size %}"{{ listing.buildings[0].lot_size}}"{% else %}''{% endif %};
     const statusRaw = "{{ listing.listing_type }}";
     const status = 
       statusRaw === "both" ? "For Sale/Lease" :
