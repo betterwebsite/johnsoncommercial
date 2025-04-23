@@ -155,7 +155,7 @@ function formatToUSDollars(amount) {
     <div id="property-price">
       <h2>
       {% if property.price.sale_price %}
-        {{ property.price.sale_price | money  }}
+        {{ property.price.sale_price }}
       {% elif property.price.lease_rate %}
        {{ property.price.lease_rate }}
      {% endif %}
@@ -291,7 +291,7 @@ function formatToUSDollars(amount) {
   <!-- Main expanded image -->
   <div class="img_container" style="display: block;">
     <!-- <img id="expandedImg" style="width:100%" src="{% if property.gallery and property.gallery.length > 0 %}{{ property.gallery[0].url }}{% else %}{{ property.gallery[0].url }}{% endif %}"> -->
-    <img id="expandedImg" style="width:100%" src="{{ property.gallery[0].url }}?h=800&fit=max&auto=format&q=35">
+    <img id="expandedImg" style="width:100%" src="{{ property.gallery[0].url }}?h=800&fit=max&auto=format&q=85">
     <div id="imgtext"></div>
   </div>
 
@@ -302,7 +302,7 @@ function formatToUSDollars(amount) {
       {% for img in property.gallery %}
           <div class="column">
             <div class="tile">
-              <img src="{{ img.url }}?h=800&fit=max&auto=format&q=35" style="width:100%" onclick="myFunction(this);" data-url="{{ img.url }}?h=800&fit=max&auto=format&q=35" loading="lazy">
+              <img src="{{ img.url }}?h=800&fit=max&auto=format&q=85" style="width:100%" onclick="myFunction(this);" data-url="{{ img.url }}?h=800&fit=max&auto=format&q=35" loading="lazy">
             </div>
           </div>
       {% endfor %}
@@ -321,9 +321,7 @@ function formatToUSDollars(amount) {
     <script>console.log("property.pdf ")</script>
     <script>console.log("{{ property.pdf[0] }}")</script>
     <script>console.log("{{ property.pdf[0].url }}")</script>
-    {% if property.pdf %}
-    <a href="{{ property.pdf.url }}" style="width: 100%;display: flex;text-decoration: none;" target="_blank"><button class="" style="width: 100%;line-height: 2.125rem;display: flex;justify-content: center;align-items: center;padding: 0.25rem;"><img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/blank-page.svg" alt="car" width="20" height="20" style="width: 20px;"><p style="font-weight: 600;font-size: 1rem;">Print Listing</p></button></a>
-    {% endif %}
+
 
 
     {% if property.agent_name == 'Chris Johnson' %}
@@ -395,9 +393,13 @@ function formatToUSDollars(amount) {
 <!-- ============================================ -->
 <!--                   Timetable                  -->
 <!-- ============================================ -->
-
-
-
+ <hr>
+{% if property.pdf %}
+<!-- <button class="" style="width: 100%;line-height: 2.125rem;display: flex;justify-content: center;align-items: center;padding: 0.25rem;"><img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/blank-page.svg" alt="car" width="20" height="20" style="width: 20px;"><p style="font-weight: 600;font-size: 1rem;">Print Listing</p></button></a> -->
+<div>
+  <a href="{{ property.pdf.url }}" style="width: 100%;display: flex;text-decoration: none;flex-direction: column;align-items: center;margin-bottom: 2rem;margin-top: 2rem;" target="_blank"><button class="cs-button-solid" type="submit" style="border: none;">Download Report</button></a>
+</div>
+{% endif %}
 
 <div style="display: flex;">
 
@@ -417,7 +419,7 @@ function formatToUSDollars(amount) {
           <tr>
             {% if property.price.sale_price %}
             <th scope="row">Sale Price</th>
-            <td>{{ property.price.sale_price | money}}</td>
+            <td>{{ property.price.sale_price}}</td>
             {% elif property.price.lease_rate %}
             <th scope="row">Lease Rate</th>
             <td>{{ property.price.lease_rate }}</td>
@@ -426,22 +428,22 @@ function formatToUSDollars(amount) {
           {% endif %}
 
           
-          {% if property.buildings.length %}
+          {% if property.buildings[0].square_feet %}
             {% for b in property.buildings %}
             <tr>
               {% if b.square_feet %}
-              <th scope="row">Building {{ loop.index }} Sqf</th>
-              <td scope="row">{{ b.square_feet | float }}</td>
+              <th scope="row">Building {{ loop.index }} SF</th>
+              <td scope="row">{{ b.square_feet }}</td>
               {% endif %}
             </tr>
             {% endfor %}
           {% endif %}
 
 
-          {% if property.buildings[0].lot_acres %}
+          {% if property.buildings[0].lot_size %}
           <tr>
-            <th scope="row">Lot Acres</th>
-            <td scope="row">{{ property.buildings[0].lot_acres | float }}</td>
+            <th scope="row">Size</th>
+            <td scope="row">{{ property.buildings[0].lot_size }}</td>
           </tr>
         {% endif %}
 
@@ -451,8 +453,8 @@ function formatToUSDollars(amount) {
 
           {% if property.price.price_per %}
           <tr>
-            <th scope="row">Price Per Sqf</th>
-            <td scope="row">{{ property.price.price_per | money }}</td>
+            <th scope="row">Price Per SF</th>
+            <td scope="row">{{ property.price.price_per }}</td>
           </tr>
           {% endif %}
           {% if property.misc.caprate %}
@@ -628,7 +630,7 @@ window.onload = function () {
   <div class="cs-container">
       <div class="cs-content">
           <span class="cs-topper">Disclaimer</span>
-          <p class="cs-text">
+          <p class="cs-text" style="max-width: none;color: black;">
             A real estate broker is not authorized to give legal or tax advice. No representation is made by Johnson Commercial Group or Brick & Beam Realty, its agents or employees, as to the legal effect or tax consequences of the information contained herein or any transaction relating thereto. Although all information furnished regarding property sales or financing options are from sources deemed to be reliable, such information has not been verified and no express representation is made on, or is in any way implied as to the accuracy thereof and is subject to errors, omissions, change of price, or other conditions prior to sale or withdrawal without notice.
           </p>
       </div>

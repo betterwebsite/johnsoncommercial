@@ -102,7 +102,14 @@ export const listingType = defineType({
     select: {
       title: 'address',
       subtitle: 'property_type',
-      media: 'mainImage',
+      gallery: 'gallery',
     },
-  },
+    prepare({title, subtitle, gallery}) {
+      return {
+        title,
+        subtitle,
+        media: gallery?.[0] || null
+      }
+    }
+  }
 });

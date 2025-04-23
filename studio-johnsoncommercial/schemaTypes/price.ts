@@ -1,4 +1,7 @@
 import {defineField, defineType} from 'sanity'
+import CurrencyInput from '../components/CurrencyInput'
+import CurrencyInputRate from '../components/CurrencyInputRate'
+
 
 export const priceType = defineType({
   name: 'price',
@@ -8,19 +11,28 @@ export const priceType = defineType({
     defineField({
       name: 'sale_price',
       title: 'Sale Price',
-      type: 'number',
+      type: 'string',
       description: 'Leave this blank for "Lease", use "Lease Rate" below instead',
+      components: {
+        input: CurrencyInput
+      }
     }),
     defineField({
       name: 'lease_rate',
       title: 'Lease Rate',
       type: 'string',
       description: 'Please format this with "$" and "/SF/Mo/Yr" example: $150/Sf/Mo',
+      components: {
+        input: CurrencyInputRate
+      }
     }),
     defineField({
       name: 'price_per',
       title: 'Price Per SF',
-      type: 'number',
+      type: 'string',
+      components: {
+        input: CurrencyInput
+      }
     }),
   ],
 });

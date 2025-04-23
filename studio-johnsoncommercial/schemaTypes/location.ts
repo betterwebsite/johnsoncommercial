@@ -1,4 +1,6 @@
 import {defineField, defineType} from 'sanity'
+import FlexibleNumberInput from '../components/FlexibleNumberInput'
+
 
 export const locationType = defineType({
   name: 'location',
@@ -29,12 +31,18 @@ export const locationType = defineType({
       title: 'Latitude',
       type: 'number',
       validation: (rule) => rule.required(),
+      components: {
+        input: FlexibleNumberInput
+      }
     }),
     defineField({
       name: 'lng',
       title: 'Longitude',
       type: 'number',
       validation: (rule) => rule.required(),
+      components: {
+        input: FlexibleNumberInput
+      }
     }),
   ],
 });
