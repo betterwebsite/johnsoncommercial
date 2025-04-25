@@ -1,5 +1,7 @@
 // schemas/listing.js
 import {defineField, defineType} from 'sanity'
+import DetailsTableInput from '../components/DetailsTableInput'
+
 
 export const listingType = defineType({
   name: 'listing',
@@ -31,6 +33,7 @@ export const listingType = defineType({
       name: 'property_type',
       title: 'Property Type',
       type: 'string',
+      hidden: true,
       options: {
         list: [
           { title: 'Industrial', value: 'Industrial' },
@@ -46,10 +49,66 @@ export const listingType = defineType({
       initialValue: 'Industrial',
     }),
     defineField({
+      name: 'property_types',
+      title: 'Property Type(s)',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: {
+        list: [
+          { title: 'Industrial', value: 'Industrial' },
+          { title: 'Land', value: 'Land' },
+          { title: 'Medical', value: 'Medical' },
+          { title: 'Office', value: 'Office' },
+          { title: 'Retail', value: 'Retail' },
+          { title: 'Special Purpose', value: 'Special Purpose' },
+          { title: 'Residential', value: 'Residential' },
+          { title: 'Flex', value: 'Flex' },
+        ],
+        layout: 'grid',  // This will display the options as a grid of checkboxes
+      },
+      // No validation required - can be empty
+    }),
+    defineField({
       name: 'pdf',
-      title: 'PDF Document',
+      title: 'Featured PDF Document',
       type: 'file',
     }),
+    defineField({
+      name: 'pdf_name',
+      title: 'Featured PDF Name (Optional)',
+      type: 'string',
+      description: 'Download Button Text = "Property Flyer " + *PDF Name*'
+    }),
+    defineField({
+      name: 'pdfs',
+      title: 'Additional PDF Documents',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          name: 'namedPdf',
+          fields: [
+            {
+              name: 'file',
+              title: 'PDF File',
+              type: 'file'
+            },
+            {
+              name: 'name',
+              title: 'Name',
+              type: 'string',
+              description: 'Download Button Text = "Property Flyer " + *PDF Name*'
+            },
+          ],
+          preview: {
+            select: {
+              title: 'name',
+              media: 'file',
+            },
+          },
+        },
+      ],
+    }),    
     defineField({
       name: 'buildings',
       title: 'Buildings',
@@ -96,12 +155,64 @@ export const listingType = defineType({
       title: 'Additional Content Sections',
       type: 'array',
       of: [{type: 'contentSection'}],
+      hidden: true
     }),
+    defineField({
+      name: 'detailsTable',
+      title: 'Details Table Configuration',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'fields',
+          title: 'Table Fields',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              {
+                name: 'id',
+                title: 'Field ID',
+                type: 'string',
+                readOnly: true
+              },
+              {
+                name: 'displayName',
+                title: 'Display Name',
+                type: 'string'
+              },
+              {
+                name: 'enabled',
+                title: 'Show in Table',
+                type: 'boolean',
+                initialValue: true
+              }
+            ]
+          }],
+          // This will be overridden by our custom component
+        })
+      ],
+      // Define a custom component for editing
+      components: {
+        input: DetailsTableInput
+      },
+      // Set default values when document is created
+      initialValue: {
+        fields: [
+          { id: 'sale_price', displayName: 'Sale Price', enabled: true },
+          { id: 'building_sf', displayName: 'Building SF', enabled: true },
+          { id: 'lot_size', displayName: 'Size', enabled: true },
+          { id: 'price_per', displayName: 'Price Per SF', enabled: true },
+          { id: 'caprate', displayName: 'Caprate', enabled: true },
+          { id: 'zoning', displayName: 'Zoning', enabled: true },
+          { id: 'property_type', displayName: 'Property Type', enabled: true }
+        ]
+      }
+    })
   ],
   preview: {
     select: {
       title: 'address',
-      subtitle: 'property_type',
+      subtitle: 'listing_type',
       gallery: 'gallery',
     },
     prepare({title, subtitle, gallery}) {

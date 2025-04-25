@@ -439,6 +439,7 @@ eleventyNavigation:
       <label><input type="checkbox" value="retail"> Retail</label>
       <label><input type="checkbox" value="special purpose"> Special Purpose</label>
       <label><input type="checkbox" value="residential"> Residential</label>
+      <label><input type="checkbox" value="flex"> Flex</label>
     </div>
   </div>
   
@@ -476,6 +477,21 @@ eleventyNavigation:
   <div id="listing-view" style="width: 100%;">
     {% for listing in sanityListings %}
 
+    <script>
+      
+      
+      // console.log("{{ listing.address }}")
+      {% if listing.address == "2845 Broce Drive Norman, OK 73072" %}
+      console.log("{{ listing.address }}")
+      console.log("{{ listing.gallery.length }}");
+      console.log("{{ listing.property_types.length }}");
+      {% for prop_type in listing.property_types %}
+        console.log("{{ prop_type }}")
+      {% endfor %}
+      {% endif %}
+
+      </script>
+
     {% if not listing.gallery[0] %}
     {% else %}
 
@@ -486,14 +502,13 @@ eleventyNavigation:
 
 
     {% endfor %}
-
     <div class="listing-card"
      href="/properties/{{ listing.address | slugify }}"
      data-lat="{{ listing.location.lat }}"
      data-lng="{{ listing.location.lng }}"
      data-type="{{ listing.listing_type }}"
      data-sf="{{ total_sf }}"
-     data-property="{{ listing.property_type | lower }}"
+     data-property="{{ listing.property_types | join(',') | lower }}"
      onclick="window.location.href='/properties/{{ listing.address | slugify }}'">
 
       <div class="image-wrapper">
@@ -842,7 +857,12 @@ eleventyNavigation:
       type === filterState.listingType ||
       (filterState.listingType === "sale-or-lease" && (type === "sale" || type === "lease"));
 
-      const matchesProperty = filterState.propertyTypes.has(prop);
+      // const matchesProperty = filterState.propertyTypes.has(prop);
+      const props = (card.dataset.property || "").split(',').map(p => p.trim().toLowerCase());
+
+const matchesProperty = filterState.propertyTypes.has("all") || props.some(p => filterState.propertyTypes.has(p));
+
+
       const matchesSF = sf >= filterState.minSF && sf <= filterState.maxSF;
 
       const show = matchesSearch && matchesType && matchesProperty && matchesSF;
@@ -913,7 +933,8 @@ eleventyNavigation:
         filterState.propertyTypes.clear();
         propertyCheckboxes.forEach(other => {
           other.checked = true;
-          if (other.value !== 'all') filterState.propertyTypes.add(other.value);
+          // if (other.value !== 'all') 
+          filterState.propertyTypes.add(other.value);
         });
       } else {
         if (selectAllBox.checked) {

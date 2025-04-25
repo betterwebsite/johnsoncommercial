@@ -289,11 +289,13 @@ function formatToUSDollars(amount) {
   <div style="text-align:center"></div>
 
   <!-- Main expanded image -->
-  <div class="img_container" style="display: block;">
-    <!-- <img id="expandedImg" style="width:100%" src="{% if property.gallery and property.gallery.length > 0 %}{{ property.gallery[0].url }}{% else %}{{ property.gallery[0].url }}{% endif %}"> -->
+  <div class="img_container" style="display: block; position: relative;">
+    <div class="nav-arrow arrow-left" onclick="navigateGallery('left')">&#10094;</div>
+    <div class="nav-arrow arrow-right" onclick="navigateGallery('right')">&#10095;</div>
     <img id="expandedImg" style="width:100%" src="{{ property.gallery[0].url }}?h=800&fit=max&auto=format&q=85">
     <div id="imgtext"></div>
   </div>
+  
 
   {% if property.gallery and property.gallery.length > 0 %}
   <div class="row">
@@ -312,7 +314,87 @@ function formatToUSDollars(amount) {
 
 </div>
 
+<style>
+  .nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-size: 2rem;
+  width: 40px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  /* border-radius: 4px; */
+  user-select: none;
+  transition: background-color 0.3s;
+}
 
+.nav-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.arrow-left {
+  left: 10px;
+}
+
+.arrow-right {
+  right: 10px;
+}
+
+</style>
+
+<script>
+  let currentIndex = 0;
+  
+  function navigateGallery(direction) {
+    const images = document.querySelectorAll(".column img");
+    if (images.length === 0) return;
+  
+    if (direction === 'left') {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+    } else {
+      currentIndex = (currentIndex + 1) % images.length;
+    }
+  
+    myFunction(images[currentIndex]);
+  }
+  
+  function myFunction_first(imgs) {
+    var expandImg = document.getElementById("expandedImg");
+    var imgText = document.getElementById("imgtext");
+    expandImg.src = imgs.src;
+    imgText.innerHTML = imgs.alt;
+    expandImg.parentElement.style.display = "block";
+  
+    const images = document.querySelectorAll(".column img");
+    currentIndex = Array.from(images).indexOf(imgs);
+  }
+  
+  function myFunction(imgs) {
+    var expandImg = document.getElementById("expandedImg");
+    var imgText = document.getElementById("imgtext");
+    expandImg.src = imgs.src;
+    imgText.innerHTML = imgs.alt;
+    expandImg.parentElement.style.display = "block";
+  
+    const images = document.querySelectorAll(".column img");
+    currentIndex = Array.from(images).indexOf(imgs);
+  }
+  
+  // Auto-select the first image
+  window.onload = function () {
+    const firstImg = document.querySelector(".column img");
+    if (firstImg) {
+      myFunction_first(firstImg);
+    }
+  };
+  </script>
+  
 
 <div id="broker-container">
 
@@ -395,131 +477,130 @@ function formatToUSDollars(amount) {
 <!-- ============================================ -->
  <hr>
 {% if property.pdf %}
+
 <!-- <button class="" style="width: 100%;line-height: 2.125rem;display: flex;justify-content: center;align-items: center;padding: 0.25rem;"><img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/blank-page.svg" alt="car" width="20" height="20" style="width: 20px;"><p style="font-weight: 600;font-size: 1rem;">Print Listing</p></button></a> -->
 <div>
-  <a href="{{ property.pdf.url }}" style="width: 100%;display: flex;text-decoration: none;flex-direction: column;align-items: center;margin-bottom: 2rem;margin-top: 2rem;" target="_blank"><button class="cs-button-solid" type="submit" style="border: none;">Download Report</button></a>
+  <a href="{{ property.pdf.url }}" style="width: 100%;display: flex;text-decoration: none;flex-direction: column;align-items: center;margin-bottom: 2rem;margin-top: 2rem;" target="_blank"><button class="cs-button-solid" type="submit" style="border: none;">Property Flyer {% if property.pdf_name %}{{ property.pdf_name }}{% endif %}</button></a>
+  {% if property.pdfs %}
+  {% for b in property.pdfs %}
+  <script>
+    console.log("hello2")
+    console.log("{{b.url}}")
+    console.log("{{property.address}}")
+    console.log("{{b.name}}")
+  </script>
+    <a href="{{ b.url }}" style="width: 100%;display: flex;text-decoration: none;flex-direction: column;align-items: center;margin-bottom: 2rem;margin-top: 2rem;" target="_blank"><button class="cs-button-solid" type="submit" style="border: none;">{% if b.name %}{{ b.name }}{% endif %}</button></a>
+
+  {% endfor %}
+  {% endif %}
 </div>
 {% endif %}
 
+
+
+
 <div style="display: flex;">
 
-<section id="timetable-1731" style="width: 100%;">
-  <div class="cs-container">
+  <section id="timetable-1731" style="width:100%;">
+    <div class="cs-container">
       <div class="cs-table-list">
-          <table class="cs-table" id="details_table">
-              <thead>
-                  <tr>
-                      <th scope="col" colspan="3" class="cs-topper">Details</th>
-                  </tr>
-              </thead>
-              <tbody>
-
-                
-          {% if property.price.sale_price or property.price.lease_rate%}
-          <tr>
-            {% if property.price.sale_price %}
-            <th scope="row">Sale Price</th>
-            <td>{{ property.price.sale_price}}</td>
-            {% elif property.price.lease_rate %}
-            <th scope="row">Lease Rate</th>
-            <td>{{ property.price.lease_rate }}</td>
-            {% endif %}
-          </tr>
-          {% endif %}
-
+  
+        {%- set configured = property.detailsTable and property.detailsTable.fields or [] -%}
+        {%- if configured | length == 0 -%}
+          {#— legacy default when detailsTable is missing —#}
+          {%- set configured = [
+            { id:'sale_price',    displayName:'Sale Price'      },
+            { id:'building_sf',   displayName:'Building SF'     },
+            { id:'lot_size',      displayName:'Size'            },
+            { id:'price_per',     displayName:'Price Per SF'    },
+            { id:'zoning',        displayName:'Zoning'          },
+            { id:'property_type', displayName:'Property Type'   }
+          ] -%}
+        {%- endif -%}
+  
+        {# ---------------- value resolver ---------------- #}
+        {%- macro valueFor(id) -%}
+          {%- if   id == 'sale_price'    and property.price and property.price.sale_price    -%}{{  property.price.sale_price  }}
+          {%- elif id == 'lease_rate'    and property.price and property.price.lease_rate    -%}{{  property.price.lease_rate  }}
+          {%- elif id == 'price_per'     and property.price and property.price.price_per     -%}{{  property.price.price_per   }}
+          {%- elif id == 'nnn_rate'      and property.price and property.price.nnn_rate      -%}{{  property.price.nnn_rate    }}
+          {%- elif id == 'cam_fee'       and property.price and property.price.cam_fee       -%}{{  property.price.cam_fee     }}
+          {%- elif id == 'traffic'       and property.misc  and property.misc.traffic        -%}{{  property.misc.traffic      }}
+          {%- elif id == 'caprate'       and property.misc  and property.misc.caprate        -%}{{  property.misc.caprate ~ '%' }}
+          {%- elif id == 'zoning'        and property.misc  and property.misc.zoning         -%}{{  property.misc.zoning       }}
+          {%- elif id == 'parcelid'      and property.misc  and property.misc.parcelid       -%}{{  property.misc.parcelid     }}
+          {%- elif id == 'lot_size'      and property.buildings and property.buildings[0] and property.buildings[0].lot_size -%}{{  property.buildings[0].lot_size }}
+          {%- elif id == 'year_built'    and property.buildings and property.buildings[0] and property.buildings[0].year_built -%}{{  property.buildings[0].year_built }}
+          {%- elif id == 'building_sf'   and property.buildings and property.buildings[0] and property.buildings[0].square_feet -%}{{  property.buildings[0].square_feet }}
+          {%- elif id.startsWith('building_') and id.endsWith('_sf') -%}
+            {%- set idx = (id | replace('building_','') | replace('_sf','')) | int - 1 -%}
+            {%- if property.buildings and property.buildings[idx] and property.buildings[idx].square_feet -%}
+              {{ property.buildings[idx].square_feet }}
+            {%- endif -%}
+          {%- elif id == 'property_type' and property.property_type -%}{{  property.property_type }}
+          {%- else -%}
+            {# try root-level primitive with same id —#}
+            {{ property[id] }}
+          {%- endif -%}
+        {%- endmacro -%}
+  
+        <table class="cs-table" id="details_table">
+          <thead>
+            <tr><th colspan="3" class="cs-topper">Details</th></tr>
+          </thead>
+          <tbody>
+            {%- for f in configured if f.enabled is not defined or f.enabled -%}
+              {%- if f.isCustom -%}
+                {% set val = f.customValue %}
+              {%- else -%}
+                {% set val = valueFor(f.id) %}
+              {%- endif -%}
+                <tr>
+                  <th scope="row">{{ f.displayName }}</th>
+                  <td scope="row">{{ val }}</td>
+                </tr>
+            {%- endfor -%}
+          </tbody>
           
-          {% if property.buildings[0].square_feet %}
-            {% for b in property.buildings %}
-            <tr>
-              {% if b.square_feet %}
-              <th scope="row">Building {{ loop.index }} SF</th>
-              <td scope="row">{{ b.square_feet }}</td>
-              {% endif %}
-            </tr>
-            {% endfor %}
-          {% endif %}
-
-
-          <script>
-            console.log("here1")
-            {% for b in property.buildings %}
-            {% if b.lot_size %}
-              console.log("Building {{ loop.index }} SF")
-              console.log("{{ b.lot_size }}")
-              {% endif %}
-            {% endfor %}
-          </script>
-          {% if property.buildings[0].lot_size %}
-          <script>
-            console.log("here2")
-          </script>
-          <tr>
-            <th scope="row">Size</th>
-            <td scope="row">{{ property.buildings[0].lot_size }}</td>
-          </tr>
-        {% endif %}
-
-
-
-
-
-          {% if property.price.price_per %}
-          <tr>
-            <th scope="row">Price Per SF</th>
-            <td scope="row">{{ property.price.price_per }}</td>
-          </tr>
-          {% endif %}
-          {% if property.misc.caprate %}
-          <tr>
-            <th scope="row">Caprate</th>
-            <td scope="row">{{ property.misc.caprate }}%</td>
-          </tr>
-          {% endif %}
-          {% if property.misc.zoning %}
-          <tr>
-            <th scope="row">Zoning</th>
-            <td scope="row">{{ property.misc.zoning }}</td>
-          </tr>
-          {% endif %}
-          {% if property.property_type %}
-          <tr>
-            <th scope="row">Property Type</th>
-            <td scope="row">{{ property.property_type }}</td>
-          </tr>
-          {% endif %}
-          {% if property.sections %}
-            {% for additional in property.sections %}
-            <tr>
-              <th scope="row">{{ additional.section_name }}</th>
-              <td scope="row">{{ additional.section_description }}</td>
-            </tr>
-            {% endfor %}
-          {% endif %}
-
-              </tbody>
-          </table>
-          <table class="cs-table" id="description_table">
-              <thead>
-                  <tr>
-                      <th scope="col" colspan="3" class="cs-topper">Description</th>
-                  </tr>
-              </thead>
-              <tbody>
-
-                
-          {% if property.description %}
-          <tr>
-            <th scope="row">{{ property.description[0].children[0].text | markdownify | safe }}</th>
-          </tr>
-          {% endif %}
-
-              </tbody>
-          </table>
+        </table>
+  
+        <table class="cs-table" id="description_table">
+          <thead>
+            <tr><th colspan="3" class="cs-topper">Description</th></tr>
+          </thead>
+          <tbody>
+            {%- if property.description -%}
+              <tr>
+                <td>
+                  {%- for block in property.description -%}
+                    {%- for child in block.children -%}
+                      {%- set t = child.text -%}
+                      {%- if (child.marks or []).indexOf('strong') != -1 -%}
+                        {%- set t = '<strong>' ~ t ~ '</strong>' -%}
+                      {%- endif -%}
+                      {%- if (child.marks or []).indexOf('em') != -1 -%}
+                        {%- set t = '<em>' ~ t ~ '</em>' -%}
+                      {%- endif -%}
+                      {{ t | safe }}
+                    {%- endfor -%}<br>
+                  {%- endfor -%}
+                </td>
+              </tr>
+            {%- endif -%}
+          </tbody>
+        </table>
+  
       </div>
-  </div>
-</section>
+    </div>
+  </section>
+  
                               
 
+
+
+
+
+  
 
 
 

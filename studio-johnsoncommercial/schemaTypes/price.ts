@@ -11,10 +11,7 @@ export const priceType = defineType({
       name: 'sale_price',
       title: 'Sale Price',
       type: 'string',
-      description: 'Leave this blank for "Lease", use "Lease Rate" below instead',
-      components: {
-        input: CurrencyInput
-      }
+      description: 'Please format this with "$" and ","',
     }),
     defineField({
       name: 'lease_rate',
@@ -26,9 +23,19 @@ export const priceType = defineType({
       name: 'price_per',
       title: 'Price Per SF',
       type: 'string',
-      components: {
-        input: CurrencyInput
-      }
+      description: 'Please format this with "$" and ","',
+    }),
+    defineField({
+      name: 'nnn_rate',
+      title: 'NNN Rate',
+      type: 'string',
+      description: 'Please format this with "$" and ","',
+    }),
+    defineField({
+      name: 'cam_fee',
+      title: 'Cam Fee',
+      type: 'string',
+      description: 'Please format this with "$" and ","',
     }),
   ],
 });

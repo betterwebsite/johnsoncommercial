@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import FlexibleNumberInput from '../components/FlexibleNumberInput'
 
 export const miscType = defineType({
   name: 'misc',
@@ -8,12 +9,12 @@ export const miscType = defineType({
     defineField({
       name: 'traffic',
       title: 'Traffic Count',
-      type: 'number',
+      type: 'string',
     }),
     defineField({
       name: 'caprate',
-      title: 'Cap Rate',
-      type: 'number',
+      title: 'CAP Rate',
+      type: 'string'
     }),
     defineField({
       name: 'zoning',

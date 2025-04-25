@@ -22,8 +22,14 @@ module.exports = async function() {
   },
     listing_type,
     property_type,
+    pdf_name,
     pdf {
     "url": asset->url
+  },
+  pdfs[] {
+    name,
+    "url": asset->url
+    
   },
     image,
     "buildings": buildings[]{
@@ -34,7 +40,9 @@ module.exports = async function() {
     price {
       sale_price,
       lease_rate,
-      price_per
+      price_per,
+      nnn_rate,
+      cam_fee
     },
     misc {
       traffic,
@@ -55,7 +63,16 @@ module.exports = async function() {
     sections[] {
       section_name,
       section_description 
-    }
+    },
+    detailsTable{
+      fields[]{
+        id,
+        displayName,
+        customValue,
+        isCustom
+      }
+    },
+    "property_types": coalesce(property_types, [])
   }`
 
   // const query = `${filter} ${projection}`
