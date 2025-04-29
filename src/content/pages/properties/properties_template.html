@@ -6,8 +6,13 @@ pagination:
   addAllPagesToCollections: true
 permalink: "properties/{{ property.address | slugify }}/"
 ---
-{% extends "layouts/base.html" %}
+{% extends "layouts/base_nohead.html" %}
 {% block head %}
+
+  <meta property="og:image" content="{{ property.social.url }}?h=800&fit=max&auto=format&q=85">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ property.social.url }}?h=800&fit=max&auto=format&q=85">
+
 
 
     <title>{{ property.address }} | JohnsonCommercialGroup</title>
@@ -400,9 +405,9 @@ function formatToUSDollars(amount) {
 
 
   <div style="display: flex;flex-direction: column;align-items: center;padding: 1rem;">
-    <script>console.log("property.pdf ")</script>
-    <script>console.log("{{ property.pdf[0] }}")</script>
-    <script>console.log("{{ property.pdf[0].url }}")</script>
+    <script>console.log("property.social ")</script>
+    <script>console.log("{{ property.social }}")</script>
+    <script>console.log("{{ property.social.url }}")</script>
 
 
 
@@ -483,12 +488,6 @@ function formatToUSDollars(amount) {
   <a href="{{ property.pdf.url }}" style="width: 100%;display: flex;text-decoration: none;flex-direction: column;align-items: center;margin-bottom: 2rem;margin-top: 2rem;" target="_blank"><button class="cs-button-solid" type="submit" style="border: none;">Property Flyer {% if property.pdf_name %}{{ property.pdf_name }}{% endif %}</button></a>
   {% if property.pdfs %}
   {% for b in property.pdfs %}
-  <script>
-    console.log("hello2")
-    console.log("{{b.url}}")
-    console.log("{{property.address}}")
-    console.log("{{b.name}}")
-  </script>
     <a href="{{ b.url }}" style="width: 100%;display: flex;text-decoration: none;flex-direction: column;align-items: center;margin-bottom: 2rem;margin-top: 2rem;" target="_blank"><button class="cs-button-solid" type="submit" style="border: none;">{% if b.name %}{{ b.name }}{% endif %}</button></a>
 
   {% endfor %}
@@ -526,7 +525,7 @@ function formatToUSDollars(amount) {
           {%- elif id == 'nnn_rate'      and property.price and property.price.nnn_rate      -%}{{  property.price.nnn_rate    }}
           {%- elif id == 'cam_fee'       and property.price and property.price.cam_fee       -%}{{  property.price.cam_fee     }}
           {%- elif id == 'traffic'       and property.misc  and property.misc.traffic        -%}{{  property.misc.traffic      }}
-          {%- elif id == 'caprate'       and property.misc  and property.misc.caprate        -%}{{  property.misc.caprate ~ '%' }}
+          {%- elif id == 'caprate'       and property.misc  and property.misc.caprate        -%}{{  property.misc.caprate }}
           {%- elif id == 'zoning'        and property.misc  and property.misc.zoning         -%}{{  property.misc.zoning       }}
           {%- elif id == 'parcelid'      and property.misc  and property.misc.parcelid       -%}{{  property.misc.parcelid     }}
           {%- elif id == 'lot_size'      and property.buildings and property.buildings[0] and property.buildings[0].lot_size -%}{{  property.buildings[0].lot_size }}

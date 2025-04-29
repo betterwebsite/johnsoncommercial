@@ -29,7 +29,6 @@ module.exports = async function() {
   pdfs[] {
     name,
     "url": asset->url
-    
   },
     image,
     "buildings": buildings[]{
@@ -72,7 +71,10 @@ module.exports = async function() {
         isCustom
       }
     },
-    "property_types": coalesce(property_types, [])
+    "property_types": coalesce(property_types, []),
+    social{
+    "url": asset->url
+    }
   }`
 
   // const query = `${filter} ${projection}`

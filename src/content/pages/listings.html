@@ -853,9 +853,10 @@ eleventyNavigation:
 
       const matchesSearch = normalizedAddress.includes(filterState.searchQuery);
       const matchesType =
-      filterState.listingType === "all" ||
-      type === filterState.listingType ||
-      (filterState.listingType === "sale-or-lease" && (type === "sale" || type === "lease"));
+  filterState.listingType === "all" ||
+  type === filterState.listingType ||
+  (filterState.listingType === "sale-or-lease" && (type === "sale" || type === "lease" || type === "under_contract"));
+
 
       // const matchesProperty = filterState.propertyTypes.has(prop);
       const props = (card.dataset.property || "").split(',').map(p => p.trim().toLowerCase());

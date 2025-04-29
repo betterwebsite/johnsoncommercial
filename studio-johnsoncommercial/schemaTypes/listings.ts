@@ -142,6 +142,14 @@ export const listingType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'social',
+      title: 'Social Media Image',
+      type: 'image',
+      options: {
+        hotspot: true
+      },
+    }),
+    defineField({
       name: 'gallery',
       title: 'Gallery',
       type: 'array',

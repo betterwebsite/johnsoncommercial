@@ -17,5 +17,5 @@ module.exports = {
         "instagram": "https://www.instagram.com/johnson.commercial.group/",
     },
     //! Make sure you include the file protocol (e.g. https://) and that NO TRAILING SLASH is included
-    "domain": "https://www.johnsoncommercialgroup.com/"
+    "domain": "https://www.johnsoncommercialgroup.com"
 };
