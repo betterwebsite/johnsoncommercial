@@ -108,8 +108,16 @@ function SortableFieldItem({
     onRemoveField(field.id);
   };
 
+  // Display the field ID in red text above the field
+  const fieldIdText = field.isCustom ? 'Custom Field' : field.id;
+
   return (
     <div ref={setNodeRef} style={style} {...attributes}>
+      {/* Field ID display */}
+      <Text size={1} style={{color: 'white', marginBottom: -23, marginRight: 15, textAlign: 'right'}}>
+        {fieldIdText}
+      </Text>
+      
       <Card marginBottom={2} padding={0} radius={2} border>
         <Grid columns={[1, 1, 1]} gap={0}>
           <Box style={{cursor: 'grab', padding: 10}} {...listeners}>
@@ -195,7 +203,6 @@ function TablePreview({
     </Card>
   )
 }
-
 /* ------------------------------------------------------------------ */
 /*  Main component                                                    */
 /* ------------------------------------------------------------------ */
