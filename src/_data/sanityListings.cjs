@@ -66,6 +66,7 @@ module.exports = async function() {
     detailsTable{
       fields[]{
         id,
+        value,
         displayName,
         customValue,
         isCustom

@@ -15,7 +15,7 @@ import {
   Grid,
   TextInput,
 } from '@sanity/ui'
-import {PatchEvent, set, useFormValue} from 'sanity'
+import {PatchEvent, set, useFormValue, useSchema} from 'sanity'
 import {
   DndContext,
   closestCenter,
@@ -40,47 +40,71 @@ import {nanoid} from 'nanoid'
 type FieldItem = {
   id: string
   displayName: string
-  value: string
   isCustom?: boolean
+  customValue?: string
 }
 
 type TableValue = {
   fields: FieldItem[]
-  removedFieldIds: string[]
+  removedFieldIds?: string[] // Track explicitly removed fields
 }
 
 /* ------------------------------------------------------------------ */
-/*  Empty preset - no defaults                                        */
+/*  PRESET ORDERS                                                     */
 /* ------------------------------------------------------------------ */
 
-const EMPTY_PRESET: FieldItem[] = []
+const SALE_PRESET: FieldItem[] = [
+  {id: 'sale_price', displayName: 'Sale Price'},
+  {id: 'price_per', displayName: 'Price Per SF'},
+  {id: 'lot_size', displayName: 'Size'},
+]
+
+const LEASE_PRESET: FieldItem[] = [
+  {id: 'lease_rate', displayName: 'Lease Rate'},
+  {id: 'nnn_rate', displayName: 'NNN Rate'},
+  {id: 'cam_fee', displayName: 'CAM Fee'},
+  {id: 'lot_size', displayName: 'Size'},
+]
+
+const FALLBACK_PRESET = SALE_PRESET
 
 /* ------------------------------------------------------------------ */
 /*  EXTRA FIELDS SHOWN UNDER "Add fields"                             */
 /* ------------------------------------------------------------------ */
 
 const PRICE_EXTRA: FieldItem[] = [
-  {id: 'sale_price',  displayName: 'Sale Price', value: ''},
-  {id: 'lease_rate',  displayName: 'Lease Rate', value: ''},
-  {id: 'price_per',   displayName: 'Price Per SF', value: ''},
-  {id: 'nnn_rate',    displayName: 'NNN Rate', value: ''},
-  {id: 'cam_fee',     displayName: 'CAM Fee', value: ''},
+  {id: 'sale_price',  displayName: 'Sale Price'},
+  {id: 'lease_rate',  displayName: 'Lease Rate'},
+  {id: 'price_per',   displayName: 'Price Per SF'},
+  {id: 'nnn_rate',    displayName: 'NNN Rate'},
+  {id: 'cam_fee',     displayName: 'CAM Fee'},
 ]
 
 const MISC_EXTRA: FieldItem[] = [
-  {id: 'traffic',   displayName: 'Traffic Count', value: ''},
-  {id: 'caprate',   displayName: 'CAP Rate', value: ''},
-  {id: 'zoning',    displayName: 'Zoning', value: ''},
-  {id: 'parcelid',  displayName: 'Parcel ID', value: ''},
+  {id: 'traffic',   displayName: 'Traffic Count'},
+  {id: 'caprate',   displayName: 'CAP Rate'},
+  {id: 'zoning',    displayName: 'Zoning'},
+  {id: 'parcelid',  displayName: 'Parcel ID'},
 ]
 
 const BUILDING_EXTRA: FieldItem[] = [
-  {id: 'square_feet', displayName: 'Size', value: ''},
-  {id: 'lot_size',    displayName: 'Lot Size', value: ''},
-  {id: 'year_built',  displayName: 'Year Built', value: ''},
+  {id: 'building_sf', displayName: 'Available SF'},
+  {id: 'lot_size',    displayName: 'Size'},
+  {id: 'year_built',  displayName: 'Year Built'},
 ]
 
 const PALETTE = [...PRICE_EXTRA, ...MISC_EXTRA, ...BUILDING_EXTRA]
+
+/* ------------------------------------------------------------------ */
+/*  Helpers                                                           */
+/* ------------------------------------------------------------------ */
+
+function isDefaultList(fields: FieldItem[], preset: FieldItem[]) {
+  return (
+    fields.length === preset.length &&
+    fields.every((f, i) => !f.isCustom && f.id === preset[i].id)
+  )
+}
 
 /* ------------------------------------------------------------------ */
 /*  Sortable item component                                           */
@@ -111,7 +135,7 @@ function SortableFieldItem({
   return (
     <div ref={setNodeRef} style={style} {...attributes}>
       <Card marginBottom={2} padding={0} radius={2} border>
-        <Grid columns={[1, 1, 1]} gap={0}>
+        <Grid columns={field.isCustom ? [1, 1, 1] : [1, 2, 3]} gap={0}>
           <Box style={{cursor: 'grab', padding: 10}} {...listeners}>
             <Text size={2}>≡</Text>
           </Box>
@@ -122,32 +146,45 @@ function SortableFieldItem({
               onChange={e =>
                 onUpdateField(field.id, {...field, displayName: e.target.value})
               }
-              placeholder="Field Name"
             />
           </Box>
 
-          <Flex align="center" padding={3}>
-            <Box flex={1} paddingRight={2}>
-              <TextInput
-                value={field.value || ''}
-                onChange={e =>
-                  onUpdateField(field.id, {
-                    ...field,
-                    value: e.target.value,
-                  })
-                }
-                placeholder="Value"
+          {field.isCustom ? (
+            <Flex align="center" padding={3}>
+              <Box flex={1} paddingRight={2}>
+                <TextInput
+                  value={field.customValue || ''}
+                  onChange={e =>
+                    onUpdateField(field.id, {
+                      ...field,
+                      customValue: e.target.value,
+                    })
+                  }
+                  placeholder="Value"
+                />
+              </Box>
+              <Button
+                fontSize={1}
+                padding={2}
+                mode="ghost"
+                tone="critical"
+                text="×"
+                onClick={handleRemoveClick}
               />
-            </Box>
-            <Button
-              fontSize={1}
-              padding={2}
-              mode="ghost"
-              tone="critical"
-              text="×"
-              onClick={handleRemoveClick}
-            />
-          </Flex>
+            </Flex>
+          ) : (
+            <Flex align="center" justify="center">
+              <Button
+                fontSize={1}
+                padding={2}
+                mode="ghost"
+                tone="critical"
+                text="×"
+                style={{margin: 10}}
+                onClick={handleRemoveClick}
+              />
+            </Flex>
+          )}
         </Grid>
       </Card>
     </div>
@@ -160,8 +197,10 @@ function SortableFieldItem({
 
 function TablePreview({
   fields,
+  fieldValues,
 }: {
   fields: FieldItem[]
+  fieldValues: Record<string, string>
 }) {
   return (
     <Card padding={0} marginTop={4} radius={2} border>
@@ -186,7 +225,7 @@ function TablePreview({
             </Box>
             <Box>
               <Text size={1} style={{textAlign: 'right'}}>
-                {f.value || ''}
+                {f.isCustom ? f.customValue : fieldValues[f.id] || ''}
               </Text>
             </Box>
           </Grid>
@@ -204,8 +243,8 @@ export default function DetailsTableInput(props: any) {
   const {value, onChange, readOnly} = props
   
   // For debugging
-  const [lastAction, setLastAction] = useState<string>('');
-  
+  // const [lastAction, setLastAction] = useState<string>('');
+  const lastAction = ''
   /* ---------------- one-shot reload helper ------------------------ */
   function reloadOnceOnError(err: unknown) {
     const FLAG = '__details_table_reloaded__'
@@ -228,31 +267,43 @@ export default function DetailsTableInput(props: any) {
       
       try {
         onChange(pe);
-        setLastAction('Patch applied successfully');
+        // setLastAction('Patch applied successfully');
       } catch (err) {
         console.error('Error applying patch:', err);
-        setLastAction(`Error: ${err}`);
+        // setLastAction(`Error: ${err.message}`);
         reloadOnceOnError(err);
       }
     },
     [onChange, readOnly],
   )
 
-  /* ---------------- form hooks ------------------------------------ */
-  const listingType = useFormValue(['listing_type']) as string
+  /* ---------------- form & schema hooks --------------------------- */
+  const schema       = useSchema()
+  const listingType  = useFormValue(['listing_type']) as string
+  const price        = useFormValue(['price']) as any
+  const buildings    = (useFormValue(['buildings']) as any[]) || []
+  const misc         = useFormValue(['misc']) as any
+  // const propertyType = useFormValue(['property_type']) as string
+  // const propertyTypesArray = useFormValue(['property_types']) as string[] || []
+  // const propertyType = propertyTypesArray[0] || ''
+
+  const doc          = useFormValue([]) as any
 
   /* ---------------- local UI state -------------------------------- */
   const [customName, setCustomName] = useState('')
-  const [customVal, setCustomVal] = useState('')
+  const [customVal,  setCustomVal]  = useState('')
   
   // Keep local state to avoid re-render issues with Sanity
   const [localFields, setLocalFields] = useState<FieldItem[]>([])
   const firstRenderRef = useRef(true)
+  const fieldsInitializedRef = useRef(false)
 
-  /* ---------------- use empty preset ------------------ */
+  /* ---------------- calculate the correct preset ------------------ */
   const currentPreset = useMemo(() => {
-    return EMPTY_PRESET
-  }, [])
+    if (listingType === 'sale')  return SALE_PRESET
+    if (listingType === 'lease') return LEASE_PRESET
+    return FALLBACK_PRESET
+  }, [listingType])
 
   /* ---------------- handle TableValue ------------------------- */
   const tableValue: TableValue = value || {
@@ -278,17 +329,41 @@ export default function DetailsTableInput(props: any) {
           removedFieldIds: []
         })))
         
+        fieldsInitializedRef.current = true
       } else {
         // Use existing fields
         setLocalFields(tableValue.fields)
       }
     }
   }, [currentPreset, tableValue, safePatch])
-  
   const previousType = useRef<string | null>(null)
 
-  // Removed effect for changing presets based on listing type
-  // We're now using an empty preset regardless of listing type
+useEffect(() => {
+  // Prevent firing on first mount
+  if (previousType.current === null) {
+    previousType.current = listingType
+    return
+  }
+
+  if (listingType && listingType !== previousType.current) {
+    previousType.current = listingType
+
+    const newPreset = listingType === 'sale' ? SALE_PRESET
+                     : listingType === 'lease' ? LEASE_PRESET
+                     : FALLBACK_PRESET
+
+    // Strip out previous preset fields (non-custom)
+    const customFields = localFields.filter(f => f.isCustom)
+    const updatedFields = [...customFields, ...newPreset]
+
+    setLocalFields(updatedFields)
+
+    safePatch(PatchEvent.from(set({
+      fields: updatedFields,
+      removedFieldIds: []
+    })))
+  }
+}, [listingType, localFields, safePatch])
 
   // Update local fields when value changes from outside
   useEffect(() => {
@@ -296,6 +371,44 @@ export default function DetailsTableInput(props: any) {
       setLocalFields(tableValue.fields)
     }
   }, [tableValue.fields])
+
+  /* ---------------- field value extraction ------------------------ */
+  const fieldValues = useMemo<Record<string, string>>(() => {
+    const v: Record<string, string> = {}
+
+    if (price?.sale_price) v.sale_price = price.sale_price
+    if (price?.lease_rate) v.lease_rate = price.lease_rate
+    if (price?.nnn_rate)  v.nnn_rate  = price.nnn_rate
+    if (price?.cam_fee)   v.cam_fee   = price.cam_fee
+    if (price?.price_per) v.price_per = price.price_per
+    if (misc?.traffic)    v.traffic   = `${misc.traffic}`
+    if (misc?.parcelid)   v.parcelid  = misc.parcelid
+
+    if (buildings?.length) {
+      buildings.forEach((b: any, i) => {
+        if (buildings[0]?.year_built) v.year_built = `${buildings[0].year_built}`
+        if (b?.square_feet)
+          v[i === 0 ? 'building_sf' : `building_${i + 1}_sf`] =
+            `${b.square_feet}`
+      })
+      if (buildings[0]?.lot_size) v.lot_size = `${buildings[0].lot_size}`
+    }
+
+    if (misc?.caprate) v.caprate = `${misc.caprate}`
+    if (misc?.zoning)  v.zoning  = misc.zoning
+    // if (propertyType)  v.property_type = propertyType
+
+    if (doc) {
+      Object.entries(doc).forEach(([k, val]) => {
+        if (typeof val === 'string' || typeof val === 'number') {
+          if (k !== "property_type") { // <--- prevent injecting
+            v[k] = `${val}`
+          }
+        }
+      })
+    }
+    return v
+  }, [price, buildings, misc,  doc])
 
   /* ---------------- drag-and-drop sensors ------------------------- */
   const sensors = useSensors(useSensor(PointerSensor), useSensor(KeyboardSensor))
@@ -311,7 +424,7 @@ export default function DetailsTableInput(props: any) {
         removedFieldIds
       })));
       
-      setLastAction(`Updated field: ${id}`);
+      // setLastAction(`Updated field: ${id}`);
     },
     [localFields, removedFieldIds, safePatch]
   )
@@ -334,22 +447,15 @@ export default function DetailsTableInput(props: any) {
         removedFieldIds: newRemovedFieldIds
       })));
       
-      setLastAction(`Removed field: ${id}`);
+      // setLastAction(`Removed field: ${id}`);
     },
     [localFields, removedFieldIds, safePatch]
   )
 
   const addField = useCallback(
     (f: FieldItem) => {
-      // Check if we should preserve any existing value
-      const existingField = localFields.find(field => field.id === f.id);
-      const newField = {
-        ...f,
-        value: existingField?.value || f.value
-      };
-      
       // Add to local fields
-      const newFields = [...localFields, newField];
+      const newFields = [...localFields, f];
       setLocalFields(newFields);
       
       // Remove from removedFieldIds
@@ -361,7 +467,7 @@ export default function DetailsTableInput(props: any) {
         removedFieldIds: newRemovedFieldIds
       })));
       
-      setLastAction(`Added field: ${f.id}`);
+      // setLastAction(`Added field: ${f.id}`);
     },
     [localFields, removedFieldIds, safePatch]
   )
@@ -372,7 +478,7 @@ export default function DetailsTableInput(props: any) {
     const f: FieldItem = {
       id: `custom_${nanoid(6)}`,
       displayName: customName,
-      value: customVal,
+      customValue: customVal,
       isCustom: true,
     };
     
@@ -388,7 +494,7 @@ export default function DetailsTableInput(props: any) {
     
     setCustomName('');
     setCustomVal('');
-    setLastAction(`Added custom field: ${customName}`);
+    // setLastAction(`Added custom field: ${f.id}`);
   }, [customName, customVal, localFields, removedFieldIds, safePatch])
 
   const onDragEnd = useCallback(
@@ -407,7 +513,7 @@ export default function DetailsTableInput(props: any) {
         removedFieldIds
       })));
       
-      setLastAction(`Reordered fields: moved ${active.id} to position ${newIdx}`);
+      // setLastAction(`Reordered fields: moved ${active.id} to position ${newIdx}`);
     },
     [localFields, removedFieldIds, safePatch]
   )
@@ -432,9 +538,9 @@ export default function DetailsTableInput(props: any) {
   return (
     <Card padding={4} radius={2} border>
       <Stack space={4}>
-        <Text weight="semibold">Property Details:</Text>
+        <Text weight="semibold">Configure property details table:</Text>
         
-        {/* Debug info - uncomment for debugging */}
+        {/* Debug info - remove in production */}
         {lastAction && (
           <Box padding={2} style={{background: '#f0f0f0', fontSize: '12px', color: 'black', display: 'none'}}>
             Last action: {lastAction}
@@ -494,7 +600,7 @@ export default function DetailsTableInput(props: any) {
 
         <Box marginTop={2}>
           <Text weight="semibold" style={{marginBottom: 10}}>
-            Add Custom Field:
+            Add Additional:
           </Text>
           <Grid columns={[1, 3]} gap={2}>
             <TextInput
@@ -516,7 +622,7 @@ export default function DetailsTableInput(props: any) {
           </Grid>
         </Box>
 
-        <TablePreview fields={localFields} />
+        <TablePreview fields={localFields} fieldValues={fieldValues} />
       </Stack>
     </Card>
   )

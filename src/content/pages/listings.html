@@ -495,13 +495,17 @@ eleventyNavigation:
     {% if not listing.gallery[0] %}
     {% else %}
 
+
     {% set total_sf = 0 %}
-    {% for b in listing.buildings %}
-    {% set total_sf = total_sf + (b.square_feet or 0) %}
-
-
-
-    {% endfor %}
+      {% set square_feet = "" %}
+      {% if listing.detailsTable and listing.detailsTable.fields %}
+        {% for field in listing.detailsTable.fields %}
+          {% if field.id == "square_feet" %}
+            {% set square_feet = field.value %}
+            {% set total_sf = field.value | replace(",", "") | int %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
     <div class="listing-card"
      href="/properties/{{ listing.address | slugify }}"
      data-lat="{{ listing.location.lat }}"
@@ -527,18 +531,97 @@ eleventyNavigation:
       <div class="listing-info">
         <div class="listing-title">{{ listing.address }}</div>
         <div class="listing-sub">
-          {% if listing.price.sale_price %}
-            {{ listing.price.sale_price }}
-          {% elif listing.price.lease_rate %}
-            {{ listing.price.lease_rate }}
-          {% endif %}
+          {% set price_info = "" %}
+            {% if listing.detailsTable and listing.detailsTable.fields %}
+              <script>
+              console.log("---------------------------------")
+              console.log("{{ listing.address }}")
+              </script>
+              {% for field in listing.detailsTable.fields %}
+              <script>
+              // console.log("---")
+              // console.log("{{ field.id }}")
+              // console.log("{{ field.value }}")
+              // console.log("---")
+              </script>
+                {% if field.id == "sale_price" and listing.listing_type == "sale" %}
+                  {% set price_info = field.value %}
+                {% elif field.id == "lease_rate" and listing.listing_type == "lease" %}
+                  {% set price_info = field.value %}
+                {% elif field.id == "sale_price" and listing.listing_type == "under_contract" %}
+                  {% set price_info = field.value %}
+                {% elif field.id == "lease_rate" and listing.listing_type == "under_contract" %}
+                  {% set price_info = field.value %}
+                {% elif field.id == "sale_price" and listing.listing_type == "closed" %}
+                  {% set price_info = field.value %}
+                {% elif field.id == "lease_rate" and listing.listing_type == "closed" %}
+                  {% set price_info = field.value %}
+                {% endif %}
+              {% endfor %}
+              {% endif %}
+              {{ price_info }}
         </div>
       </div>
       <div class="hover-details">
-        <div><strong>Address:</strong> {{ listing.address }}</div>
-        {% if listing.buildings[0].square_feet %}<div><strong>Square Feet:</strong> {{ listing.buildings[0].square_feet}}</div>{% endif %}
-        {% if listing.buildings[0].lot_size %}<div><strong>Size:</strong> {{ listing.buildings[0].lot_size  }}</div>{% endif %}
-        {% if listing.buildings[0].year_built %}<div><strong>Year Built:</strong> {{ listing.buildings[0].year_built or "N/A" }}</div>{% endif %}
+        
+        {% set price_info_hover = "" %}
+        {% set price_title_hover = "" %}
+        
+
+
+
+        {% set square_feet = "" %}
+        {% set lot_size = "" %}
+        {% set year_built = "" %}
+          
+        {% set square_feet_title = "" %}
+        {% set lot_size_title = "" %}
+        {% set year_built_title = "" %}
+          
+          {% if listing.detailsTable and listing.detailsTable.fields %}
+            {% for field in listing.detailsTable.fields %}
+
+              {% if field.id == "sale_price" and listing.listing_type == "sale" %}
+              {% set price_info_hover = field.value %}
+              {% set price_title_hover = field.displayName %}
+            {% elif field.id == "lease_rate" and listing.listing_type == "lease" %}
+              {% set price_info_hover = field.value %}
+              {% set price_title_hover = field.displayName %}
+            {% elif field.id == "sale_price" and listing.listing_type == "under_contract" %}
+              {% set price_info_hover = field.value %}
+              {% set price_title_hover = field.displayName %}
+            {% elif field.id == "lease_rate" and listing.listing_type == "under_contract" %}
+              {% set price_info_hover = field.value %}
+              {% set price_title_hover = field.displayName %}
+            {% elif field.id == "sale_price" and listing.listing_type == "closed" %}
+              {% set price_info_hover = field.value %}
+              {% set price_title_hover = field.displayName %}
+            {% elif field.id == "lease_rate" and listing.listing_type == "closed" %}
+              {% set price_info_hover = field.value %}
+              {% set price_title_hover = field.displayName %}
+            {% endif %}
+
+
+
+              {% if field.id == "square_feet" %}
+                {% set square_feet_title = field.displayName %}
+                {% set square_feet = field.value %}
+
+              {% elif field.id == "lot_size" %}
+                {% set lot_size_title = field.displayName %}
+                {% set lot_size = field.value %}
+              {% elif field.id == "year_built" %}
+                {% set year_built_title = field.displayName %}
+                {% set year_built = field.value %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          
+          {% if price_info_hover %}<div><strong>{{ price_title_hover }}:</strong> {{ price_info_hover }}</div>{% endif %}
+          <div><strong>Address:</strong> {{ listing.address }}</div>
+          {% if square_feet %}<div><strong>{{ square_feet_title }}:</strong> {{ square_feet }}</div>{% endif %}
+          {% if lot_size %}<div><strong>{{ lot_size_title }} :</strong> {{ lot_size }}</div>{% endif %}
+          {% if year_built %}<div><strong>{{ year_built_title }}:</strong> {{ year_built }}</div>{% endif %}
       </div>
     </div>
     
@@ -582,10 +665,41 @@ eleventyNavigation:
 
     console.log({{ listing.location.lat or 0 }}, {{ listing.location.lat or 0 }},  "{{ listing.address | escape }}");
     const title = "{{ listing.address | escape }}";
-    const price = {% if listing.price.sale_price %}"{{ listing.price.sale_price }}"{% elif listing.price.lease_rate %}"{{ listing.price.lease_rate }}"{% else %}"N/A"{% endif %};
-    const squareFeet = {% if listing.buildings[0].square_feet %}"{{ listing.buildings[0].square_feet}}"{% else %}''{% endif %};
-    const lotSize = {% if listing.buildings[0].lot_size %}"{{ listing.buildings[0].lot_size}}"{% else %}''{% endif %};
+    {% set price = "" %}
+    {% set square_feet = "" %}
+    {% set square_feet_title = "" %}
+    {% set lot_size = "" %}
+    
+    {% if listing.detailsTable and listing.detailsTable.fields %}
+      {% for field in listing.detailsTable.fields %}
+        {% if field.id == "sale_price" and listing.listing_type == "sale" %}
+          {% set price = field.value %}
+        {% elif field.id == "lease_rate" and listing.listing_type == "lease" %}
+          {% set price = field.value %}
+        {% elif field.id == "sale_price" and listing.listing_type == "under_contract" %}
+          {% set price = field.value %}
+        {% elif field.id == "lease_rate" and listing.listing_type == "under_contract" %}
+          {% set price = field.value %}
+        {% elif field.id == "sale_price" and listing.listing_type == "closed" %}
+          {% set price = field.value %}
+        {% elif field.id == "lease_rate" and listing.listing_type == "closed" %}
+          {% set price = field.value %}
+        {% elif field.id == "square_feet" %}
+          {% set square_feet_title = field.displayName %}
+          {% set square_feet = field.value %}
+        {% elif field.id == "lot_size" %}
+          {% set lot_size = field.value %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    const price = "{{ price }}";
+    const squareFeet = "{{ square_feet }}";
+    const lotSize = "{{ lot_size }}";
     const statusRaw = "{{ listing.listing_type }}";
+    // const price = {% if listing.price.sale_price %}"{{ listing.price.sale_price }}"{% elif listing.price.lease_rate %}"{{ listing.price.lease_rate }}"{% else %}"N/A"{% endif %};
+    // const squareFeet = {% if listing.buildings[0].square_feet %}"{{ listing.buildings[0].square_feet}}"{% else %}''{% endif %};
+    // const lotSize = {% if listing.buildings[0].lot_size %}"{{ listing.buildings[0].lot_size}}"{% else %}''{% endif %};
+    // const statusRaw = "{{ listing.listing_type }}";
     const status = 
       statusRaw === "both" ? "For Sale/Lease" :
       statusRaw === "under_contract" ? "Pending" :
@@ -593,7 +707,7 @@ eleventyNavigation:
 
     const address = "{{ listing.address | escape }}";
     const agentName = "{{ listing.agent_name | escape }}";
-    const agentUrl = "https://localhost:8080/properties/"+address;
+    const agentUrl = "https://johnsoncommercialgroup.netlify.app/properties/"+address;
 
     const contentString = `
       <div style="max-width: 280px; font-family: sans-serif; position: relative;">

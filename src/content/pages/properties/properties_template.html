@@ -154,12 +154,25 @@ function formatToUSDollars(amount) {
     </div>
     <div id="property-price">
       <h2>
-      {% if property.price.sale_price %}
-        {{ property.price.sale_price }}
-      {% elif property.price.lease_rate %}
-       {{ property.price.lease_rate }}
-     {% endif %}
-      </h2>
+        {% set price_display = "" %}
+        {% if property.detailsTable and property.detailsTable.fields %}
+          {% for field in property.detailsTable.fields %}
+            {% if field.id == "sale_price" and property.listing_type == "sale" %}
+              {% set price_display = field.value %}
+            {% elif field.id == "lease_rate" and property.listing_type == "lease" %}
+              {% set price_display = field.value %}
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          {# Fallback to old structure if detailsTable is not available #}
+          {% if property.price.sale_price %}
+            {% set price_display = property.price.sale_price %}
+          {% elif property.price.lease_rate %}
+            {% set price_display = property.price.lease_rate %}
+          {% endif %}
+        {% endif %}
+        {{ price_display }}
+        </h2>
     </div>
   </div>
 
@@ -498,64 +511,70 @@ function formatToUSDollars(amount) {
   <section id="timetable-1731" style="width:100%;">
     <div class="cs-container">
       <div class="cs-table-list">
-  
-        {%- set configured = property.detailsTable and property.detailsTable.fields or [] -%}
-        {%- if configured | length == 0 -%}
-          {#— legacy default when detailsTable is missing —#}
-          {%- set configured = [
-            { id:'sale_price',    displayName:'Sale Price'      },
-            { id:'building_sf',   displayName:'Building SF'     },
-            { id:'lot_size',      displayName:'Size'            },
-            { id:'price_per',     displayName:'Price Per SF'    },
-            { id:'zoning',        displayName:'Zoning'          },
-            { id:'property_type', displayName:'Property Type'   }
-          ] -%}
-        {%- endif -%}
-  
-        {# ---------------- value resolver ---------------- #}
-        {%- macro valueFor(id) -%}
-          {%- if   id == 'sale_price'    and property.price and property.price.sale_price    -%}{{  property.price.sale_price  }}
-          {%- elif id == 'lease_rate'    and property.price and property.price.lease_rate    -%}{{  property.price.lease_rate  }}
-          {%- elif id == 'price_per'     and property.price and property.price.price_per     -%}{{  property.price.price_per   }}
-          {%- elif id == 'nnn_rate'      and property.price and property.price.nnn_rate      -%}{{  property.price.nnn_rate    }}
-          {%- elif id == 'cam_fee'       and property.price and property.price.cam_fee       -%}{{  property.price.cam_fee     }}
-          {%- elif id == 'traffic'       and property.misc  and property.misc.traffic        -%}{{  property.misc.traffic      }}
-          {%- elif id == 'caprate'       and property.misc  and property.misc.caprate        -%}{{  property.misc.caprate }}
-          {%- elif id == 'zoning'        and property.misc  and property.misc.zoning         -%}{{  property.misc.zoning       }}
-          {%- elif id == 'parcelid'      and property.misc  and property.misc.parcelid       -%}{{  property.misc.parcelid     }}
-          {%- elif id == 'lot_size'      and property.buildings and property.buildings[0] and property.buildings[0].lot_size -%}{{  property.buildings[0].lot_size }}
-          {%- elif id == 'year_built'    and property.buildings and property.buildings[0] and property.buildings[0].year_built -%}{{  property.buildings[0].year_built }}
-          {%- elif id == 'building_sf'   and property.buildings and property.buildings[0] and property.buildings[0].square_feet -%}{{  property.buildings[0].square_feet }}
-          {%- elif id.startsWith('building_') and id.endsWith('_sf') -%}
-            {%- set idx = (id | replace('building_','') | replace('_sf','')) | int - 1 -%}
-            {%- if property.buildings and property.buildings[idx] and property.buildings[idx].square_feet -%}
-              {{ property.buildings[idx].square_feet }}
-            {%- endif -%}
-          {%- elif id == 'property_type' and property.property_type -%}{{  property.property_type }}
-          {%- else -%}
-            {# try root-level primitive with same id —#}
-            {{ property[id] }}
-          {%- endif -%}
-        {%- endmacro -%}
-  
         <table class="cs-table" id="details_table">
           <thead>
             <tr><th colspan="3" class="cs-topper">Details</th></tr>
           </thead>
           <tbody>
-            {%- for f in configured if f.enabled is not defined or f.enabled -%}
-              {%- if f.isCustom -%}
-                {% set val = f.customValue %}
-              {%- else -%}
-                {% set val = valueFor(f.id) %}
-              {%- endif -%}
+            {% if property.detailsTable and property.detailsTable.fields %}
+              {% for field in property.detailsTable.fields %}
                 <tr>
-                  <th scope="row">{{ f.displayName }}</th>
-                  <td scope="row">{{ val }}</td>
+                  <th scope="row">{{ field.displayName }}</th>
+                  <td scope="row">{{ field.value }}</td>
                 </tr>
-            {%- endfor -%}
+              {% endfor %}
+            {% else %}
+              {# Fallback to old structure if detailsTable is not available #}
+              {% if property.price.sale_price %}
+                <tr>
+                  <th scope="row">Sale Price</th>
+                  <td scope="row">{{ property.price.sale_price }}</td>
+                </tr>
+              {% endif %}
+              {% if property.price.lease_rate %}
+                <tr>
+                  <th scope="row">Lease Rate</th>
+                  <td scope="row">{{ property.price.lease_rate }}</td>
+                </tr>
+              {% endif %}
+              {% if property.price.price_per %}
+                <tr>
+                  <th scope="row">Price Per SF</th>
+                  <td scope="row">{{ property.price.price_per }}</td>
+                </tr>
+              {% endif %}
+              {% if property.buildings and property.buildings[0] and property.buildings[0].square_feet %}
+                <tr>
+                  <th scope="row">Building SF</th>
+                  <td scope="row">{{ property.buildings[0].square_feet }}</td>
+                </tr>
+              {% endif %}
+              {% if property.buildings and property.buildings[0] and property.buildings[0].lot_size %}
+                <tr>
+                  <th scope="row">Size</th>
+                  <td scope="row">{{ property.buildings[0].lot_size }}</td>
+                </tr>
+              {% endif %}
+              {% if property.buildings and property.buildings[0] and property.buildings[0].year_built %}
+                <tr>
+                  <th scope="row">Year Built</th>
+                  <td scope="row">{{ property.buildings[0].year_built }}</td>
+                </tr>
+              {% endif %}
+              {% if property.misc and property.misc.zoning %}
+                <tr>
+                  <th scope="row">Zoning</th>
+                  <td scope="row">{{ property.misc.zoning }}</td>
+                </tr>
+              {% endif %}
+              {% if property.property_type %}
+                <tr>
+                  <th scope="row">Property Type</th>
+                  <td scope="row">{{ property.property_type }}</td>
+                </tr>
+              {% endif %}
+            {% endif %}
           </tbody>
-          
         </table>
   
         <table class="cs-table" id="description_table">
@@ -583,26 +602,10 @@ function formatToUSDollars(amount) {
             {%- endif -%}
           </tbody>
         </table>
-  
       </div>
     </div>
   </section>
-  
-                              
-
-
-
-
-
-  
-
-
-
 </div>
-
-
-
-
 
 </div>
 

@@ -2,6 +2,7 @@
 import {defineField, defineType} from 'sanity'
 import DetailsTableInput from '../components/DetailsTableInput'
 
+
 export const listingType = defineType({
   name: 'listing',
   title: 'Listing',
@@ -63,8 +64,9 @@ export const listingType = defineType({
           { title: 'Residential', value: 'Residential' },
           { title: 'Flex', value: 'Flex' },
         ],
-        layout: 'grid',
+        layout: 'grid',  // This will display the options as a grid of checkboxes
       },
+      // No validation required - can be empty
     }),
     defineField({
       name: 'pdf',
@@ -106,8 +108,23 @@ export const listingType = defineType({
           },
         },
       ],
+    }),    
+    defineField({
+      name: 'buildings',
+      title: 'Buildings',
+      type: 'array',
+      of: [{type: 'building'}],
     }),
-    
+    defineField({
+      name: 'price',
+      title: 'Price',
+      type: 'price',
+    }),
+    defineField({
+      name: 'misc',
+      title: 'Miscellaneous Information',
+      type: 'misc',
+    }),
     defineField({
       name: 'location',
       title: 'Location',
@@ -150,7 +167,7 @@ export const listingType = defineType({
     }),
     defineField({
       name: 'detailsTable',
-      title: 'Property Details',
+      title: 'Details Table Configuration',
       type: 'object',
       fields: [
         defineField({
@@ -172,34 +189,31 @@ export const listingType = defineType({
                 type: 'string'
               },
               {
-                name: 'value',  // This will store the field value directly
-                title: 'Field Value',
-                type: 'string'
-              },
-              {
-                name: 'isCustom',
-                title: 'Is Custom Field',
+                name: 'enabled',
+                title: 'Show in Table',
                 type: 'boolean',
-                initialValue: false
+                initialValue: true
               }
             ]
           }],
-        }),
-        defineField({
-          name: 'removedFieldIds',
-          title: 'Removed Field IDs',
-          type: 'array',
-          of: [{type: 'string'}],
-          hidden: true
+          // This will be overridden by our custom component
         })
       ],
+      // Define a custom component for editing
       components: {
         input: DetailsTableInput
       },
-      // Start with an empty table by default
+      // Set default values when document is created
       initialValue: {
-        fields: [],
-        removedFieldIds: []
+        fields: [
+          { id: 'sale_price', displayName: 'Sale Price', enabled: true },
+          { id: 'building_sf', displayName: 'Building SF', enabled: true },
+          { id: 'lot_size', displayName: 'Size', enabled: true },
+          { id: 'price_per', displayName: 'Price Per SF', enabled: true },
+          { id: 'caprate', displayName: 'Caprate', enabled: true },
+          { id: 'zoning', displayName: 'Zoning', enabled: true },
+          { id: 'property_type', displayName: 'Property Type', enabled: true }
+        ]
       }
     })
   ],
