@@ -16,8 +16,8 @@ const eleventyPluginSharpImages = require("@codestitchofficial/eleventy-plugin-s
 const blocksToHtml = require('@sanity/block-content-to-html');
 const markdownIt = require("markdown-it");
 
+const fetchListings = require("./src/_data/sanityListings.cjs");
 
-const fetchListings = require("./src/utils/sanity-client"); // or wherever your fetch function lives
 module.exports = function (eleventyConfig) {
     /**=====================================================================
           EXTENSIONS - Recognising non-default languages as templates 
@@ -206,7 +206,24 @@ module.exports = function (eleventyConfig) {
     /**=====================================================================
                               END SERVER SETTINGS
     =======================================================================*/
-
+    eleventyConfig.addGlobalData("groupedListings", async () => {
+        const listings = await fetchListings();
+        const counts = {};
+    
+        return listings.map(item => {
+          // NOTE: you might want to slugify(item.address) here
+          const base = item.address;
+          counts[base] = (counts[base] || 0) + 1;
+    
+          return {
+            ...item,
+            // first one stays “base”, duplicates get “base_2”, “base_3”, …
+            slug: counts[base] === 1
+              ? base
+              : `${base}_${counts[base]}`
+          };
+        });
+      });
     return {
         dir: {
             input: "src",
