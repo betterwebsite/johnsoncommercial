@@ -5,15 +5,15 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const { createClient } = require('@sanity/client');
 const imageUrlBuilder = require('@sanity/image-url');
-
-const token = process.env.SANITY_READ_TOKEN;
-const client = createClient({
-  projectId: 'lgrua1a8',
-  dataset: 'production',
-  apiVersion: '2023-05-03',
-  useCdn: !token,
-  token,
-});
+const client = require("../utils/sanity-client");
+// const token = process.env.SANITY_READ_TOKEN;
+// const client = createClient({
+//   projectId: 'lgrua1a8',
+//   dataset: 'production',
+//   apiVersion: '2023-05-03',
+//   useCdn: !token,
+//   token,
+// });
 
 const builder = imageUrlBuilder(client);
 const urlFor = (source) => builder.image(source).url();
