@@ -14,7 +14,6 @@ const filterPostDate = require("./src/config/postDate");
 const isProduction = configServer.isProduction;
 const eleventyPluginSharpImages = require("@codestitchofficial/eleventy-plugin-sharp-images");
 const blocksToHtml = require('@sanity/block-content-to-html');
-const slugFilter = require("@11ty/eleventy/src/Filters/slug");
 const markdownIt = require("markdown-it");
 
 
@@ -59,17 +58,7 @@ module.exports = function (eleventyConfig) {
         return id.toString().slice(-6);
       });
 
-      
 
-
-      eleventyConfig.addFilter("needsId", (items, slug) => {
-        let count = 0;
-        for(let item of items) {
-          if(slugFilter(item.address) === slug) count++;
-          if(count > 1) return true;     // once we know there's >1, stop
-        }
-        return false;
-      });
     
 
 
