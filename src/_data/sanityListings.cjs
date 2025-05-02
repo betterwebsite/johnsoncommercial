@@ -6,12 +6,13 @@ if (process.env.NODE_ENV !== 'production') {
 const { createClient } = require('@sanity/client');
 const imageUrlBuilder = require('@sanity/image-url');
 
+const token = process.env.SANITY_READ_TOKEN;
 const client = createClient({
   projectId: 'lgrua1a8',
   dataset: 'production',
   apiVersion: '2023-05-03',
-  useCdn: true,
-  token: process.env.SANITY_READ_TOKEN,
+  useCdn: !token,
+  token,
 });
 
 const builder = imageUrlBuilder(client);
