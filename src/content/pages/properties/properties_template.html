@@ -1,11 +1,13 @@
 ---
 pagination:
-  data: sanityListings
+  data: groupedListings   # ← use your new data file
   size: 1
-  alias: property
+  alias: page
   addAllPagesToCollections: true
-permalink: "properties/{{ property.address | slugify }}/"
+
+permalink: "properties/{{ page.slug | slugify }}/"
 ---
+{% set property = page %}
 {% extends "layouts/base_nohead.html" %}
 {% block head %}
 

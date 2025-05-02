@@ -14,8 +14,11 @@ const filterPostDate = require("./src/config/postDate");
 const isProduction = configServer.isProduction;
 const eleventyPluginSharpImages = require("@codestitchofficial/eleventy-plugin-sharp-images");
 const blocksToHtml = require('@sanity/block-content-to-html');
-
+const slugFilter = require("@11ty/eleventy/src/Filters/slug");
 const markdownIt = require("markdown-it");
+
+
+const fetchListings = require("./src/utils/sanity-client"); // or wherever your fetch function lives
 module.exports = function (eleventyConfig) {
     /**=====================================================================
           EXTENSIONS - Recognising non-default languages as templates 
@@ -49,6 +52,23 @@ module.exports = function (eleventyConfig) {
         return blocksToHtml({
           blocks: blocks
         });
+      });
+
+      eleventyConfig.addFilter("shortId", (id) => {
+        // take the last 6 characters of the string
+        return id.toString().slice(-6);
+      });
+
+      
+
+
+      eleventyConfig.addFilter("needsId", (items, slug) => {
+        let count = 0;
+        for(let item of items) {
+          if(slugFilter(item.address) === slug) count++;
+          if(count > 1) return true;     // once we know there's >1, stop
+        }
+        return false;
       });
     
 

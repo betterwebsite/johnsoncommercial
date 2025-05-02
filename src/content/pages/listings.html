@@ -475,7 +475,7 @@ eleventyNavigation:
     </p>
   </div>
   <div id="listing-view" style="width: 100%;">
-    {% for listing in sanityListings %}
+    {% for listing in groupedListings %}
 
     <script>
       
@@ -507,13 +507,13 @@ eleventyNavigation:
         {% endfor %}
       {% endif %}
     <div class="listing-card"
-     href="/properties/{{ listing.address | slugify }}"
+     href="/properties/{{ listing.slug | slugify }}"
      data-lat="{{ listing.location.lat }}"
      data-lng="{{ listing.location.lng }}"
      data-type="{{ listing.listing_type }}"
      data-sf="{{ total_sf }}"
      data-property="{{ listing.property_types | join(',') | lower }}"
-     onclick="window.location.href='/properties/{{ listing.address | slugify }}'">
+     onclick="window.location.href='/properties/{{ listing.slug | slugify }}'">
 
       <div class="image-wrapper">
         <img src="{{ listing.gallery[0].url }}?h=300&fit=max&auto=format&q=75" alt="{{ listing.address }}">
@@ -655,7 +655,7 @@ eleventyNavigation:
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     });
   
-    {% for listing in sanityListings %}
+    {% for listing in groupedListings %}
     {% if not listing.gallery[0] %}
     {% else %}
     

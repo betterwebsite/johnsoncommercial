@@ -1,5 +1,8 @@
 // const sanityClient = require('../utils/sanity-client')
 // const { sanityClient } = require('@sanity/client')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 const { createClient } = require('@sanity/client');
 const imageUrlBuilder = require('@sanity/image-url');
 
@@ -8,14 +11,16 @@ const client = createClient({
   dataset: 'production',
   apiVersion: '2023-05-03',
   useCdn: true,
+  token: process.env.SANITY_READ_TOKEN,
 });
 
 const builder = imageUrlBuilder(client);
 const urlFor = (source) => builder.image(source).url();
 
 module.exports = async function() {
-  const filter = `*[_type == "listing"]`
+  const filter = `*[_type == "listing" && !(_id match "drafts.*")]`
   const projection = `{
+  _id,
     address,
     gallery[] {
     "url": asset->url
@@ -77,17 +82,7 @@ module.exports = async function() {
     "url": asset->url
     }
   }`
-
-  // const query = `${filter} ${projection}`
-  // const query = `${filter}`
+  
   return await client.fetch(filter+ projection)
-  // try {
-  //   const listings = await client.fetch(query)
-  //   return {
-  //     listings: listings
-  //   }
-  // } catch (err) {
-  //   console.error('Failed to fetch listings:', err)
-  //   return { listings: [] }
-  // }
+
 }
