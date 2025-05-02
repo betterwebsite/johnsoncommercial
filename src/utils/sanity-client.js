@@ -1,7 +1,3 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-
 const { createClient } = require('@sanity/client');
 
 const token = process.env.SANITY_READ_TOKEN;

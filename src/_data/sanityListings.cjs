@@ -1,8 +1,5 @@
 // const sanityClient = require('../utils/sanity-client')
 // const { sanityClient } = require('@sanity/client')
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
 const { createClient } = require('@sanity/client');
 const imageUrlBuilder = require('@sanity/image-url');
 const client = require("../utils/sanity-client");
