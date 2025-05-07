@@ -21,6 +21,7 @@ export const listingType = defineType({
         list: [
           { title: 'For Sale', value: 'sale' },
           { title: 'For Lease', value: 'lease' },
+          { title: 'For Sale/For Lease', value: 'both' },
           { title: 'Closed', value: 'closed' },
           { title: 'Under Contract', value: 'under_contract' },
         ],
@@ -75,7 +76,7 @@ export const listingType = defineType({
       name: 'pdf_name',
       title: 'Featured PDF Name (Optional)',
       type: 'string',
-      description: 'Download Button Text = "Property Flyer " + *PDF Name*'
+      description: 'Download Button Text = "PDF Name"'
     }),
     defineField({
       name: 'pdfs',
@@ -95,7 +96,7 @@ export const listingType = defineType({
               name: 'name',
               title: 'Name',
               type: 'string',
-              description: 'Download Button Text = "Property Flyer " + *PDF Name*'
+              description: 'Download Button Text = "PDF Name"'
             },
           ],
           preview: {

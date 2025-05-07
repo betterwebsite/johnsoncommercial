@@ -495,10 +495,10 @@ function formatToUSDollars(amount) {
 
 <!-- <button class="" style="width: 100%;line-height: 2.125rem;display: flex;justify-content: center;align-items: center;padding: 0.25rem;"><img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/blank-page.svg" alt="car" width="20" height="20" style="width: 20px;"><p style="font-weight: 600;font-size: 1rem;">Print Listing</p></button></a> -->
 <div>
-  <a href="{{ property.pdf.url }}" style="width: 100%;display: flex;text-decoration: none;flex-direction: column;align-items: center;margin-bottom: 2rem;margin-top: 2rem;" target="_blank"><button class="cs-button-solid" type="submit" style="border: none;">Property Flyer {% if property.pdf_name %}{{ property.pdf_name }}{% endif %}</button></a>
+  <a href="{{ property.pdf.url }}" style="width: 100%;display: flex;text-decoration: none;flex-direction: column;align-items: center;margin-bottom: 2rem;margin-top: 2rem;" target="_blank"><button class="cs-button-solid" type="submit" style="border: none;">{% if property.pdf_name %}{{ property.pdf_name }}{% else %}Property Flyer{% endif %}</button></a>
   {% if property.pdfs %}
   {% for b in property.pdfs %}
-    <a href="{{ b.url }}" style="width: 100%;display: flex;text-decoration: none;flex-direction: column;align-items: center;margin-bottom: 2rem;margin-top: 2rem;" target="_blank"><button class="cs-button-solid" type="submit" style="border: none;">{% if b.name %}{{ b.name }}{% endif %}</button></a>
+    <a href="{{ b.url }}" style="width: 100%;display: flex;text-decoration: none;flex-direction: column;align-items: center;margin-bottom: 2rem;margin-top: 2rem;" target="_blank"><button class="cs-button-solid" type="submit" style="border: none;">{% if b.name %}{{ b.name }}{% else %}Property Flyer{% endif %}</button></a>
 
   {% endfor %}
   {% endif %}

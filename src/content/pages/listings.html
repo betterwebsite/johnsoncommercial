@@ -707,7 +707,7 @@ eleventyNavigation:
 
     const address = "{{ listing.address | escape }}";
     const agentName = "{{ listing.agent_name | escape }}";
-    const agentUrl = "https://johnsoncommercialgroup.netlify.app/properties/"+address;
+    const agentUrl = "/properties/{{ listing.slug | slugify }}";
 
     const contentString = `
       <div style="max-width: 280px; font-family: sans-serif; position: relative;">
