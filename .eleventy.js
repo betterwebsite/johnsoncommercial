@@ -206,21 +206,24 @@ module.exports = function (eleventyConfig) {
     /**=====================================================================
                               END SERVER SETTINGS
     =======================================================================*/
+    const slugify = eleventyConfig.getFilter("slugify");
     eleventyConfig.addGlobalData("groupedListings", async () => {
         const listings = await fetchListings();
         const counts = {};
     
         return listings.map(item => {
-          // NOTE: you might want to slugify(item.address) here
-          const base = item.address;
-          counts[base] = (counts[base] || 0) + 1;
+          // 1) Normalize the address into a slug right here
+          const baseSlug = slugify(item.address, { lower: true, strict: true });
+          counts[baseSlug] = (counts[baseSlug] || 0) + 1;
+    
+          // 2) Append a counter if it’s not the first one
+          const uniqueSlug = counts[baseSlug] === 1
+            ? baseSlug
+            : `${baseSlug}-${counts[baseSlug]}`;
     
           return {
             ...item,
-            // first one stays “base”, duplicates get “base_2”, “base_3”, …
-            slug: counts[base] === 1
-              ? base
-              : `${base}_${counts[base]}`
+            slug: uniqueSlug
           };
         });
       });
