@@ -460,6 +460,15 @@ function formatToUSDollars(amount) {
 ">
         <div class="cs-container">
             <form id="cs-form" name="Contact Form" method="post" netlify>
+              <!-- never forget this: -->
+              <input type="hidden" name="form-name" value="property_inquiry">
+
+              <!-- capture the current listing URL in a hidden field -->
+              <input type="hidden" name="listing_url" value="{{ page.url }}">
+
+              <!-- optional: override the email subject -->
+              <input type="hidden" name="subject" value="Listing Inquiry from {{ page.url }}">
+
                 <div class="cs-content">
                     <span class="cs-topper">Contact</span>
                     
