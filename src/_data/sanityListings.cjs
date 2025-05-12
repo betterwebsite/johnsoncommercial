@@ -31,7 +31,7 @@ module.exports = async function() {
   },
   pdfs[] {
     name,
-    "url": asset->url
+    "url": file.asset->url
   },
     image,
     "buildings": buildings[]{

@@ -466,11 +466,10 @@ eleventyNavigation:
 </div>
 <div id="container" class="layout show-list">
   <div id="leftcontainer">
-    {% set total = listings.listings.length %}
+
   <div id="results-count-wrapper" style="padding: 5px 16px; font-size: 14px;">
     <p>
       <span id="results-count-text">
-        1 - {% if total > 30 %}30{% else %}{{ total }}{% endif %} results out of {{ total }} listings
       </span>
     </p>
   </div>
@@ -479,16 +478,7 @@ eleventyNavigation:
 
     <script>
       
-      
-      // console.log("{{ listing.address }}")
-      {% if listing.address == "2845 Broce Drive Norman, OK 73072" %}
-      console.log("{{ listing.address }}")
-      console.log("{{ listing.gallery.length }}");
-      console.log("{{ listing.property_types.length }}");
-      {% for prop_type in listing.property_types %}
-        console.log("{{ prop_type }}")
-      {% endfor %}
-      {% endif %}
+    
 
       </script>
 
@@ -533,17 +523,8 @@ eleventyNavigation:
         <div class="listing-sub">
           {% set price_info = "" %}
             {% if listing.detailsTable and listing.detailsTable.fields %}
-              <script>
-              console.log("---------------------------------")
-              console.log("{{ listing.address }}")
-              </script>
               {% for field in listing.detailsTable.fields %}
-              <script>
-              // console.log("---")
-              // console.log("{{ field.id }}")
-              // console.log("{{ field.value }}")
-              // console.log("---")
-              </script>
+
                 {% if field.id == "sale_price" and listing.listing_type == "sale" %}
                   {% set price_info = field.value %}
                 {% elif field.id == "lease_rate" and listing.listing_type == "lease" %}
@@ -663,7 +644,6 @@ eleventyNavigation:
     const lat = {{ listing.location.lat or 0 }};
     const lng = {{ listing.location.lng or 0 }};
 
-    console.log({{ listing.location.lat or 0 }}, {{ listing.location.lat or 0 }},  "{{ listing.address | escape }}");
     const title = "{{ listing.address | escape }}";
     {% set price = "" %}
     {% set square_feet = "" %}
@@ -861,7 +841,7 @@ eleventyNavigation:
       window.onresize = function () {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(adjustMapSize, 50); // wait 150ms after resize ends
-        console.log("resizeing!~")
+        // console.log("resizing!")
       };
     </script>
 
@@ -926,7 +906,7 @@ eleventyNavigation:
         toggle.textContent = `Sort: ${this.textContent} ▾`;
         menu.style.display = 'none';
         // You can hook into your sorting logic here later
-        console.log('Selected sort:', sortType);
+        // console.log('Selected sort:', sortType);
       });
     });
   });
@@ -953,65 +933,77 @@ eleventyNavigation:
 
   // === Core Filter Logic ===
   function applyCombinedFilters() {
-    const cards = document.querySelectorAll(".listing-card");
-    let visibleMarkers = [];
-    const totalListings = cards.length;
-    let visibleCount = 0;
+  // 1) Grab every card on the page
+  const allCards = Array.from(document.querySelectorAll(".listing-card"));
 
-    cards.forEach(card => {
-      const prop = (card.dataset.property || "").toLowerCase();
-      const type = (card.dataset.type || "").toLowerCase();
-      const sf = parseInt(card.dataset.sf) || 0;
-      const addressText = card.querySelector(".listing-title").textContent.trim();
-      const normalizedAddress = addressText.toLowerCase().replace(/\s+/g, '');
-
-      const matchesSearch = normalizedAddress.includes(filterState.searchQuery);
-      const matchesType =
-  filterState.listingType === "all" ||
-  type === filterState.listingType ||
-  (filterState.listingType === "sale-or-lease" && (type === "sale" || type === "lease" || type === "under_contract"));
-
-
-      // const matchesProperty = filterState.propertyTypes.has(prop);
-      const props = (card.dataset.property || "").split(',').map(p => p.trim().toLowerCase());
-
-const matchesProperty = filterState.propertyTypes.has("all") || props.some(p => filterState.propertyTypes.has(p));
-
-
-      const matchesSF = sf >= filterState.minSF && sf <= filterState.maxSF;
-
-      const show = matchesSearch && matchesType && matchesProperty && matchesSF;
-
-      card.style.display = show ? "flex" : "none";
-      if (show) visibleCount++;
-
-      const lat = parseFloat(card.dataset.lat);
-      const lng = parseFloat(card.dataset.lng);
-      allMarkers.forEach(marker => {
-        if (marker.__lat === lat && marker.__lng === lng) {
-          marker.setMap(show ? map : null);
-          if (show) visibleMarkers.push(marker);
-        }
-      });
-
-      // Highlight match in address
-      if (matchesSearch && show) {
-        const regex = new RegExp(`(${filterState.searchQuery})`, 'ig');
-        const highlighted = addressText.replace(regex, `<span style="color:black;">$1</span>`);
-        card.querySelector(".listing-title").innerHTML = highlighted;
-      } else {
-        card.querySelector(".listing-title").textContent = addressText;
-      }
-    });
-
-    document.getElementById("results-count-text").textContent = `${visibleCount} result${visibleCount === 1 ? '' : 's'} out of ${totalListings} listings`;
-
-    if (visibleMarkers.length > 0) {
-      const bounds = new google.maps.LatLngBounds();
-      visibleMarkers.forEach(m => bounds.extend(m.getPosition()));
-      map.fitBounds(bounds);
-    }
+  // 2) Compute totalListings:
+  //    • If user selected “closed”, count only closed cards
+  //    • Otherwise, count everything except closed
+  let totalListings;
+  if (filterState.listingType === "all") {
+    totalListings = allCards.length;
+  } else if (filterState.listingType === "closed") {
+    totalListings = allCards.filter(c => c.dataset.type === "closed").length;
+  } else {
+    totalListings = allCards.filter(c => c.dataset.type !== "closed").length;
   }
+
+  let visibleCount = 0;
+  const visibleMarkers = [];
+
+  // 3) Loop over all cards, apply your existing filters plus the closed‑override
+  allCards.forEach(card => {
+    const type   = card.dataset.type.toLowerCase();
+    const sf     = parseInt(card.dataset.sf) || 0;
+    const addr   = card.querySelector(".listing-title").textContent
+                     .trim().toLowerCase().replace(/\s+/g, '');
+
+    // Your existing match checks:
+    const matchesSearch   = addr.includes(filterState.searchQuery);
+    const matchesSF       = sf >= filterState.minSF && sf <= filterState.maxSF;
+    const props           = (card.dataset.property || "")
+                            .split(',').map(p=>p.trim());
+    const matchesProperty = filterState.propertyTypes.has("all")
+      || props.some(p=> filterState.propertyTypes.has(p));
+    const matchesType = filterState.listingType === "all"
+      || (filterState.listingType === "sale-or-lease"
+          && ["sale","lease","under_contract"].includes(type))
+      || type === filterState.listingType;
+
+    const show = matchesSearch && matchesSF && matchesProperty && matchesType;
+
+    // 4) Force-hide non-selected closed cards
+    if (filterState.listingType !== "closed" && type === "closed") {
+      card.style.display = "none";
+    } else {
+      card.style.display = show ? "flex" : "none";
+      if (show) {
+        visibleCount++;
+        // toggle marker on map
+        const lat = +card.dataset.lat, lng = +card.dataset.lng;
+        allMarkers.forEach(marker => {
+          if (marker.__lat === lat && marker.__lng === lng) {
+            marker.setMap(map);
+            visibleMarkers.push(marker);
+          } else if (marker.__lat === lat && marker.__lng === lng) {
+            marker.setMap(null);
+          }
+        });
+      }
+    }
+  });
+
+  // 5) Update the results-count text
+  document.getElementById("results-count-text").textContent =
+    `${visibleCount} result${visibleCount === 1 ? '' : 's'} out of ${totalListings} listings`;
+
+  // 6) Adjust map bounds if any markers are visible
+  if (visibleMarkers.length) {
+    const bounds = new google.maps.LatLngBounds();
+    visibleMarkers.forEach(m => bounds.extend(m.getPosition()));
+    map.fitBounds(bounds);
+  }
+}
 
   // === Event Listeners ===
 

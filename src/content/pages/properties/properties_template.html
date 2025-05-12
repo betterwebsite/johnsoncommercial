@@ -48,7 +48,13 @@ permalink: "properties/{{ page.slug | slugify }}/"
         display: block;
       }
     
+      .pdf_list{
+        display: flex;
+      }
       @media (max-width: 1200px) {
+        .pdf_list{
+          display: block;
+        }
         .gallery-grid {
           /* grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); */
           gap: 0.75rem;
@@ -415,9 +421,9 @@ function formatToUSDollars(amount) {
 
 
   <div style="display: flex;flex-direction: column;align-items: center;padding: 1rem;">
-    <script>console.log("property.social ")</script>
+    <!-- <script>console.log("property.social ")</script>
     <script>console.log("{{ property.social }}")</script>
-    <script>console.log("{{ property.social.url }}")</script>
+    <script>console.log("{{ property.social.url }}")</script> -->
 
 
 
@@ -453,7 +459,7 @@ function formatToUSDollars(amount) {
     padding: 1rem;
 ">
         <div class="cs-container">
-            <form id="cs-form" name="Contact Form" method="post">
+            <form id="cs-form" name="Contact Form" method="post" netlify>
                 <div class="cs-content">
                     <span class="cs-topper">Contact</span>
                     
@@ -494,12 +500,11 @@ function formatToUSDollars(amount) {
 {% if property.pdf %}
 
 <!-- <button class="" style="width: 100%;line-height: 2.125rem;display: flex;justify-content: center;align-items: center;padding: 0.25rem;"><img class="cs-icon" loading="lazy" decoding="async" src="/assets/svgs/blank-page.svg" alt="car" width="20" height="20" style="width: 20px;"><p style="font-weight: 600;font-size: 1rem;">Print Listing</p></button></a> -->
-<div>
+<div class="pdf_list">
   <a href="{{ property.pdf.url }}" style="width: 100%;display: flex;text-decoration: none;flex-direction: column;align-items: center;margin-bottom: 2rem;margin-top: 2rem;" target="_blank"><button class="cs-button-solid" type="submit" style="border: none;">{% if property.pdf_name %}{{ property.pdf_name }}{% else %}Property Flyer{% endif %}</button></a>
   {% if property.pdfs %}
   {% for b in property.pdfs %}
     <a href="{{ b.url }}" style="width: 100%;display: flex;text-decoration: none;flex-direction: column;align-items: center;margin-bottom: 2rem;margin-top: 2rem;" target="_blank"><button class="cs-button-solid" type="submit" style="border: none;">{% if b.name %}{{ b.name }}{% else %}Property Flyer{% endif %}</button></a>
-
   {% endfor %}
   {% endif %}
 </div>
