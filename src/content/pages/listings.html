@@ -921,75 +921,83 @@ eleventyNavigation:
   const propertyCheckboxes = document.querySelectorAll('.multi-options input[type="checkbox"]');
 
   // === Global Filter State ===
-  const filterState = {
-    searchQuery: "",
-    propertyTypes: new Set([...propertyCheckboxes]
-      .filter(cb => cb.value !== "sale-or-lease")
-      .map(cb => cb.value)),
-    listingType: "sale-or-lease",
-    minSF: 0,
-    maxSF: Infinity
-  };
+  // === Global Filter State ===
+const filterState = {
+  searchQuery: "",
+  propertyTypes: new Set([...propertyCheckboxes]
+    .filter(cb => cb.value !== "sale-or-lease")
+    .map(cb => cb.value)),
+  listingType: "sale-or-lease", // Default to show sale/lease, NOT closed
+  minSF: 0,
+  maxSF: Infinity
+};
 
-  // === Core Filter Logic ===
-  function applyCombinedFilters() {
+// === Core Filter Logic ===
+function applyCombinedFilters() {
   // 1) Grab every card on the page
   const allCards = Array.from(document.querySelectorAll(".listing-card"));
 
-  // 2) Compute totalListings:
-  //    • If user selected “closed”, count only closed cards
-  //    • Otherwise, count everything except closed
+  // 2) Compute totalListings based on filter state
   let totalListings;
   if (filterState.listingType === "all") {
     totalListings = allCards.length;
-  } else if (filterState.listingType === "closed") {
-    totalListings = allCards.filter(c => c.dataset.type === "closed").length;
+  } else if (filterState.listingType === "closed" || filterState.listingType === "under_contract") {
+    totalListings = allCards.filter(c => c.dataset.type === filterState.listingType).length;
+  } else if (filterState.listingType === "sale-or-lease") {
+    totalListings = allCards.filter(c => c.dataset.type === "sale" || c.dataset.type === "lease").length;
   } else {
-    totalListings = allCards.filter(c => c.dataset.type !== "closed").length;
+    totalListings = allCards.filter(c => c.dataset.type === filterState.listingType).length;
   }
 
   let visibleCount = 0;
   const visibleMarkers = [];
 
-  // 3) Loop over all cards, apply your existing filters plus the closed‑override
+  // 3) First, hide all markers on the map
+  allMarkers.forEach(marker => {
+    marker.setMap(null);
+  });
+
+  // 4) Loop over all cards and apply filters
   allCards.forEach(card => {
-    const type   = card.dataset.type.toLowerCase();
-    const sf     = parseInt(card.dataset.sf) || 0;
-    const addr   = card.querySelector(".listing-title").textContent
-                     .trim().toLowerCase().replace(/\s+/g, '');
+    const type = card.dataset.type.toLowerCase();
+    const sf = parseInt(card.dataset.sf) || 0;
+    const addr = card.querySelector(".listing-title").textContent
+                   .trim().toLowerCase().replace(/\s+/g, '');
 
     // Your existing match checks:
-    const matchesSearch   = addr.includes(filterState.searchQuery);
-    const matchesSF       = sf >= filterState.minSF && sf <= filterState.maxSF;
-    const props           = (card.dataset.property || "")
-                            .split(',').map(p=>p.trim());
+    const matchesSearch = addr.includes(filterState.searchQuery);
+    const matchesSF = sf >= filterState.minSF && sf <= filterState.maxSF;
+    const props = (card.dataset.property || "")
+                  .split(',').map(p=>p.trim());
     const matchesProperty = filterState.propertyTypes.has("all")
       || props.some(p=> filterState.propertyTypes.has(p));
-    const matchesType = filterState.listingType === "all"
-      || (filterState.listingType === "sale-or-lease"
-          && ["sale","lease","under_contract"].includes(type))
-      || type === filterState.listingType;
+    
+    // Fix for listing type matching
+    let matchesType;
+    if (filterState.listingType === "all") {
+      matchesType = true;
+    } else if (filterState.listingType === "sale-or-lease") {
+      matchesType = (type === "sale" || type === "lease");
+    } else {
+      matchesType = (type === filterState.listingType);
+    }
 
     const show = matchesSearch && matchesSF && matchesProperty && matchesType;
 
-    // 4) Force-hide non-selected closed cards
-    if (filterState.listingType !== "closed" && type === "closed") {
-      card.style.display = "none";
-    } else {
-      card.style.display = show ? "flex" : "none";
-      if (show) {
-        visibleCount++;
-        // toggle marker on map
-        const lat = +card.dataset.lat, lng = +card.dataset.lng;
-        allMarkers.forEach(marker => {
-          if (marker.__lat === lat && marker.__lng === lng) {
-            marker.setMap(map);
-            visibleMarkers.push(marker);
-          } else if (marker.__lat === lat && marker.__lng === lng) {
-            marker.setMap(null);
-          }
-        });
-      }
+    // Update card visibility
+    card.style.display = show ? "flex" : "none";
+    
+    if (show) {
+      visibleCount++;
+      // Find and show matching marker on map
+      const lat = parseFloat(card.dataset.lat);
+      const lng = parseFloat(card.dataset.lng);
+      allMarkers.forEach(marker => {
+        if (marker.__lat === lat && marker.__lng === lng) {
+          marker.setMap(map);
+          visibleMarkers.push(marker);
+        }
+      });
     }
   });
 
@@ -1005,6 +1013,17 @@ eleventyNavigation:
   }
 }
 
+// === Initialization and Immediate Filter Application ===
+window.addEventListener("load", (event) => {
+  // Set initial dropdown value to "sale-or-lease"
+  document.getElementById("listing-type-filter").value = "sale-or-lease";
+  
+  // Make sure the filterState matches
+  filterState.listingType = "sale-or-lease";
+  
+  // Apply filters to hide closed listings on initial load
+  applyCombinedFilters();
+});
   // === Event Listeners ===
 
   // Search Input
