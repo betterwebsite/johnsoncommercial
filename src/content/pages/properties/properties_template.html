@@ -831,6 +831,33 @@ window.onload = function () {
 
 </div>
 
-
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Check if mobile
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    
+    // Get all PDF links
+    const pdfLinks = document.querySelectorAll('a[href$=".pdf"], a[href*=".pdf?"]');
+    
+    pdfLinks.forEach(link => {
+      const pdfUrl = link.getAttribute('href');
+      
+      // For mobile devices, modify behavior
+      if (!isMobile) {
+        // Option 1: Use Google PDF Viewer
+        link.setAttribute('href', `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`);
+        
+        // Option 2: Alternative - use download attribute to encourage downloading instead of viewing
+        // link.setAttribute('download', link.textContent.trim() || 'property-document.pdf');
+      }
+      
+      // Track PDF interactions
+      link.addEventListener('click', function(e) {
+        console.log('PDF interaction:', pdfUrl, 'Mobile:', isMobile);
+        // Optional: Add analytics tracking here
+      });
+    });
+  });
+  </script>
 
 {% endblock %}

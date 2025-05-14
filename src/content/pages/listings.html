@@ -1214,6 +1214,18 @@ document.getElementById("reset-filters").addEventListener("click", () => {
   #filter-bar-inline select {
     width: 100%;
   }
+  /* anywhere in your CSS */
+#filter-bar-inline input[type="text"],
+#filter-bar-inline select,
+#search-input {
+  font-size: 16px;      /* ≥16px prevents iOS from zooming on focus */
+  line-height: 1.2;      /* adjust as needed for vertical rhythm */
+}
+
+/* optional: turn off webkit text auto‑resize altogether */
+html {
+  -webkit-text-size-adjust: 100%; 
+}
 
   .multi-select {
     width: 100%;
