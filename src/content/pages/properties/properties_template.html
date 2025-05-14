@@ -843,7 +843,7 @@ window.onload = function () {
       const pdfUrl = link.getAttribute('href');
       
       // For mobile devices, modify behavior
-      if (!isMobile) {
+      if (isMobile) {
         // Option 1: Use Google PDF Viewer
         link.setAttribute('href', `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`);
         
